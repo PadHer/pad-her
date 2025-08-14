@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { HeroImages } from "@/data/Images";
 import { ClickHere } from "../animations/click";
 
@@ -19,7 +18,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <main className="w-full h-[90dvh] p-2">
+    <main className="w-full h-[90dvh] p-2 bg-[#FFFAFD]">
       <div
         className="h-full w-full relative flex flex-column rounded-[24px] bg-cover bg-center bg-no-repeat transition-all duration-1000 ease-in-out"
         style={{

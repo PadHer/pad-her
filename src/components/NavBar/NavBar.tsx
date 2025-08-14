@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ClickHeart } from "./animations/heart";
+import { ClickHeart } from "../animations/heart";
 
 const navigation = [
   { name: "Home", href: "/" },
