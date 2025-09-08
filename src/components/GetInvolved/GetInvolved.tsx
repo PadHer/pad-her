@@ -7,7 +7,7 @@ import Image from "next/image";
 const GetInvolved = () => {
   return (
     <div
-      className="w-full flex flex-col gap-8 px-16 py-12 bg-cover bg-center bg-no-repeat flex flex-col relative"
+      className="w-full flex flex-col gap-8 px-16 py-12 bg-cover bg-center bg-no-repeat relative"
       style={{
         background: "url('images/bg.png')",
       }}
@@ -37,7 +37,7 @@ const GetInvolved = () => {
           helping us reach more girls and communities.
         </p>
       </div>
-      <div className="w-full z-30 flex flex-row justify-between z-30">
+      <div className="w-full z-30 flex flex-row justify-between">
         <section className="rounded-[8px_60px_8px_60px] w-[32%] flex flex-col gap-4 bg-[#FF07A9] overflow-hidden">
           <div className="w-full px-4 pt-12 flex flex-col gap-4">
             <h2
