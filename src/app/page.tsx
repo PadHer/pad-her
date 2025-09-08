@@ -4,10 +4,12 @@ import Captures from "@/components/Captures/Captures";
 import DataCount from "@/components/Data/Data";
 import Events from "@/components/Events/Events";
 import FAQs from "@/components/FAQs/FAQs";
+import Footer from "@/components/Footer/Footer";
 import GetInvolved from "@/components/GetInvolved/GetInvolved";
 import HeroSection from "@/components/HeroSection/Hero";
 import Mission from "@/components/MissionSection/MissionSection";
 import NavBar from "@/components/NavBar/NavBar";
+import PartnerShip from "@/components/PartnerShip/PartnerShip";
 import Stories from "@/components/Stories/Stories";
 
 export default function Home() {
@@ -24,6 +26,8 @@ export default function Home() {
       <Captures />
       <Stories />
       <FAQs />
+      <PartnerShip />
+      <Footer />
     </div>
   );
 }
