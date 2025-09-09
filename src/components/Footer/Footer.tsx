@@ -50,26 +50,35 @@ const Footer = () => {
         />
         <button className="button">Subscribe</button>
       </form>
-      <div className="w-full flex flex-row mt-7 py-6 items-center justify-between border-1 border-red-500">
+      <div className="w-full flex flex-row mt-7 py-6 items-center justify-between">
         <h4
           style={{ fontFamily: "Yeseva" }}
           className="text-[#393939] text-[16px]"
         >
           PadHerwithlove.All Rights Reserved.
         </h4>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-6">
           {["Home", "About Us", "Volunteer", "Blog", "Donate"].map(
             (link, index) => (
-              <Link key={index} href={""}>
+              <Link
+                className="font-open text-[#393939] text-[16px] hover:text-[#FF07A9]"
+                key={index}
+                href={""}
+              >
                 {link}
               </Link>
             )
           )}
         </div>
-        <div className="w-full flex items-center gap-2">
+        <div className="flex items-center gap-2">
           {socials.map((social, index) => (
-            <Link key={index} href={social.link}>
-              {<social.icon size={16} color="#FF07A9" />}
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              key={index}
+              href={social.link}
+            >
+              {<social.icon size={20} color="#FF07A9" />}
             </Link>
           ))}
         </div>
