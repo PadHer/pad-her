@@ -37,12 +37,13 @@ const NavBar = () => {
   return (
     <nav
       className={`fixed flex justify-center z-100 py-1 transition-all duration-300 ${
-        isSticky ? "bg-white top-[0] w-full" : "rounded-[40px] w-[90%] backdrop-blur-[24px] top-10"
+        isSticky
+          ? "bg-white top-[0] w-full"
+          : "rounded-[40px] w-[90%] backdrop-blur-[24px] top-10"
       }`}
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="w-full flex justify-between items-center h-16">
-          {/* Logo */}
           <Link href="/">
             <Image
               src={"/logos/Main-Logo.png"}
@@ -51,16 +52,14 @@ const NavBar = () => {
               height={35}
             />
           </Link>
-
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
                 <span
-                  className={`text-sm font-medium transition-colors hover:text-primary-pink ${
+                  className={`text-sm font-medium transition-colors hover:text-[#FF07A9] ${
                     isActive(item.href)
-                      ? "text-primary-pink border-b-2 border-primary-pink pb-1"
-                      : "text-text-dark"
+                      ? "text-[#FF07A9] border-b-2 border-[#FF07A9] pb-1"
+                      : "text-[#393939]"
                   }`}
                 >
                   {item.name}
@@ -77,7 +76,7 @@ const NavBar = () => {
             </Link>
 
             <Link href="/volunteer">
-              <button className="border-[1.5px] border-white px-[24px] py-[12px] rounded-[24px]">
+              <button className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] ${isSticky ? "text-[#ED006C] border-[#ED006C]" : "border-white text-[#FFF]"}`}>
                 Get Involved
               </button>
             </Link>
