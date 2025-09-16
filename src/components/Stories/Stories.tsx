@@ -47,7 +47,7 @@ const Stories = () => {
           style={{ fontFamily: "OpenSans" }}
         >
           Every pad given, every conversation held, and every outreach organized
-          is changing a life. Here's what some of our girls, volunteers, and
+          is changing a life. Here&apos;s what some of our girls, volunteers, and
           partners have to say about us.
         </p>
       </div>
@@ -65,7 +65,7 @@ const Stories = () => {
                 className="text-[#333333] h-1/2 text-[16px]"
                 style={{ fontFamily: "OpenSans" }}
               >
-                "{testimonial.quote}"
+                &quot;{testimonial.quote}&quot;
               </p>
               <div className="flex flex-col items-start">
                 <h3

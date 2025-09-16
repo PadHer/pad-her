@@ -22,7 +22,7 @@ const Events = () => {
         className="uppercase text-[#ED006C] text-[38px]"
         style={{ fontFamily: "Yeseva" }}
       >
-        you can't miss
+        you can&apos;t miss
       </h4>
       <p
         className="text-center w-[70%] text-[#393939] text-4"
