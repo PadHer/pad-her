@@ -35,6 +35,7 @@ const PartnerShip = () => {
       [name]: value,
     }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
+    console.log(errors);
   };
 
   const validate = () => {
@@ -103,9 +104,9 @@ const PartnerShip = () => {
           className="text-[#393939] text-[16px]"
           style={{ fontFamily: "OpenSans" }}
         >
-          We’re always excited to welcome partners and sponsors who share our
+          We&apos;re always excited to welcome partners and sponsors who share our
           passion for empowering young girls and ending period poverty. If
-          you're interested in collaborating with us whether through corporate
+          you&apos;re interested in collaborating with us whether through corporate
           sponsorship, resource donations, community partnerships, or
           volunteering support, please reach out by filling the form.
         </p>

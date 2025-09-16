@@ -54,7 +54,11 @@ const NavBar = () => {
           </Link>
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
-              <Link key={item.name} href={item.href}>
+              <Link
+                rel="noopener noreferrer"
+                key={item.name}
+                href={item.href}
+              >
                 <span
                   className={`text-sm font-medium transition-colors hover:text-[#FF07A9] ${
                     isActive(item.href)
@@ -76,7 +80,13 @@ const NavBar = () => {
             </Link>
 
             <Link href="/volunteer">
-              <button className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] ${isSticky ? "text-[#ED006C] border-[#ED006C]" : "border-white text-[#FFF]"}`}>
+              <button
+                className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] ${
+                  isSticky
+                    ? "text-[#ED006C] border-[#ED006C]"
+                    : "border-white text-[#FFF]"
+                }`}
+              >
                 Get Involved
               </button>
             </Link>

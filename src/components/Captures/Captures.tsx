@@ -2,6 +2,7 @@
 
 import { CarouselImages } from "@/data/Images";
 import { useRef, useEffect } from "react";
+import Image from "next/image";
 
 const Captures = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -20,7 +21,7 @@ const Captures = () => {
     const scroll = () => {
       scrollPosition += scrollSpeed;
 
-      // Reset position when we've scrolled one full set of images
+     
       if (scrollPosition >= totalWidth) {
         scrollPosition = 0;
       }
@@ -29,7 +30,7 @@ const Captures = () => {
       animationId = requestAnimationFrame(scroll);
     };
 
-    // Start the animation
+    
     animationId = requestAnimationFrame(scroll);
 
     return () => {
@@ -86,8 +87,6 @@ const Captures = () => {
               boxShadow: "inset 10px 0 10px -5px rgba(255, 255, 255, 0)",
             }}
           ></div>
-
-          {/* Scrolling container */}
           <div
             ref={scrollRef}
             className="overflow-hidden scrollbar-hide"
@@ -101,9 +100,10 @@ const Captures = () => {
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <img
+                  <Image
                     src={image}
                     alt={"Pad her with love"}
+                    fill
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125"
                     loading="lazy"
                   />
