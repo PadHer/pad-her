@@ -4,7 +4,7 @@ import { campaigns } from "@/data/campaigns";
 
 const Events = () => {
   return (
-    <div className="w-full flex flex-col items-center relative py-[90px] px-48 bg-[#FFFFFF]">
+    <div className="w-full flex flex-col items-end md:items-center relative py-10 px-4 md:py-[90px] md:px-48 bg-[#FFFFFF]">
       <Image
         src={"/svgs/Vector-2.svg"}
         alt={""}
@@ -13,13 +13,13 @@ const Events = () => {
         className="absolute left-0 top-0"
       />
       <h1
-        className="uppercase text-[#111111] text-[60px]"
+        className="uppercase text-[#111111] text-[32px] w-1/2  md:w-full md:text-[60px]"
         style={{ fontFamily: "Yeseva" }}
       >
         upcoming events
       </h1>
       <h4
-        className="uppercase text-[#ED006C] text-[38px]"
+        className="uppercase text-[#ED006C] text-[24px] md:text-[38px]"
         style={{ fontFamily: "Yeseva" }}
       >
         you can&apos;t miss
@@ -32,10 +32,10 @@ const Events = () => {
         poverty. Whether you’d like to volunteer once, return as a regular
         helper, or support as a sponsor — Every action counts.
       </p>
-      <div className="w-full mt-12 flex flex-row justify-between">
+      <div className="w-full mt-12 flex flex-col md:flex-row md:justify-between gap-8">
         {campaigns.map((camp) => (
-          <section key={camp.id} className="w-[32%] flex flex-col gap-4">
-            <div className="w-full h-[200px] flex flex-col relative">
+          <section key={camp.id} className="w-full md:w-[32%] flex flex-col gap-4">
+            <div className="w-full h-[45dvh] md:h-[35dvh] flex flex-col relative">
               <Image
                 src={camp.image}
                 alt=""
@@ -50,10 +50,10 @@ const Events = () => {
               </div>
               <h3 className="text-[20px] text-[#000000]" style={{fontFamily: "Yeseva"}}>{camp.title}</h3>
               <span
-                className="text-[#FF07A9] flex items-center gap-2"
+                className="text-[#FF07A9] text-[12px] md:text-[16px] flex items-center gap-2"
                 style={{ fontFamily: "OpenSans" }}
               >
-                <MapPin />
+                <MapPin size={16} />
                 {camp.location}
               </span>
             </div>

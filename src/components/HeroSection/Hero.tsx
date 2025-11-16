@@ -18,9 +18,9 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <main className="w-full h-[90dvh] p-2 bg-[#FFFAFD]">
+    <main className="w-full h-[60dvh] md:h-[90dvh] p-2 px-4 bg-[#FFFAFD]">
       <div
-        className="h-full w-full relative flex flex-column rounded-[24px] bg-cover bg-center bg-no-repeat transition-all duration-1000 ease-in-out"
+        className="mt-[10dvh] lg:mt-0 h-full w-full relative flex flex-column rounded-[24px] bg-cover bg-center bg-no-repeat transition-all duration-1000 ease-in-out"
         style={{
           backgroundImage: `url(${HeroImages[currentIndex]})`,
         }}
@@ -34,17 +34,17 @@ const HeroSection = () => {
             alignItems: "center",
             gap: "16px",
           }}
-          className="absolute w-full h-full"
+          className="absolute w-full h-full px-4 md:px-0"
         >
           <h1
-            className="text-[80px] text-white w-[60%] text-center"
+            className="text-[32px] md:text-[80px] text-white md:w-[60%] text-center"
             style={{ fontFamily: "Yeseva" }}
           >
             Empowering <span className="text-[#FF07A9]">Girls,</span> One Pad at
             a Time.
           </h1>
           <p
-            className="text-[24px] text-[#FFF5F9] w-[42%] text-center"
+            className="text-[16px] md:text-[24px] text-[#FFF5F9] md:w-[42%] text-center"
             style={{
               fontFamily: "OpenSans",
             }}

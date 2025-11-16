@@ -2,16 +2,16 @@ import Image from "next/image";
 
 const About = () => {
   return (
-    <div className="w-full bg-[#FFFFFF] flex justify-center items-center px-[100px] py-[80px]">
-      <div className="w-full bg-[#FFFAFC] flex flex-row rounded-[40px] p-8 overflow-hidden">
-        <section className="w-1/2 flex flex-col gap-4">
+    <div className="w-full bg-[#FFFFFF] flex justify-center items-center px-4 py-4 md:px-[100px] md:py-[80px]">
+      <div className="w-full bg-[#FFFAFC] flex flex-col md:flex-row rounded-[40px] p-4 md:p-8 overflow-hidden">
+        <section className="w-full md:w-1/2 flex flex-col gap-4">
           <h3
-            className="text-[48px] p-0 m-0 text-[#111111]"
+            className="text-[32px] md:text-[48px] p-0 m-0 text-[#111111]"
             style={{ fontFamily: "Yeseva" }}
           >
             About <br /> Pad<span className="text-pink-600">Her</span>
           </h3>
-          <p className="text-[#393939] text-[24px] w-[90%]">
+          <p className="text-[#393939] text-[16px] md:text-[24px] w-full md:w-[90%]">
             PadHer With Love is a nonprofit initiative committed to ending
             period poverty by equipping young girls with free sanitary pads,
             menstrual health education, and compassionate support. We believe
@@ -19,7 +19,7 @@ const About = () => {
             matter her background.
           </p>
         </section>
-        <section className="w-1/2 relative">
+        <section className="w-full h-[55dvh] md:h-auto md:w-1/2 relative">
           <aside
             className="bg-[#6DC6C9] w-1/2 rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-6 absolute"
             style={{

@@ -17,7 +17,7 @@ const openSans = Open_Sans({
 
 export const metadata: Metadata = {
   title: "PadHer with Love",
-  description: "Web application for the PadHer with lover franchise",
+  description: "Web application for the PadHer with Love organization",
 };
 
 export default function RootLayout({
