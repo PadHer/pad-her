@@ -54,10 +54,10 @@ const Captures = () => {
     ...CarouselImages,
   ];
   return (
-    <div className="w-full bg-[#FFF] flex flex-col gap-6 items-center justify-center py-16">
-      <div className="w-full flex flex-col items-center gap-2">
+    <div className="w-full bg-[#FFF] flex flex-col gap-6 items-center justify-center py-4 md:py-16">
+      <div className="w-full flex flex-col md:items-center gap-2 px-4">
         <h2
-          className="text-[64px] text-[#111111] relative"
+          className="text-[32px] md:text-[64px] text-[#111111] relative"
           style={{ fontFamily: "Yeseva" }}
         >
           Captured with{" "}
@@ -68,7 +68,7 @@ const Captures = () => {
             Love
           </span>
         </h2>
-        <p className="w-[41%] text-center text-[#111111] text-[20px]" style={{ fontFamily: "OpenSans" }}>
+        <p className="w-full md:w-[41%] text-center text-[#111111] text-[14px] md:text-[20px]" style={{ fontFamily: "OpenSans" }}>
           Every image tells a story of dignity, hope, and impact — stories of
           love in action and the ongoing fight to end period poverty.{" "}
         </p>
@@ -96,7 +96,7 @@ const Captures = () => {
               {duplicatedImages.map((image, index) => (
                 <div
                   key={`${image}-${index}`}
-                  className="flex-shrink-0 w-72 h-[320px] relative rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group cursor-pointer hover:z-20 hover:scale-120"
+                  className="flex-shrink-0 w-72 h-[30dvh] md:h-[320px] relative rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group cursor-pointer hover:z-20 hover:scale-120"
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >

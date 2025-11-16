@@ -2,8 +2,8 @@ import Image from "next/image";
 
 const Mission = () => {
   return (
-    <div className="w-full bg-[#FFF5F9] flex justify-center items-center px-[100px] py-[80px]">
-      <div className="w-full py-[32px] bg-[#FFF] flex flex-col items-center rounded-[40px]">
+    <div className="w-full bg-[#FFF5F9] flex justify-center items-center px-4 py-4 md:px-[100px] md:py-[80px]">
+      <div className="w-full py-4 md:py-[32px] bg-[#FFF] flex flex-col items-center rounded-[40px] gap-8">
         <h2
           className="text-[48px] text-[#111111]"
           style={{
@@ -19,7 +19,7 @@ const Mission = () => {
           height={18}
         />
         <p
-          className="text-[#393939] text-[24px] text-center w-[60%] mt-[24px] mb-[32px] leading-[36px] max-w-[800px] mx-auto"
+          className="text-[#393939] text-[16px] md:text-[24px] text-center w-full md:w-[60%] leading-[36px]"
           style={{
             fontFamily: "OpenSans",
           }}

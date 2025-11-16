@@ -65,15 +65,15 @@ function Counter({ end, duration = 2000, className = "" }: CounterProps) {
 
 const DataCount = () => {
   return (
-    <div className="w-full flex justify-center items-center bg-[#FFFAFD] px-[80px] py-[40px]">
-      <div className="w-[95%] bg-[#FFF5F9] flex flex-row justify-between px-16">
+    <div className="w-full flex justify-center items-center bg-[#FFFAFD] mt-16 md:mt-0 py-4 md:px-[80px] md:py-[40px]">
+      <div className="w-[95%] bg-[#FFF5F9] grid grid-cols-2 grid-rows-2 md:flex md:flex-row justify-between px-4 md:px-16">
       {counts.map((item, index) => (
         <aside
           key={index}
           className="flex flex-col items-center justify-center p-4"
         >
           <h2
-            className="text-[52px] font-bold text-[#989797]"
+            className="text-[32px] md:text-[52px] font-bold text-[#989797]"
             style={{
               fontFamily: "OpenSans-Semi",
             }}
@@ -81,7 +81,7 @@ const DataCount = () => {
             {/* {item.count} */}
             <Counter end={item.count} />
           </h2>
-          <p className="text-[20px] text-[#393939]" style={{
+          <p className="text-[16px] md:text-[20px] text-[#393939]" style={{
             fontFamily: "OpenSans"
           }}>{item.label}</p>
         </aside>

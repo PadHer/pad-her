@@ -28,11 +28,11 @@ const socials = [
 const Footer = () => {
   const [subscribe, setSubscribe] = useState<string>("");
   return (
-    <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-[25px] px-24">
-      <h1 className="font-playfair font-extrabold footer-text text-[100px] inset-0">
+    <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-4 md:pt-[25px] px-4 md:px-24">
+      <h1 className="font-playfair font-extrabold footer-text text-[40px] text-center  md:text-[100px] inset-0">
         PAD HER WITH LOVE
       </h1>
-      <p className="w-[30%] text-[#989797] text-[16px] text-center font-open font-semibold">
+      <p className="w-full md:w-[30%] text-[#989797] text-[16px] text-center font-open font-semibold">
         Join us as we create a world where no girl is held back because of her
         period.
       </p>
@@ -50,18 +50,18 @@ const Footer = () => {
         />
         <button className="button">Subscribe</button>
       </form>
-      <div className="w-full flex flex-row mt-7 py-6 items-center justify-between">
+      <div className="w-full flex flex-col-reverse md:flex-row md:mt-7 py-6 items-center gap-6 md:justify-between">
         <h4
           style={{ fontFamily: "Yeseva" }}
           className="text-[#393939] text-[16px]"
         >
           PadHerwithlove.All Rights Reserved.
         </h4>
-        <div className="flex items-center gap-6">
+        <div className="w-3/4 md:w-auto flex flex-row justify-between md:justify-start items-center md:gap-6">
           {["Home", "About Us", "Volunteer", "Blog", "Donate"].map(
             (link, index) => (
               <Link
-                className="font-open text-[#393939] text-[16px] hover:text-[#FF07A9]"
+                className="font-open text-[#393939] text-[12px] md:text-[16px] hover:text-[#FF07A9]"
                 key={index}
                 href={""}
               >
@@ -70,7 +70,7 @@ const Footer = () => {
             )
           )}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="w-1/2 md:w-auto flex flex-row items-center justify-between md:justify-start md:gap-2">
           {socials.map((social, index) => (
             <Link
               target="_blank"

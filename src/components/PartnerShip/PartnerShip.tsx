@@ -77,7 +77,7 @@ const PartnerShip = () => {
   };
 
   return (
-    <div className="w-full flex flex-row relative py-[70px] px-24 justify-between bg-[#FFF]">
+    <div className="w-full flex flex-col md:flex-row relative py-4 md:py-[70px] p-4 md:px-24 gap-8 md:justify-between bg-[#FFF]">
       <Image
         src={"/svgs/Vector-3.svg"}
         alt=""
@@ -85,13 +85,13 @@ const PartnerShip = () => {
         height={600}
         className="absolute top-0 right-0"
       />
-      <div className="w-[45%] flex flex-col gap-4">
+      <div className="w-full md:w-[45%] flex flex-col gap-4">
         <span
           className="w-full relative text-[#111111] text-[48px]"
           style={{ fontFamily: "Yeseva" }}
         >
           <h2>Partner or</h2>
-          <h2 className="text-[#11111199]">Sponsor With Us</h2>
+          <h2 className="text-[#11111199] w-3/4 md:w-full">Sponsor With Us</h2>
           <Image
             src={"/svgs/Vector-4.svg"}
             alt=""
@@ -110,14 +110,14 @@ const PartnerShip = () => {
           sponsorship, resource donations, community partnerships, or
           volunteering support, please reach out by filling the form.
         </p>
-        <div className="w-full h-[480px] relative">
+        <div className="w-full h-[45dvh] object-cover object-bottom md:h-[480px] relative">
           <Image src={"/images/Contact.png"} alt="" fill />
         </div>
       </div>
-      <form className="w-[45%] flex flex-col gap-2" onSubmit={handleSubmit}>
+      <form className="w-full md:w-[45%] flex flex-col gap-2" onSubmit={handleSubmit}>
         <label className="label" htmlFor="">
           Full Name
-          <span className="name">*</span>
+          <span className="name left-0 text-blue-700">*</span>
           <input
             type="text"
             name="fullName"

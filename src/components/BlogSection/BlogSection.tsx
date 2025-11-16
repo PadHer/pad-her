@@ -6,7 +6,7 @@ import { blogs } from "@/data/blogs";
 
 const BlogSection = () => {
   return (
-    <div className="w-full bg-[#FFF9FB] flex flex-col py-16 pl-32 overflow-hidden">
+    <div className="w-full bg-[#FFF9FB] flex flex-col py-8 md:py-16 pl-4 md:pl-32 overflow-hidden">
       <div className="w-full  flex items-center justify-between pr-32">
         <div className="w-full flex flex-col">
           <h4
@@ -16,23 +16,19 @@ const BlogSection = () => {
             our latest blogs
           </h4>
           <h1
-            className="text-[60px] flex flex-col"
+            className="text-[32px] md:text-[60px] flex flex-col gap-2"
             style={{ fontFamily: "Yeseva" }}
           >
             <span className="text-[#111111] m-0 p-0">EDUCATION &</span>
             <span className="text-[#111111AD] p-0 -mt-6">AWARENESS</span>
           </h1>
         </div>
-        <div>
-          <button>prev</button>
-          <button>next</button>
-        </div>
       </div>
       <div className="w-full overflow-x-scroll flex items-center gap-4">
         {blogs.map((blog) => (
           <section
             key={blog.id}
-            className="min-w-1/4 max-w-1/4 flex flex-col gap-4 bg-[#FFF] p-2"
+            className="min-w-3/4 md:min-w-1/4 max-w-1/4 flex flex-col gap-4 bg-[#FFF] p-2"
           >
             <div className="w-full h-[224px] relative">
               <Image
@@ -56,10 +52,10 @@ const BlogSection = () => {
             </h4>
             <Link href={"/"}>
               <button
-                className="flex items-center gap-2 text-[#FF07A9] text-[16px] font-semibold my-4 cursor-pointer"
+                className="flex items-center gap-2 text-[#FF07A9] text-[12px] md:text-[16px] font-semibold my-4 cursor-pointer"
                 style={{ fontFamily: "OpenSans" }}
               >
-                Read Blog <ArrowRight />
+                Read Blog <ArrowRight size={16} />
               </button>
             </Link>
           </section>

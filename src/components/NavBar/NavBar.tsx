@@ -17,6 +17,7 @@ const navigation = [
 const NavBar = () => {
   const pathname = usePathname();
   const [isSticky, setIsSticky] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isActive = (href: string) => {
     if (href === "/") return true;
@@ -39,10 +40,10 @@ const NavBar = () => {
       className={`fixed flex justify-center z-100 py-1 transition-all duration-300 ${
         isSticky
           ? "bg-white top-[0] w-full"
-          : "rounded-[40px] w-[90%] backdrop-blur-[24px] top-10"
+          : "lg:rounded-[40px] md:w-[90%] md:backdrop-blur-[24px] top-0 w-full bg-white lg:top-10"
       }`}
     >
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 relative">
         <div className="w-full flex justify-between items-center h-16">
           <Link href="/">
             <Image
@@ -52,13 +53,12 @@ const NavBar = () => {
               height={35}
             />
           </Link>
+          <button onClick={() => setMobileMenuOpen(true)} className="md:hidden">
+            Open Menu
+          </button>
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
-              <Link
-                rel="noopener noreferrer"
-                key={item.name}
-                href={item.href}
-              >
+              <Link rel="noopener noreferrer" key={item.name} href={item.href}>
                 <span
                   className={`text-sm font-medium transition-colors hover:text-[#FF07A9] ${
                     isActive(item.href)
@@ -71,7 +71,7 @@ const NavBar = () => {
               </Link>
             ))}
           </div>
-          <div className="flex flex-row items-center gap-4">
+          <div className="hidden md:flex flex-row items-center gap-4">
             <Link href="/donate">
               <button className="flex flex-row gap-2 items-center bg-gradient-to-b from-[#FF07A9] to-[#B90D7D] px-[24px] py-[12px] rounded-[24px] cursor-pointer">
                 <ClickHeart />
@@ -92,55 +92,43 @@ const NavBar = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu button
-          <div className="md:hidden">
-            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <button variant="ghost" size="sm">
-                  <Menu className="h-6 w-6" />
-                </button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                <div className="flex flex-col space-y-4 mt-6">
-                  <div className="flex items-center pb-4 border-b">
-                    <Heart className="h-6 w-6 text-primary-pink mr-2" />
-                    <span className="text-lg font-bold text-primary-pink">PadHer with Love</span>
-                  </div>
-                  
-                  {navigation.map((item) => (
-                    <Link key={item.name} href={item.href}>
-                      <a
-                        className={`block py-2 px-3 rounded-md text-base font-medium transition-colors ${
-                          isActive(item.href)
-                            ? "bg-primary-pink text-white"
-                            : "text-text-dark hover:bg-accent-pink hover:text-primary-pink"
-                        }`}
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {item.name}
-                      </a>
-                    </Link>
-                  ))}
-                  
-                  <div className="pt-4 space-y-3">
-                    <Link href="/donate">
-                      <button className="w-full btn-primary" onClick={() => setMobileMenuOpen(false)}>
-                        <Heart className="mr-2 h-4 w-4" />
-                        Donate Now
-                      </button>
-                    </Link>
-                    
-                    <Link href="/login">
-                      <button variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>
-                        <User className="mr-2 h-4 w-4" />
-                        Login
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div> */}
+          {mobileMenuOpen && <div className="md:hidden flex flex-col absolute">
+            <div className="flex flex-col space-x-8">
+            {navigation.map((item) => (
+              <Link rel="noopener noreferrer" key={item.name} href={item.href}>
+                <span
+                  className={`text-sm font-medium transition-colors hover:text-[#FF07A9] ${
+                    isActive(item.href)
+                      ? "text-[#FF07A9] border-b-2 border-[#FF07A9] pb-1"
+                      : "text-[#393939]"
+                  }`}
+                >
+                  {item.name}
+                </span>
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-col items-center gap-4">
+            <Link href="/donate">
+              <button className="flex flex-row gap-2 items-center bg-gradient-to-b from-[#FF07A9] to-[#B90D7D] px-[24px] py-[12px] rounded-[24px] cursor-pointer">
+                <ClickHeart />
+                Donate Now
+              </button>
+            </Link>
+
+            <Link href="/volunteer">
+              <button
+                className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] ${
+                  isSticky
+                    ? "text-[#ED006C] border-[#ED006C]"
+                    : "border-white text-[#FFF]"
+                }`}
+              >
+                Get Involved
+              </button>
+            </Link>
+          </div>
+            </div>}
         </div>
       </div>
     </nav>

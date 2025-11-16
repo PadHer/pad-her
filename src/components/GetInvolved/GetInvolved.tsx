@@ -7,7 +7,7 @@ import Image from "next/image";
 const GetInvolved = () => {
   return (
     <div
-      className="w-full flex flex-col gap-8 px-16 py-12 bg-cover bg-center bg-no-repeat relative"
+      className="w-full flex flex-col gap-8 px-4 py-8 md:px-16 md:py-12 bg-cover bg-center bg-no-repeat relative"
       style={{
         background: "url('images/bg.png')",
       }}
@@ -21,7 +21,7 @@ const GetInvolved = () => {
           Become a Volunteer
         </h4>
         <h1
-          className="uppercase flex flex-col text-[56px]"
+          className="uppercase flex flex-col text-[32px] md:text-[56px]"
           style={{
             fontFamily: "Yeseva",
           }}
@@ -30,15 +30,15 @@ const GetInvolved = () => {
           <span className="text-[#11111199] -mt-4 p-0">with us today</span>
         </h1>
         <p
-          className="text-[16px] text-[#393939] w-1/3"
+          className="text-[16px] text-[#393939] w-full md:w-1/3"
           style={{ fontFamily: "OpenSans" }}
         >
           Be part of the change. Our volunteers are the heart of our mission,
           helping us reach more girls and communities.
         </p>
       </div>
-      <div className="w-full z-30 flex flex-row justify-between">
-        <section className="rounded-[8px_60px_8px_60px] w-[32%] flex flex-col gap-4 bg-[#FF07A9] overflow-hidden">
+      <div className="w-full z-30 flex flex-col md:flex-row md:justify-between gap-8">
+        <section className="rounded-[8px_60px_8px_60px] w-full md:w-[32%] flex flex-col gap-4 bg-[#FF07A9] overflow-hidden">
           <div className="w-full px-4 pt-12 flex flex-col gap-4">
             <h2
               className="text-[#FFF5F9] text-[40px]"
@@ -64,7 +64,7 @@ const GetInvolved = () => {
               fill
               className="object-cover object-top rounded-[16px] rounded-br-[8px]"
             />
-            <div className="flex items-center gap-2 rounded-[40px] p-2 bg-[#ED006C40] w-[37%] backdrop-blur-[5px] cursor-pointer">
+            <div className="flex items-center gap-2 rounded-[40px] p-2 bg-[#ED006C40] w-1/2 md:w-[37%] backdrop-blur-[5px] cursor-pointer">
               <p
                 className="text-[#FFFFFF] text-[16px]"
                 style={{ fontFamily: "OpenSans-Semi" }}
@@ -77,8 +77,7 @@ const GetInvolved = () => {
             </div>
           </div>
         </section>
-        <section 
-        className="rounded-[8px_60px_8px_60px] flex flex-col gap-4 w-[32%] bg-[#FFF9FB] overflow-hidden">
+        <section className="rounded-[8px_60px_8px_60px] flex flex-col gap-4 w-full md:w-[32%] bg-[#FFF9FB] overflow-hidden">
           <div className="w-full px-4 pt-12 flex flex-col gap-4">
             <h2
               className="text-[#111111] text-[40px]"
@@ -103,7 +102,7 @@ const GetInvolved = () => {
               fill
               className="object-cover rounded-[16px] rounded-br-[8px]"
             />
-            <div className="flex items-center gap-2 rounded-[40px] p-2 bg-[#ED006C40] w-[37%] backdrop-blur-[5px] cursor-pointer">
+            <div className="flex items-center gap-2 rounded-[40px] p-2 bg-[#ED006C40] w-1/2 md:w-[37%] backdrop-blur-[5px] cursor-pointer">
               <p
                 className="text-[#FFFFFF] text-[16px]"
                 style={{ fontFamily: "OpenSans-Semi" }}
@@ -116,7 +115,7 @@ const GetInvolved = () => {
             </div>
           </div>
         </section>
-        <section className="rounded-[8px_60px_8px_60px] flex flex-col gap-4 w-[32%] bg-[#FFF9FB] overflow-hidden">
+        <section className="rounded-[8px_60px_8px_60px] flex flex-col gap-4 w-full md:w-[32%] bg-[#FFF9FB] overflow-hidden">
           <div className="w-full px-4 pt-12 flex flex-col gap-4">
             <h2
               className="text-[#111111] text-[40px]"
@@ -141,7 +140,7 @@ const GetInvolved = () => {
               fill
               className="object-cover rounded-[16px] rounded-br-[8px]"
             />
-            <div className="flex items-center gap-2 rounded-[40px] p-2 bg-[#ED006C40] w-[37%] backdrop-blur-[5px] cursor-pointer">
+            <div className="flex items-center gap-2 rounded-[40px] p-2 bg-[#ED006C40] w-1/2 md:w-[37%] backdrop-blur-[5px] cursor-pointer">
               <p
                 className="text-[#FFFFFF] text-[16px]"
                 style={{ fontFamily: "OpenSans-Semi" }}
