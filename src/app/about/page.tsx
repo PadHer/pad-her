@@ -203,6 +203,7 @@ const Page = () => {
               src={"/images/image-4.png"}
               alt="Our Story Image"
               fill
+              priority
               className="object-cover"
             />
           </div>
