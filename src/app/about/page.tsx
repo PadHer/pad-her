@@ -186,7 +186,7 @@ const Page = () => {
             <br />
             Today, we work with schools, communities, and partner organizations
             to ensure that no girl misses school because of her period. Through
-            our programs, we've not only provided essential products but also
+            our programs, we&apos;ve not only provided essential products but also
             created safe spaces for girls to learn about their bodies and
             reproductive health.
           </p>

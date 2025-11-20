@@ -158,11 +158,11 @@ const Page = () => {
         <h2 className="font-playfair text-[56px] font-extrabold text-[#111111]">
           Why <b className="text-[#FF07A9]">Volunteer</b> with Us?
         </h2>
-        <p>
+        <p className="font-open text-[16px] text-center text-[#393939CC] w-full md:w-1/3">
           Join a community of passionate individuals making a real difference in
-          girls' lives.
+          girls&apos; lives.
         </p>
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-between items-center py-24">
           <div className="w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-8 bg-[#FFFFFF] rotate-4 border-1 border-[#E7E7E7]">
             <span className="bg-[#ED006C33] flex items-center justify-center h-20 w-20 rounded-full">
               <Heart size={30} color="#ED006C" />
@@ -176,7 +176,7 @@ const Page = () => {
               Make Impact
             </h4>
             <p className="text-center font-open text-[#393939CC] text-[16px]">
-              Directly impact young girls' lives and help break the cycle of
+              Directly impact young girls&apos; lives and help break the cycle of
               period poverty.
             </p>
           </div>
