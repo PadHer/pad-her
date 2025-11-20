@@ -5,11 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ClickHeart } from "../animations/heart";
+import Hamburger from "../Hamburger/Hamburger";
 
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
-  { name: "Events", href: "/events" },
+  { name: "Volunteer", href: "/volunteer" },
   { name: "Blog", href: "/blog" },
   { name: "Contact Us", href: "/contact" },
 ];
@@ -19,9 +20,9 @@ const NavBar = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const isActive = (href: string) => {
-    if (href === "/") return true;
-    return href !== "/" && pathname.startsWith(href);
+
+  const handleToggle = () => {
+    setMobileMenuOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const NavBar = () => {
       className={`fixed flex justify-center z-100 py-1 transition-all duration-300 ${
         isSticky
           ? "bg-white top-[0] w-full"
-          : "lg:rounded-[40px] md:w-[90%] md:backdrop-blur-[24px] top-0 w-full bg-white lg:top-10"
+          : "lg:rounded-[40px] text-[#FFF] md:w-[90%] md:backdrop-blur-[54px] md:shadow-[0px_4px_16px_0px_#FF07A914] top-0 w-full lg:top-10"
       }`}
     >
       <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 relative">
@@ -53,21 +54,35 @@ const NavBar = () => {
               height={35}
             />
           </Link>
-          <button onClick={() => setMobileMenuOpen(true)} className="md:hidden">
-            Open Menu
-          </button>
+          <Hamburger
+            open={mobileMenuOpen}
+            toggle={handleToggle}
+            color="#FF07A9"
+            size={24}
+          />
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
-              <Link rel="noopener noreferrer" key={item.name} href={item.href}>
+              <Link
+                rel="noopener noreferrer"
+                key={item.name}
+                href={item.href}
+                className="relative group"
+              >
                 <span
-                  className={`text-sm font-medium transition-colors hover:text-[#FF07A9] ${
-                    isActive(item.href)
-                      ? "text-[#FF07A9] border-b-2 border-[#FF07A9] pb-1"
-                      : "text-[#393939]"
+                  className={`text-sm font-medium transition-colors hover:text-[#FF07A9] flex flex-col ${
+                    pathname === item.href ? "text-[#FF07A9] font-bold" : "text-[#393939]"
                   }`}
                 >
                   {item.name}
+                  <span
+                  className={`
+                    h-[3px] w-0 bg-[#FF07A9] transition-all duration-300 
+                    group-hover:w-1/2
+                    ${pathname === item.href ? "w-1/2" : ""}
+                  `}
+                />
                 </span>
+                
               </Link>
             ))}
           </div>
@@ -92,43 +107,67 @@ const NavBar = () => {
             </Link>
           </div>
 
-          {mobileMenuOpen && <div className="md:hidden flex flex-col absolute">
-            <div className="flex flex-col space-x-8">
-            {navigation.map((item) => (
-              <Link rel="noopener noreferrer" key={item.name} href={item.href}>
-                <span
-                  className={`text-sm font-medium transition-colors hover:text-[#FF07A9] ${
-                    isActive(item.href)
-                      ? "text-[#FF07A9] border-b-2 border-[#FF07A9] pb-1"
-                      : "text-[#393939]"
-                  }`}
-                >
-                  {item.name}
-                </span>
-              </Link>
-            ))}
-          </div>
-          <div className="flex flex-col items-center gap-4">
-            <Link href="/donate">
-              <button className="flex flex-row gap-2 items-center bg-gradient-to-b from-[#FF07A9] to-[#B90D7D] px-[24px] py-[12px] rounded-[24px] cursor-pointer">
-                <ClickHeart />
-                Donate Now
-              </button>
-            </Link>
-
-            <Link href="/volunteer">
-              <button
-                className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] ${
-                  isSticky
-                    ? "text-[#ED006C] border-[#ED006C]"
-                    : "border-white text-[#FFF]"
-                }`}
+          {mobileMenuOpen && (
+            <div
+              onClick={() => setMobileMenuOpen(false)}
+              className="md:hidden flex items-baseline justify-center absolute top-16 left-0 w-full h-screen z-50"
+            >
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="w-full h-auto flex flex-col bg-white py-4 rounded-[0_0_16px_16px] px-8 gap-8 shadow-lg transition-transform duration-300 ease-in-out"
+                style={{ animation: "menuEnter 300ms ease forwards" }}
               >
-                Get Involved
-              </button>
-            </Link>
-          </div>
-            </div>}
+                <div className="flex flex-col gap-4 space-x-8">
+                  {navigation.map((item) => (
+                    <Link
+                      rel="noopener noreferrer"
+                      key={item.name}
+                      href={item.href}
+                    >
+                      <span
+                        className={`text-sm font-medium transition-colors hover:text-[#FF07A9] ${
+                          pathname === item.href
+                            ? "text-[#FF07A9] border-b-2 border-[#FF07A9] pb-1"
+                            : "text-[#393939]"
+                        }`}
+                      >
+                        {item.name}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+                <div className="flex flex-col items-center gap-4">
+                  <Link href="/donate">
+                    <button className="flex flex-row gap-2 items-center bg-gradient-to-b from-[#FF07A9] to-[#B90D7D] px-[24px] py-[12px] rounded-[24px] cursor-pointer">
+                      <ClickHeart />
+                      Donate Now
+                    </button>
+                  </Link>
+
+                  <Link href="/volunteer">
+                    <button
+                      className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] text-[#ED006C] border-[#ED006C]`}
+                    >
+                      Get Involved
+                    </button>
+                  </Link>
+                </div>
+              </div>
+
+              <style jsx>{`
+                @keyframes menuEnter {
+                  from {
+                    opacity: 0;
+                    transform: translateY(-10px) scale(0.995);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                  }
+                }
+              `}</style>
+            </div>
+          )}
         </div>
       </div>
     </nav>

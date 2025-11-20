@@ -54,8 +54,46 @@
     border-radius: 24px;
     padding: 8px 16px;
     cursor: pointer;
-    color: #FFF;
-    font-weight: 500;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .button-secondary {
+    background: #fff;
+    border: 1.5px solid #FF07A9;
+    /* border-image-source: linear-gradient(180deg, #ff07a9 0%, #b90d7d 100%); */
+    border-radius: 24px;
+    padding: 8px 16px;
+    cursor: pointer;
+    color: #FF07A9;
+    font-weight: 700;
+  }
+}
+
+@layer utilities {
+  .star {
+    position: relative;
+    margin: 1em auto;
+    width: 1em;
+    font-size: 12em;
+  }
+
+  .star:before {
+    content: "";
+    position: absolute;
+    background: red;
+    width: 1em;
+    height: 1.15em;
+    transform: rotate(-45deg) skewX(22.5deg) skewY(22.5deg);
+  }
+
+  .star:after {
+    content: "";
+    position: absolute;
+    background: red;
+    width: 1em;
+    height: 1.15em;
+    transform: rotate(45deg) skewX(22.5deg) skewY(22.5deg);
   }
 }
 
@@ -118,7 +156,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-playfair: var(--font-playfair);
-  --font-open: var(--font-open-sans)
+  --font-open: var(--font-open-sans);
 }
 
 @media (prefers-color-scheme: dark) {

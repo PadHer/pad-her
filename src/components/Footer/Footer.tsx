@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FaMedium, FaLinkedinIn } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { PiInstagramLogoFill } from "react-icons/pi";
+import Star from "../Star/Star";
 
 const socials = [
   {
@@ -28,7 +29,20 @@ const socials = [
 const Footer = () => {
   const [subscribe, setSubscribe] = useState<string>("");
   return (
-    <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-4 md:pt-[25px] px-4 md:px-24">
+    <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-4 md:pt-[25px] px-4 md:px-24 relative">
+      <span className="absolute left-[14%] top-8">
+        <Star size="20px" color={"#ED006C"} />
+      </span>
+      <span className="absolute right-[3%] top-18">
+        <Star size="12px" color={"#ED006C"} />
+      </span>
+      <span className="absolute left-[41%] top-7">
+        <Star size="6px" color={"#ED006C"} />
+      </span>
+      <span className="absolute right-[18%] -top-8">
+        <Star size="6px" color={"#ED006C"} />
+      </span>
+      
       <h1 className="font-playfair font-extrabold footer-text text-[40px] text-center  md:text-[100px] inset-0">
         PAD HER WITH LOVE
       </h1>
@@ -50,7 +64,7 @@ const Footer = () => {
         />
         <button className="button">Subscribe</button>
       </form>
-      <div className="w-full flex flex-col-reverse md:flex-row md:mt-7 py-6 items-center gap-6 md:justify-between">
+      <div className="w-full flex flex-col-reverse md:flex-row md:mt-16 py-6 items-center gap-6 md:justify-between">
         <h4
           style={{ fontFamily: "Yeseva" }}
           className="text-[#393939] text-[16px]"

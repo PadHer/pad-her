@@ -14,7 +14,7 @@ import Stories from "@/components/Stories/Stories";
 
 export default function Home() {
   return (
-    <div className="w-full bg-[#FFF] flex flex-col items-center justify-center overflow-hidden">
+    <div className="w-full bg-[#FFF] flex flex-col items-center justify-center overflow-hidden relative">
       <NavBar />
       <HeroSection />
       <DataCount />

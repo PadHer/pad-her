@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Mission = () => {
   return (
-    <div className="w-full bg-[#FFF5F9] flex justify-center items-center px-4 py-4 md:px-[100px] md:py-[80px]">
+    <div className="w-full bg-[#FFF5F9] flex justify-center items-center px-4 py-4 md:px-[100px] md:py-[80px] sticky">
       <div className="w-full py-4 md:py-[32px] bg-[#FFF] flex flex-col items-center rounded-[40px] gap-8">
         <h2
           className="text-[48px] text-[#111111]"
