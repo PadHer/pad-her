@@ -156,7 +156,7 @@ const GetInvolved = () => {
       </div>
       <div className="w-full flex justify-center z-30">
         <button
-          className="px-[24px] py-[8px] border-[#FF07A9] border-[2px] rounded-[24px] text-[#B90D7D] text-4"
+          className="px-[24px] py-[8px] border-[#FF07A9] border-[2px] rounded-[24px] text-[#B90D7D] cursor-pointer text-4 hover:bg-[#F3F3F3] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D]"
           style={{ fontFamily: "OpenSans-Bold" }}
         >
           View All Opportunities

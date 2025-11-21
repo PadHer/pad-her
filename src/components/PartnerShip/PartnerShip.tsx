@@ -49,6 +49,9 @@ const PartnerShip = () => {
     } else if (!/\S+@\S+\.\S+/.test(formData.emailAddress)) {
       newErrors.emailAddress = "Enter a valid email address";
     }
+    if (!formData.typeOfEnquiry.trim()) {
+      newErrors.typeOfEnquiry = "Please enter your type of enquiry"
+    }
     if (!formData.message.trim()) {
       newErrors.message = "Message cannot be empty";
     }
@@ -87,7 +90,7 @@ const PartnerShip = () => {
       />
       <div className="w-full md:w-[45%] flex flex-col gap-4">
         <span
-          className="w-full relative text-[#111111] text-[48px]"
+          className="w-full relative text-[#111111] text-[48px] leading-[46px]"
           style={{ fontFamily: "Yeseva" }}
         >
           <h2>Partner or</h2>
@@ -97,7 +100,7 @@ const PartnerShip = () => {
             alt=""
             width={180}
             height={20}
-            className="absolute right-40 bottom-[-5px]"
+            className="absolute right-40"
           />
         </span>
         <p
@@ -117,7 +120,7 @@ const PartnerShip = () => {
       <form className="w-full md:w-[45%] flex flex-col gap-2" onSubmit={handleSubmit}>
         <label className="label" htmlFor="">
           Full Name
-          <span className="name left-0 text-blue-700">*</span>
+          <span className="name left-0">*</span>
           <input
             type="text"
             name="fullName"
@@ -125,6 +128,9 @@ const PartnerShip = () => {
             onChange={handleChange}
             placeholder="Enter full name"
           />
+          {errors.fullName && (
+            <p className="text-[12px] text-[red]">*{errors.fullName}</p>
+          )}
         </label>
         <label className="label" htmlFor="">
           Organisation Name
@@ -146,6 +152,9 @@ const PartnerShip = () => {
             onChange={handleChange}
             placeholder="Enter email address"
           />
+          {errors.emailAddress && (
+            <p className="text-[12px] text-[red]">*{errors.emailAddress}</p>
+          )}
         </label>
         <label className="label" htmlFor="">
           Phone Number (Optional)
@@ -162,11 +171,14 @@ const PartnerShip = () => {
           <span>*</span>
           <input
             type="text"
-            name="typeOfInquiry"
+            name="typeOfEnquiry"
             value={formData.typeOfEnquiry}
             onChange={handleChange}
             placeholder="Enter here (e.g Sponsorship, Donation, partnership, other)"
           />
+          {errors.typeOfEnquiry && (
+            <p className="text-[12px] text-[red]">*{errors.typeOfEnquiry}</p>
+          )}
         </label>
         <label className="label" htmlFor="">
           Website/Social Handle (Optional)
@@ -186,6 +198,9 @@ const PartnerShip = () => {
             value={formData.message}
             placeholder="Enter message"
           ></textarea>
+          {errors.message && (
+            <p className="text-[12px] text-[red]">*{errors.message}</p>
+          )}
         </label>
         <label htmlFor="">
           <button className="button" type="submit">
