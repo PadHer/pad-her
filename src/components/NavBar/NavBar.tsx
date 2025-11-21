@@ -69,15 +69,15 @@ const NavBar = () => {
                 className="relative group"
               >
                 <span
-                  className={`text-sm font-medium transition-colors hover:text-[#FF07A9] flex flex-col ${
-                    pathname === item.href ? "text-[#FF07A9] font-bold" : "text-[#393939]"
+                  className={`text-sm font-open font-medium transition-colors hover:text-[#FF07A9] flex flex-col ${
+                    pathname === item.href ? "text-[#FF07A9] font-semiBold" : "text-[#393939]"
                   }`}
                 >
                   {item.name}
                   <span
                   className={`
                     h-[3px] w-0 bg-[#FF07A9] transition-all duration-300 
-                    group-hover:w-1/2
+                    group-hover:w-full
                     ${pathname === item.href ? "w-1/2" : ""}
                   `}
                 />
@@ -96,7 +96,7 @@ const NavBar = () => {
 
             <Link href="/volunteer">
               <button
-                className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] ${
+                className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] hover:bg-[#FFE8F7] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D] cursor-pointer ${
                   isSticky
                     ? "text-[#ED006C] border-[#ED006C]"
                     : "border-white text-[#FFF]"

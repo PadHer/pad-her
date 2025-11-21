@@ -64,7 +64,7 @@ const BlogSection = () => {
       <div></div>
       <div className="w-full flex items-center justify-center mt-8">
         <button
-          className="px-[24px] py-[8px] border-[#FF07A9] border-[2px] cursor-pointer rounded-[24px] text-[#B90D7D] text-4"
+          className="px-[24px] py-[8px] border-[#FF07A9] border-[2px] cursor-pointer rounded-[24px] text-[#B90D7D] text-4 hover:bg-[#FFE8F7] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D]"
           style={{
             fontFamily: "OpenSans-Bold",
           }}

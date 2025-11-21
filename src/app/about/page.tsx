@@ -194,7 +194,7 @@ const Page = () => {
             <Link className="button font-bold font-open" href={"/volunteer"}>
               Join Our Team
             </Link>
-            <Link className="button-secondary font-open" href={"/blog"}>Read Our Blog</Link>
+            <Link className="button-secondary hover:bg-[#FFE8F7] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D] font-open" href={"/blog"}>Read Our Blog</Link>
           </div>
         </div>
         <div className="w-[42%] h-[55dvh] relative">
