@@ -455,7 +455,7 @@ const Page = () => {
           />
         </div>
         <p className="font-open text-center w-[45%] text-[#393939]">
-          We believe in full transparency. Here's exactly how your donations are
+          We believe in full transparency. Here&apos;s exactly how your donations are
           used to create maximum impact.
         </p>
         <div className="w-full grid grid-cols-3 gap-8 mt-15">
@@ -524,8 +524,10 @@ const Page = () => {
           </div>
         </div>
         <span className="flex gap-2 items-center mt-15">
-<Shield size={20} color="#393939" />
-<p className="text-[#393939] font-open capitalize text-[16px] ">All donations are secured with SSL encryption</p>
+          <Shield size={20} color="#393939" />
+          <p className="text-[#393939] font-open capitalize text-[16px] ">
+            All donations are secured with SSL encryption
+          </p>
         </span>
       </div>
       <Footer />
