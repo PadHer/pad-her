@@ -123,7 +123,10 @@ const Page = () => {
               dignity.
             </p>
 
-            <Link className="button hidden md:flex font-open mt-4 w-fit" href={"/donate"}>
+            <Link
+              className="button hidden md:flex font-open mt-4 w-fit"
+              href={"/donate"}
+            >
               Support Our Mission
             </Link>
           </div>
@@ -136,9 +139,12 @@ const Page = () => {
             />
           </div>
         </div>
-         <Link className="button md:hidden font-open mt-4 w-fit" href={"/donate"}>
-              Support Our Mission
-            </Link>
+        <Link
+          className="button md:hidden font-open mt-4 w-fit"
+          href={"/donate"}
+        >
+          Support Our Mission
+        </Link>
       </div>
       <div className="w-full py-6 px-4 md:py-18 md:px-24 flex flex-col items-center gap-4 bg-[#FEF5F9F5]">
         <h2 className="text-[36px] md:text-[56px] font-extrabold font-playfair text-[#111111]">
@@ -194,26 +200,26 @@ const Page = () => {
             className="mt-[-0.5rem] transform scale-x-[-1]"
           />
           <div className="md:hidden w-full h-[55dvh] relative mt-8">
-          <div className="w-full rounded-[40px] overflow-hidden h-full absolute right-0 top-0 border-1 border-[#E7E7E7] shadow-[0px_4px_40px_0px_#0000000F]">
-            <Image
-              src={"/images/image-4.png"}
-              alt="Our Story Image"
-              fill
-              priority
-              className="object-cover"
-            />
-          </div>
-          <div className="absolute w-3/5 h-4/6 bg-[#FFF] rounded-[40px] top-55 left-17.5 flex flex-col items-center justify-center">
-            <div className="w-[95%] h-[95%] rounded-[40px] overflow-hidden relative">
+            <div className="w-full rounded-[40px] overflow-hidden h-full absolute right-0 top-0 border-1 border-[#E7E7E7] shadow-[0px_4px_40px_0px_#0000000F]">
               <Image
-                src={"/images/shams.png"}
-                alt="PadHer with Love Founder"
+                src={"/images/image-4.png"}
+                alt="Our Story Image"
                 fill
+                priority
                 className="object-cover"
               />
             </div>
+            <div className="absolute w-3/5 h-4/6 bg-[#FFF] rounded-[40px] top-55 left-17.5 flex flex-col items-center justify-center">
+              <div className="w-[95%] h-[95%] rounded-[40px] overflow-hidden relative">
+                <Image
+                  src={"/images/shams.png"}
+                  alt="PadHer with Love Founder"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
           </div>
-        </div>
           <p className="md:mt-6 text-[#393939CC] font-open font-normal mt-26">
             PadHer with Love was founded in 2019 when our founder witnessed
             firsthand how period poverty was preventing girls in her community
@@ -240,7 +246,7 @@ const Page = () => {
             </Link>
           </div>
         </div>
-        <div className="hidden w-[42%] h-[55dvh] relative">
+        <div className="hidden md:flex w-[42%] h-[55dvh] relative">
           <div className="w-3/4 rounded-[8px_60px_8px_60px] overflow-hidden h-full absolute right-0 top-0 border-1 border-[#E7E7E7] shadow-[0px_4px_40px_0px_#0000000F]">
             <Image
               src={"/images/image-4.png"}

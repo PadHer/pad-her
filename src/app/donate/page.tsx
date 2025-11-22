@@ -359,7 +359,7 @@ const Page = () => {
         </p>
         <div className="w-[90%] md:w-[70%] relative h-auto md:h-[60dvh] flex flex-col gap-8 md:flex-row items-center justify-between mt-12">
           <span className="bg-[#FFE9F9] w-30 h-30 rounded-[4px] absolute -left-5 -top-5 md:-left-10 md:-top-10"></span>
-          <span className="bg-[#EDE2F5] w-30 h-30 rounded-[4px] absolute left-52 top-60 md:left-100 md:-bottom-10"></span>
+          <span className="bg-[#EDE2F5] w-30 h-30 rounded-[4px] absolute left-52 top-60 md:top-100 md:left-100"></span>
           <div className="relative w-full md:w-[54%] h-[50dvh] md:h-full overflow-hidden rounded-[40px_8px_40px_8px]">
             <span className="absolute right-0 w-1/2 h-full border-l-[16px] z-10 border-[#FFF]"></span>
             <span className="absolute right-0 w-full h-1/2 border-b-[16px] z-10 border-[#FFF]"></span>
