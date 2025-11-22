@@ -52,7 +52,7 @@ const Stories = () => {
       />
       <div className="w-full flex flex-col items-center mt-4 md:mt-0">
         <div
-          className="w-full flex flex-col md:items-center text-[24px] md:text-[48px] capitalize items-start"
+          className="flex flex-col md:items-center text-[24px] md:text-[48px] capitalize items-start"
           style={{ fontFamily: "Yeseva" }}
         >
           <h2 className="text-[#11111199] w-1/2 md:w-full">What Our Beneficiaries,</h2>
@@ -108,14 +108,14 @@ const Stories = () => {
         <button onClick={previous} className="w-[32px] h-[32px] cursor-pointer flex items-center rounded-[4px] border-1 border-[#FF07A9] justify-center hover:bg-[#FF07A9] text-[#FF07A9] hover:text-[#FFF] transition-all duration-300">
           <ChevronLeft />
         </button>
-        <div className="w-full md:w-[90%] flex flex-row justify-between gap-4">
+        <div className="w-[78%] flex flex-row justify-between items-center gap-4 mb-8">
           {mobileCurrentTestimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="w-full md:w-[33%] h-[321px] flex flex-col justify-between p-6 bg-white rounded-[10px] cursor-pointer hover:shadow-xl transition-shadow duration-300"
+              className="w-full h-auto flex flex-col gap-4 p-6 bg-white rounded-[10px] cursor-pointer shadow-xl"
             >
               <p
-                className="text-[#333333] h-1/2 text-[16px]"
+                className="text-[#333333] text-[16px]"
                 style={{ fontFamily: "OpenSans" }}
               >
                 &quot;{testimonial.quote}&quot;

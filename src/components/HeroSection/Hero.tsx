@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { HeroImages } from "@/data/Images";
 import { ClickHere } from "../animations/click";
+import Link from "next/link";
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -53,22 +54,24 @@ const HeroSection = () => {
             her period.
           </p>
           <div className="w-full flex justify-center items-center gap-4 relative">
-            <button
+            <Link
+              href="/volunteer"
               className="bg-white border-[2px] border-[#FFE8F7] text-[#FF07A9] px-4 py-2 rounded-[24px] cursor-pointer hover:bg-[#FFE8F7] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D]"
               style={{
                 fontFamily: "OpenSans-Semi",
               }}
             >
               Get Involved
-            </button>
-            <button
+            </Link>
+            <Link
+              href={"/donate"}
               className="bg-gradient-to-b from-[#FF07A9] to-[#B90D7D] text-white px-4 py-2 rounded-[24px] cursor-pointer hover:opacity-90 transition-opacity duration-300 ease-in-out"
               style={{
                 fontFamily: "OpenSans-Semi",
               }}
             >
               Donate Now
-            </button>
+            </Link>
             <ClickHere />
           </div>
         </div>

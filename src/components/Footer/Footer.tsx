@@ -30,23 +30,23 @@ const Footer = () => {
   const [subscribe, setSubscribe] = useState<string>("");
   return (
     <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-4 md:pt-[25px] px-4 md:px-24 relative">
-      <span className="absolute left-[14%] top-8">
-        <Star size="20px" color={"#ED006C"} />
+      <span className="absolute left-[12%] md:left-[14%] -top-25 md:top-8">
+        <Star size="16px" color={"#ED006C"} />
       </span>
-      <span className="absolute right-[3%] top-18">
+      <span className="absolute -right-40 md:right-[3%] md:top-18">
         <Star size="12px" color={"#ED006C"} />
       </span>
-      <span className="absolute left-[41%] top-7">
+      <span className="absolute left-10 md:left-[41%] md:top-7">
         <Star size="6px" color={"#ED006C"} />
       </span>
-      <span className="absolute right-[18%] -top-8">
+      <span className="absolute -top-15 right-10 md:right-[18%] md:-top-8">
         <Star size="6px" color={"#ED006C"} />
       </span>
       
       <h1 className="font-playfair font-extrabold footer-text text-[40px] text-center  md:text-[100px] inset-0">
         PAD HER WITH LOVE
       </h1>
-      <p className="w-full md:w-[30%] text-[#989797] text-[16px] text-center font-open font-semibold">
+      <p className="w-full md:w-[30%] text-[#989797] text-[16px] text-center font-open font-semibold mt-6 md:mt-0">
         Join us as we create a world where no girl is held back because of her
         period.
       </p>
