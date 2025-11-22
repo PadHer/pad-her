@@ -5,7 +5,7 @@ import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import Image from "next/image";
 import DataCount from "@/components/Data/Data";
-import { Heart, BookOpen } from "lucide-react";
+import { Heart, BookOpen, Shield } from "lucide-react";
 
 type DonationData = {
   donationAmount: string;
@@ -357,7 +357,7 @@ const Page = () => {
           Period poverty is a real issue affecting millions of girls worldwide.
           Your support helps us tackle this problem head-on.
         </p>
-        <div className="w-[70%] relative h-[50dvh] flex items-center justify-between mt-12">
+        <div className="w-[70%] relative h-[60dvh] flex items-center justify-between mt-12">
           <span className="bg-[#FFE9F9] w-30 h-30 rounded-[4px] absolute -left-10 -top-10"></span>
           <span className="bg-[#EDE2F5] w-30 h-30 rounded-[4px] absolute left-100 -bottom-10"></span>
           <div className="relative w-[54%] h-full overflow-hidden rounded-[40px_8px_40px_8px]">
@@ -368,45 +368,165 @@ const Page = () => {
               alt={""}
               fill
               priority
-              className="object-cover"
+              className="object-cover object-[50%_70%]"
             />
           </div>
           <div className="w-[44%] z-20 flex flex-col gap-4">
-            <div className="w-full flex gap-6 hover:shadow-[0px_8px_16px_0px_#0000001A] hover:bg-[#ED006C] p-4 rounded-[24px]">
-              <span className="h-10 w-10 bg-[#FFF] rounded-full flex items-center justify-center">1</span>
-              <div className="w-2/3 flex flex-col gap-1">
-                <h6 className="text-[20px] text-[#111111] leading-[20px]" style={{ fontFamily: "Yeseva" }}>Breaking Educational Barriers</h6>
-                <p className="text-[16px] text-[#393939] leading-[20px]">
+            <div className="w-full flex items-center justify-between group hover:shadow-[0px_8px_16px_0px_#0000001A] hover:bg-[#ED006C] p-4 rounded-[24px] transition-all duration-200">
+              <span
+                className="h-10 w-10 group-hover:bg-[#FFF] rounded-full flex items-center justify-center text-[#111111] group-hover:text-[#ED006C] text-[24px]"
+                style={{ fontFamily: "Yeseva" }}
+              >
+                1
+              </span>
+              <div className="w-[85%] flex flex-col gap-1">
+                <h6
+                  className="text-[16px] text-[#111111] group-hover:text-[#FFF] leading-[20px]"
+                  style={{ fontFamily: "Yeseva" }}
+                >
+                  Breaking Educational Barriers
+                </h6>
+                <p className="text-[12px] text-[#393939] group-hover:text-[#FFF] leading-[16px] font-open">
                   1 in 4 girls miss school during their period due to lack of
                   access to menstrual products. Your donation keeps girls in
                   school.
                 </p>
               </div>
-              
             </div>
-            <div className="w-full hover:shadow-[0px_8px_16px_0px_#0000001A] p-4 rounded-[24px]">
-                <span>2</span>
-                <div>
-                  <h6 className="text-[20px] text-[#111111]" style={{ fontFamily: "Yeseva" }}>Reducing Stigma</h6>
-                  <p>
-                    Our education programs help normalize menstruation and break
-                    down harmful myths and taboos in communities.
-                  </p>
-                </div>
+            <div className="w-full flex items-center justify-between group hover:shadow-[0px_8px_16px_0px_#0000001A] hover:bg-[#ED006C] p-4 rounded-[24px] transition-all duration-200">
+              <span
+                className="h-10 w-10 group-hover:bg-[#FFF] rounded-full flex items-center justify-center text-[#111111] group-hover:text-[#ED006C] text-[24px]"
+                style={{ fontFamily: "Yeseva" }}
+              >
+                2
+              </span>
+              <div className="w-[85%] flex flex-col gap-1">
+                <h6
+                  className="text-[16px] text-[#111111] group-hover:text-[#FFF] leading-[20px]"
+                  style={{ fontFamily: "Yeseva" }}
+                >
+                  Reducing Stigma
+                </h6>
+                <p className="text-[12px] text-[#393939] group-hover:text-[#FFF] leading-[16px] font-open">
+                  Our education programs help normalize menstruation and break
+                  down harmful myths and taboos in communities.
+                </p>
               </div>
-              <div className="w-full hover:shadow-[0px_8px_16px_0px_#0000001A] p-4 rounded-[24px]">
-                <span>3</span>
-                <div>
-                  <h6 className="text-[20px] text-[#111111]" style={{ fontFamily: "Yeseva" }}>Building Confidence</h6>
-                  <p>
-                    Access to proper menstrual products and education gives
-                    girls the confidence to pursue their dreams without
-                    interruption.
-                  </p>
-                </div>
+            </div>
+            <div className="w-full flex items-center justify-between group hover:shadow-[0px_8px_16px_0px_#0000001A] hover:bg-[#ED006C] p-4 rounded-[24px] transition-all duration-200">
+              <span
+                className="h-10 w-10 group-hover:bg-[#FFF] rounded-full flex items-center justify-center text-[#111111] group-hover:text-[#ED006C] text-[24px]"
+                style={{ fontFamily: "Yeseva" }}
+              >
+                3
+              </span>
+              <div className="w-[85%] flex flex-col gap-1">
+                <h6
+                  className="text-[16px] text-[#111111] group-hover:text-[#FFF] leading-[20px]"
+                  style={{ fontFamily: "Yeseva" }}
+                >
+                  Building Confidence
+                </h6>
+                <p className="text-[12px] text-[#393939] group-hover:text-[#FFF] leading-[16px] font-open">
+                  Access to proper menstrual products and education gives girls
+                  the confidence to pursue their dreams without interruption.
+                </p>
               </div>
+            </div>
           </div>
         </div>
+      </div>
+      <div className="w-full px-24 py-16 flex flex-col items-center bg-[#FFF]">
+        <div className="flex flex-col items-end">
+          <h2
+            className="text-[#111111] text-[48px]"
+            style={{
+              fontFamily: "Yeseva",
+            }}
+          >
+            Complete <span className="text-[#111111CC]">Transparency</span>
+          </h2>
+          <Image
+            src={"/svgs/Vector-1.svg"}
+            alt="Vector"
+            width={300}
+            height={18}
+            className="-mt-4.5 transform scale-x-[-1]"
+          />
+        </div>
+        <p className="font-open text-center w-[45%] text-[#393939]">
+          We believe in full transparency. Here's exactly how your donations are
+          used to create maximum impact.
+        </p>
+        <div className="w-full grid grid-cols-3 gap-8 mt-15">
+          <div className="w-full flex flex-col gap-3 py-6 items-center rounded-[8px_60px_8px_60px] border-1 border-[#E7E7E7] bg-[#FFF6FC] rotate-4">
+            <h3
+              className="text-[40px] text-[#E11B9F] "
+              style={{
+                fontFamily: "Yeseva",
+              }}
+            >
+              75%
+            </h3>
+            <span
+              style={{
+                fontFamily: "Yeseva",
+              }}
+              className="text-[#393939] text-[24px]"
+            >
+              Direct Program
+            </span>
+            <p className="font-open text-[#393939CC] text-[16px] text-center w-2/3">
+              Product procurement, distribution, and educational workshops
+            </p>
+          </div>
+          <div className="w-full flex flex-col gap-3 py-6 items-center rounded-[8px_60px_8px_60px] border-1 border-[#E7E7E7] bg-[#FCEFF4] rotate-2">
+            <h3
+              className="text-[40px] text-[#EA2A74] "
+              style={{
+                fontFamily: "Yeseva",
+              }}
+            >
+              15%
+            </h3>
+            <span
+              style={{
+                fontFamily: "Yeseva",
+              }}
+              className="text-[#393939] text-[24px]"
+            >
+              Operations
+            </span>
+            <p className="font-open text-[#393939CC] text-[16px] text-center w-2/3">
+              Staff salaries, office expenses, and program coordination
+            </p>
+          </div>
+          <div className="w-full flex flex-col gap-3 py-6 items-center rounded-[8px_60px_8px_60px] border-1 border-[#E7E7E7] bg-[#FCF8FF] -rotate-4">
+            <h3
+              className="text-[40px] text-[#9725EC] "
+              style={{
+                fontFamily: "Yeseva",
+              }}
+            >
+              10%
+            </h3>
+            <span
+              style={{
+                fontFamily: "Yeseva",
+              }}
+              className="text-[#393939] text-[24px]"
+            >
+              Fundraising
+            </span>
+            <p className="font-open text-[#393939CC] text-[16px] text-center w-2/3">
+              Marketing, events, and donor engagement activities
+            </p>
+          </div>
+        </div>
+        <span className="flex gap-2 items-center mt-15">
+<Shield size={20} color="#393939" />
+<p className="text-[#393939] font-open capitalize text-[16px] ">All donations are secured with SSL encryption</p>
+        </span>
       </div>
       <Footer />
     </div>
