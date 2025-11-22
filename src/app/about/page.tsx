@@ -202,7 +202,7 @@ const Page = () => {
           <div className="md:hidden w-full h-[55dvh] relative mt-8">
             <div className="w-full rounded-[40px] overflow-hidden h-full absolute right-0 top-0 border-1 border-[#E7E7E7] shadow-[0px_4px_40px_0px_#0000000F]">
               <Image
-                src={"/images/image-4.png"}
+                src={"/images/Image-4.png"}
                 alt="Our Story Image"
                 fill
                 priority
