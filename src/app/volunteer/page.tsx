@@ -14,7 +14,7 @@ const Page = () => {
   return (
     <div className="w-full bg-[#FFF] flex flex-col items-center justify-center overflow-hidden relative">
       <NavBar />
-      <div className="h-[50dvh] w-full relative mt-[20dvh]">
+      <div className="h-[50dvh] w-full relative mt-[10dvh] md:mt-[20dvh]">
         <Image
           src={"/images/volunteer.png"}
           alt={""}
@@ -23,7 +23,7 @@ const Page = () => {
         />
         <div className="absolute w-full h-full bg-[#ED006CCC] flex flex-col items-center justify-center z-50">
           <h1
-            className="text-[64px]"
+            className="text-[32px] md:text-[64px]"
             style={{
               fontFamily: "Yeseva",
             }}
@@ -154,16 +154,16 @@ const Page = () => {
           </section>
         </div>
       </div>
-      <div className="w-full flex flex-col items-center bg-[#FFFAFC] px-24 py-12 gap-2">
-        <h2 className="font-playfair text-[56px] font-extrabold text-[#111111]">
+      <div className="w-full flex flex-col items-center bg-[#FFFAFC] px-4 md:px-24 py-12 gap-2">
+        <h2 className="font-playfair text-[32px] md:text-[56px] font-extrabold text-[#111111] text-center">
           Why <b className="text-[#FF07A9]">Volunteer</b> with Us?
         </h2>
         <p className="font-open text-[16px] text-center text-[#393939CC] w-full md:w-1/3">
           Join a community of passionate individuals making a real difference in
           girls&apos; lives.
         </p>
-        <div className="w-full flex justify-between items-center py-24">
-          <div className="w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-8 bg-[#FFFFFF] rotate-4 border-1 border-[#E7E7E7]">
+        <div className="w-full flex flex-col md:flex-row md:justify-between items-center py-4 md:py-24 gap-4 md:gap-0">
+          <div className="w-[75%] md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] rotate-4 border-1 border-[#E7E7E7]">
             <span className="bg-[#ED006C33] flex items-center justify-center h-20 w-20 rounded-full">
               <Heart size={30} color="#ED006C" />
             </span>
@@ -180,7 +180,7 @@ const Page = () => {
               period poverty.
             </p>
           </div>
-          <div className="w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-8 bg-[#FFFFFF] -rotate-4 border-1 border-[#E7E7E7]">
+          <div className="w-3/4 md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] -rotate-4 border-1 border-[#E7E7E7]">
             <span className="bg-[#9747FF33] flex items-center justify-center h-20 w-20 rounded-full">
               <Image
                 src={"/svgs/group.svg"}
@@ -202,7 +202,7 @@ const Page = () => {
               change.
             </p>
           </div>
-          <div className="w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-8 bg-[#FFFFFF] rotate-4 border-1 border-[#E7E7E7]">
+          <div className="w-3/4 md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] rotate-4 border-1 border-[#E7E7E7]">
             <span className="bg-[#C80C8640] flex items-center justify-center h-20 w-20 rounded-full">
               <Clock4 size={30} color="#C80C86" />
             </span>
@@ -219,7 +219,7 @@ const Page = () => {
               availability.
             </p>
           </div>
-          <div className="w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-8 bg-[#FFFFFF] -rotate-4 border-1 border-[#E7E7E7]">
+          <div className="w-3/4 md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] -rotate-4 border-1 border-[#E7E7E7]">
             <span className="bg-[#219AA633] flex items-center justify-center h-20 w-20 rounded-full">
               <MapPin size={30} color="#219AA6" />
             </span>

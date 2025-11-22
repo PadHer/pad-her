@@ -104,7 +104,7 @@ const PartnerShip = () => {
           />
         </span>
         <p
-          className="text-[#393939] text-[16px]"
+          className="text-[#393939] text-[16px] mt-8 md:mt-0"
           style={{ fontFamily: "OpenSans" }}
         >
           We&apos;re always excited to welcome partners and sponsors who share our
@@ -120,7 +120,7 @@ const PartnerShip = () => {
       <form className="w-full md:w-[45%] flex flex-col gap-2" onSubmit={handleSubmit}>
         <label className="label" htmlFor="">
           Full Name
-          <span className="name left-0">*</span>
+          <span className="name left-0 ml-5 md:ml-0">*</span>
           <input
             type="text"
             name="fullName"
@@ -144,7 +144,7 @@ const PartnerShip = () => {
         </label>
         <label className="label" htmlFor="">
           Email Address
-          <span className="email">*</span>
+          <span className="email ml-10 md:ml-0">*</span>
           <input
             type="text"
             name="emailAddress"
@@ -168,7 +168,7 @@ const PartnerShip = () => {
         </label>
         <label className="label" htmlFor="">
           Type of Inquiry
-          <span>*</span>
+          <span className="ml-10 md:ml-0">*</span>
           <input
             type="text"
             name="typeOfEnquiry"

@@ -25,7 +25,7 @@ const FAQs = () => {
         alt={"Flower Decoration"}
         width={200}
         height={200}
-        className="absolute left-0 -bottom-24 md:bottom-0"
+        className="absolute left-0 -bottom-24 md:bottom-0 hidden md:flex"
       />
       <div className="w-full flex flex-col gap-4 items-center">
         <div
@@ -62,14 +62,27 @@ const FAQs = () => {
                 />
               </span>
             </h3>
-            {activeIndex === index && (
+            {/* {activeIndex === index && (
               <p
                 className="text-[#393939] text-[16px] mt-8"
                 style={{ fontFamily: "OpenSans" }}
               >
                 {faq.answer}
               </p>
-            )}
+            )} */}
+            <div
+        className={`
+          overflow-hidden transition-all duration-500 ease-in-out
+          ${activeIndex === index ? "max-h-[500px] opacity-100 mt-6" : "max-h-0 opacity-0 mt-0"}
+        `}
+      >
+        <p
+          className="text-[#393939] text-[16px]"
+          style={{ fontFamily: "OpenSans" }}
+        >
+          {faq.answer}
+        </p>
+      </div>
           </div>
         ))}
       </div>
