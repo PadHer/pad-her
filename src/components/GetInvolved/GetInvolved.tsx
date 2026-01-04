@@ -1,18 +1,43 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 const GetInvolved = () => {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(sectionRef, {
+    amount: 0.8,
+    once: false,
+  });
+
   return (
     <div
-      className="w-full flex flex-col gap-8 px-4 py-8 md:px-16 md:py-12 bg-cover bg-center bg-no-repeat relative"
-      style={{
-        background: "url('images/bg.png')",
-      }}
+      className="w-full flex flex-col gap-8 px-4 py-8 md:px-16 md:py-12 relative z-20 overflow-hidden bg-[#FFFFFFF0]"
+      ref={sectionRef}
     >
-      <div className="absolute inset-0 bg-white opacity-[70%]"></div>
+      <motion.div
+        className="absolute inset-0 z-0"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: isInView ? 0 : 1 }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+        style={{
+          backgroundImage: `url('images/bg.png')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-[#FEF5F9CC]" />
+      </motion.div>
+      <motion.div
+        className="absolute inset-0 z-0 bg-[#FFFFFFF0]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isInView ? 1 : 0 }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+      />
       <div className="w-full flex flex-col z-30">
         <h4
           className="text-[#ED006C] text-[14px]"
@@ -38,23 +63,23 @@ const GetInvolved = () => {
         </p>
       </div>
       <div className="w-full z-30 flex flex-col md:flex-row md:justify-between gap-8">
-        <section className="rounded-[8px_60px_8px_60px] w-full md:w-[32%] flex flex-col gap-4 bg-[#FF07A9] overflow-hidden">
+        <section className="w-full md:w-[32%] card">
           <div className="w-full px-4 pt-12 flex flex-col gap-4">
             <h2
-              className="text-[#FFF5F9] text-[40px]"
+              className="text-[40px]"
               style={{
                 fontFamily: "Yeseva",
               }}
             >
               Community Outreach
             </h2>
-            <p
-              className="text-[#FFF5F9] text-[16px] h-[80px]"
+            <h6
+              className="text-[16px] h-[80px]"
               style={{ fontFamily: "OpenSans" }}
             >
               Join our field teams to distribute pads and conduct educational
               workshops in underserved communities.
-            </p>
+            </h6>
           </div>
 
           <div className="w-full h-[260px] rounded-[16px] rounded-br-[8px] flex flex-col justify-end px-6 pb-6 relative">
@@ -64,7 +89,7 @@ const GetInvolved = () => {
               fill
               className="object-cover object-top rounded-[16px] rounded-br-[8px]"
             />
-            <div className="flex items-center gap-2 rounded-[40px] p-2 bg-[#ED006C40] w-1/2 md:w-[37%] backdrop-blur-[5px] cursor-pointer">
+            <div className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
               <p
                 className="text-[#FFFFFF] text-[16px]"
                 style={{ fontFamily: "OpenSans-Semi" }}
@@ -77,7 +102,7 @@ const GetInvolved = () => {
             </div>
           </div>
         </section>
-        <section className="rounded-[8px_60px_8px_60px] flex flex-col gap-4 w-full md:w-[32%] bg-[#FFF9FB] overflow-hidden">
+        <section className="w-full md:w-[32%] card">
           <div className="w-full px-4 pt-12 flex flex-col gap-4">
             <h2
               className="text-[#111111] text-[40px]"
@@ -87,13 +112,13 @@ const GetInvolved = () => {
             >
               Education & Training
             </h2>
-            <p
-              className="text-[#393939] text-[16px] h-[80px]"
+            <h6
+              className="text-[16px] h-[80px]"
               style={{ fontFamily: "OpenSans" }}
             >
               Lead workshops on menstrual hygiene and reproductive health in
               schools and community centers.
-            </p>
+            </h6>
           </div>
           <div className="w-full h-[260px] rounded-[16px] rounded-br-[8px] flex flex-col justify-end px-6 pb-6 relative">
             <Image
@@ -102,7 +127,7 @@ const GetInvolved = () => {
               fill
               className="object-cover rounded-[16px] rounded-br-[8px]"
             />
-            <div className="flex items-center gap-2 rounded-[40px] p-2 bg-[#ED006C40] w-1/2 md:w-[37%] backdrop-blur-[5px] cursor-pointer">
+            <div className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
               <p
                 className="text-[#FFFFFF] text-[16px]"
                 style={{ fontFamily: "OpenSans-Semi" }}
@@ -115,23 +140,23 @@ const GetInvolved = () => {
             </div>
           </div>
         </section>
-        <section className="rounded-[8px_60px_8px_60px] flex flex-col gap-4 w-full md:w-[32%] bg-[#FFF9FB] overflow-hidden">
+        <section className="card w-full md:w-[32%]">
           <div className="w-full px-4 pt-12 flex flex-col gap-4">
             <h2
-              className="text-[#111111] text-[40px]"
+              className="text-[40px]"
               style={{
                 fontFamily: "Yeseva",
               }}
             >
               Digital <br /> Advocacy
             </h2>
-            <p
-              className="text-[#393939] text-[16px] h-[80px]"
+            <h6
+              className="text-[16px] h-[80px]"
               style={{ fontFamily: "OpenSans" }}
             >
               Help us spread awareness through social media, content creation,
               and digital campaigns.
-            </p>
+            </h6>
           </div>
           <div className="w-full h-[260px] rounded-[16px] rounded-br-[8px] flex flex-col justify-end px-6 pb-6 relative">
             <Image
@@ -140,7 +165,7 @@ const GetInvolved = () => {
               fill
               className="object-cover rounded-[16px] rounded-br-[8px]"
             />
-            <div className="flex items-center gap-2 rounded-[40px] p-2 bg-[#ED006C40] w-1/2 md:w-[37%] backdrop-blur-[5px] cursor-pointer">
+            <div className="apply w-1/2 md:w-[37%] backdrop-blur-[5px]">
               <p
                 className="text-[#FFFFFF] text-[16px]"
                 style={{ fontFamily: "OpenSans-Semi" }}
@@ -156,7 +181,7 @@ const GetInvolved = () => {
       </div>
       <div className="w-full flex justify-center z-30">
         <button
-          className="px-[24px] py-[8px] border-[#FF07A9] border-[2px] rounded-[24px] text-[#B90D7D] cursor-pointer text-4 hover:bg-[#F3F3F3] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D]"
+          className="button-secondary"
           style={{ fontFamily: "OpenSans-Bold" }}
         >
           View All Opportunities

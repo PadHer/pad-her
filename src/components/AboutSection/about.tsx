@@ -1,9 +1,45 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { Variants } from "framer-motion";
+
+type AsideMotionProps = {
+  enterTop: string;
+  enterLeft: string;
+  exitTop: string;
+  exitLeft: string;
+  delay?: number;
+};
+const easeOutCubic: [number, number, number, number] = [0.22, 0.61, 0.36, 1];
 
 const About = () => {
+  const asideVariant: Variants = {
+    hidden: (custom: AsideMotionProps) => ({
+      opacity: 1,
+      top: custom.exitTop,
+      left: custom.exitLeft,
+    }),
+    visible: (custom: AsideMotionProps) => ({
+      opacity: 1,
+      top: custom.enterTop,
+      left: custom.enterLeft,
+      transition: {
+        duration: 0.5,
+        ease: easeOutCubic,
+        delay: custom.delay ?? 0,
+      },
+    }),
+  };
+
   return (
-    <div className="w-full bg-[#FFFFFF] flex justify-center items-center px-4 py-4 md:px-[100px] md:py-[80px]">
-      <div className="w-full bg-[#FFFAFC] flex flex-col md:flex-row rounded-[40px] p-4 md:p-8 overflow-hidden">
+    <div className="w-full bg-[#FFFFFF] flex justify-center items-center px-4 py-4 md:px-[100px] md:py-[80px] sticky top-10">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ amount: 1, once: false }}
+        className="w-full bg-[#FFFAFC] flex flex-col md:flex-row rounded-[40px] p-4 md:p-8 overflow-hidden"
+      >
         <section className="w-full md:w-1/2 flex flex-col gap-4">
           <h3
             className="text-[32px] md:text-[48px] p-0 m-0 text-[#111111]"
@@ -11,7 +47,7 @@ const About = () => {
           >
             About <br /> Pad<span className="text-pink-600">Her</span>
           </h3>
-          <p className="text-[#393939] text-[16px] md:text-[24px] w-full md:w-[90%]">
+          <p className="text-[#393939] text-[20px] md:text-[24px] w-full md:w-[90%]">
             PadHer With Love is a nonprofit initiative committed to ending
             period poverty by equipping young girls with free sanitary pads,
             menstrual health education, and compassionate support. We believe
@@ -20,16 +56,17 @@ const About = () => {
           </p>
         </section>
         <section className="w-full h-[55dvh] md:h-auto md:w-1/2 relative">
-          <aside
-            className="bg-[#6DC6C9] w-1/2 rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-6 absolute"
-            style={{
-              transform: "rotate(-15deg)",
-              top: "80%",
-              left: "20%"
+          <motion.aside
+            custom={{
+              enterTop: "80%",
+              enterLeft: "20%",
+              exitTop: "70%",
+              exitLeft: "25%",
             }}
+            variants={asideVariant}
+            className="bg-[#6DC6C9] md:w-1/2 rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-6 absolute top-[40%] left-[30%]  md:top-[80%] md:left-[20%] -rotate-25 md:-rotate-15 whitespace-nowrap"
           >
-            <span 
-            className="bg-[#FDFDFD40] h-[40px] w-[40px] flex justify-center items-center rounded-full">
+            <span className="bg-[#FDFDFD40] h-[40px] w-[40px] flex justify-center items-center rounded-full">
               <Image
                 src={"/svgs/Vector.svg"}
                 alt="svg"
@@ -44,14 +81,16 @@ const About = () => {
             >
               Volunteer-Led
             </p>
-          </aside>
-          <aside 
-          className="bg-[#8C89EE] w-[65%] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-6 absolute"
-          style={{
-                transform: "rotate(-15deg)",
-                top: "25%",
-                left: "43%",
+          </motion.aside>
+          <motion.aside
+            custom={{
+              enterTop: "25%",
+              enterLeft: "43%",
+              exitTop: "35%",
+              exitLeft: "53%",
             }}
+            variants={asideVariant}
+            className="bg-[#8C89EE] md:w-[65%] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-6 absolute -rotate-25 md:-rotate-15 top-[5%] left-[10%] md:top-[25%] md:left-[43%] whitespace-nowrap"
           >
             <span className="bg-[#FDFDFD40] h-[40px] w-[40px] flex justify-center items-center rounded-full">
               <Image
@@ -68,13 +107,16 @@ const About = () => {
             >
               Transparent Donations
             </p>
-          </aside>
-          <aside className="bg-[#FF67E3] w-[55%] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-6 absolute"
-          style={{
-            transform: "rotate(15deg)",
-            top: "60%",
-            left: "55%"
-          }}
+          </motion.aside>
+          <motion.aside
+            custom={{
+              enterTop: "60%",
+              enterLeft: "55%",
+              exitTop: "50%",
+              exitLeft: "45%",
+            }}
+            variants={asideVariant}
+            className="bg-[#FF67E3] md:w-[55%] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-6 absolute top-[25%] left-[-15%] md:top-[60%] md:left-[55%] rotate-20 md:rotate-15 whitespace-nowrap"
           >
             <span className="bg-[#FDFDFD40] h-[40px] w-[40px] flex justify-center items-center rounded-full">
               <Image
@@ -91,13 +133,17 @@ const About = () => {
             >
               Grassroot Impact
             </p>
-          </aside>
-          <aside className="bg-[#B451BC] w-[1/2] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-6 absolute" style={{
-            transform: "rotate(15deg)",
-            top: "50%",
-            left: "-5%",
-
-          }}>
+          </motion.aside>
+          <motion.aside
+            custom={{
+              enterTop: "50%",
+              enterLeft: "-5%",
+              exitTop: "55%",
+              exitLeft: "10%",
+            }}
+            variants={asideVariant}
+            className="bg-[#B451BC] md:w-[1/2] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-6 absolute rotate-15 top-[55%] md:top-[50%] left-[-5%]"
+          >
             <span className="bg-[#FDFDFD40] h-[40px] w-[40px] flex justify-center items-center rounded-full">
               <Image
                 src={"/svgs/location.svg"}
@@ -113,9 +159,9 @@ const About = () => {
             >
               4,000+ girls reached
             </p>
-          </aside>
+          </motion.aside>
         </section>
-      </div>
+      </motion.div>
     </div>
   );
 };

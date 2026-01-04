@@ -29,7 +29,7 @@ const socials = [
 const Footer = () => {
   const [subscribe, setSubscribe] = useState<string>("");
   return (
-    <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-4 md:pt-[25px] px-4 md:px-24 relative">
+    <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-4 md:pt-[25px] px-4 md:px-24 relative z-20">
       <span className="absolute left-[12%] md:left-[14%] -top-25 md:top-8">
         <Star size="16px" color={"#ED006C"} />
       </span>

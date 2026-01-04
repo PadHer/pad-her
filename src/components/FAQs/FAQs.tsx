@@ -12,7 +12,7 @@ const FAQs = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
   return (
-    <div className="w-full flex flex-col items-center relative bg-[#FFF9FB] py-4 md:py-[80px] gap-4 md:gap-16">
+    <div className="w-full flex flex-col items-center relative bg-[#FFF9FB] py-4 md:py-[80px] gap-4 md:gap-16 z-20 overflow-hidden">
       <Image
         src={"/svgs/flower-1.svg"}
         alt={"Flower Decoration"}
@@ -32,8 +32,8 @@ const FAQs = () => {
           className="w-full flex flex-col items-start md:items-center text-[32px] md:text-[64px] px-4 md:px-0 gap-4 md:gap-4"
           style={{ fontFamily: "Yeseva" }}
         >
-          <h2 className="text-[#111111] p-0 m-0 w-2/3 leading-10 md:leading-[64px]">Got Questions About</h2>
-          <h2 className="text-[#11111199] p-0 -mt-4 w-2/3 leading-10 md:leading-[64px]">PADHer With Love?</h2>
+          <h2 className="text-[#111111] text-center p-0 m-0 w-2/3 leading-10 md:leading-[64px]">Got Questions About</h2>
+          <h2 className="text-[#11111199] text-center p-0 -mt-4 w-2/3 leading-10 md:leading-[64px]">PADHer With Love?</h2>
         </div>
         <p
           className="text-center w-[90%] md:w-[61%] capitalize text-[#393939] mt-4 md:mt-0 text-[14px] md:text-[16px]"

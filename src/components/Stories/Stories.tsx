@@ -42,7 +42,7 @@ const Stories = () => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center relative overflow-hidden py-4 md:py-[90px] px-4 md:px-8 gap-4 md:gap-16 bg-[#FFF]">
+    <div className="w-full flex flex-col items-center relative overflow-hidden py-4 md:py-[90px] px-4 md:px-8 gap-4 md:gap-16 bg-[#FFF] z-20">
       <Image
         src={"/svgs/Vector-2.svg"}
         alt={""}

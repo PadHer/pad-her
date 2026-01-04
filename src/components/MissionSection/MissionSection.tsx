@@ -2,8 +2,8 @@ import Image from "next/image";
 
 const Mission = () => {
   return (
-    <div className="w-full bg-[#FFF5F9] flex justify-center items-center px-4 py-4 md:px-[100px] md:py-[80px] sticky">
-      <div className="w-full py-4 md:py-[32px] bg-[#FFF] flex flex-col items-center rounded-[40px] gap-8">
+    <div className="w-full bg-[#FFF5F9] flex justify-center items-center px-4 py-4 md:px-[100px] md:py-[80px] z-20">
+      <div className="w-full py-4 md:py-[32px] bg-[#FFF] flex flex-col items-center rounded-[40px]">
         <h2
           className="text-[48px] text-[#111111]"
           style={{
@@ -17,9 +17,10 @@ const Mission = () => {
           alt="Vector"
           width={300}
           height={18}
+          className="md:mt-[-16px]"
         />
         <p
-          className="text-[#393939] text-[16px] md:text-[24px] text-center w-full md:w-[60%] leading-[36px]"
+          className="text-[#393939] text-[16px] md:text-[24px] text-center w-full md:w-[60%] leading-[36px] md:mt-4"
           style={{
             fontFamily: "OpenSans",
           }}
@@ -29,10 +30,7 @@ const Mission = () => {
           thrive confidently in their communities.
         </p>
         <button
-          className="rounded-[24px] cursor-pointer px-[32px] py-[4px] text-[16px] text-white font-semibold hover:opacity-90 transition-opacity duration-300 ease-in-out mb-[32px]"
-          style={{
-            background: "linear-gradient(180deg, #FF07A9 0%, #B90D7D 100%)",
-          }}
+          className="button mb-[32px]"
         >
           Continue Reading
         </button>

@@ -6,7 +6,7 @@ import { blogs } from "@/data/blogs";
 
 const BlogSection = () => {
   return (
-    <div className="w-full bg-[#FFF9FB] flex flex-col py-8 md:py-16 pl-4 md:pl-32 overflow-hidden">
+    <div className="w-full bg-[#FFF9FB] flex flex-col py-8 md:py-16 pl-4 md:pl-32 overflow-hidden z-20">
       <div className="w-full  flex items-center justify-between pr-32">
         <div className="w-full flex flex-col">
           <h4
@@ -24,7 +24,7 @@ const BlogSection = () => {
           </h1>
         </div>
       </div>
-      <div className="w-full overflow-x-scroll flex items-center gap-4">
+      <div className="w-full overflow-x-scroll scroll-smooth no-scrollbar flex items-center gap-4">
         {blogs.map((blog) => (
           <section
             key={blog.id}
@@ -64,7 +64,7 @@ const BlogSection = () => {
       <div></div>
       <div className="w-full flex items-center justify-center mt-8">
         <button
-          className="px-[24px] py-[8px] border-[#FF07A9] border-[2px] cursor-pointer rounded-[24px] text-[#B90D7D] text-4 hover:bg-[#FFE8F7] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D]"
+          className="button-secondary"
           style={{
             fontFamily: "OpenSans-Bold",
           }}
