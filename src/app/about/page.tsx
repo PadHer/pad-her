@@ -11,15 +11,9 @@ import Link from "next/link";
 import { aboutData } from "@/data/about";
 import Stories from "@/components/Stories/Stories";
 import Captures from "@/components/Captures/Captures";
-import Head from "next/head";
+// import Head from "next/head";
 
-<Head>
-  <link
-    rel="preload"
-    as="image"
-    href="/images/about.png"
-  />
-</Head>
+
 
 const Page = () => {
   return (
