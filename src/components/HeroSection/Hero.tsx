@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { HeroImages } from "@/data/Images";
 import { ClickHere } from "../animations/click";
 import Link from "next/link";
+import Image from "next/image";
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,12 +21,22 @@ const HeroSection = () => {
 
   return (
     <main className="w-full h-[60dvh] md:h-[90dvh] p-2 px-4 bg-[#FFFAFD]">
-      <div
-        className="mt-[10dvh] lg:mt-0 h-full w-full relative flex flex-column rounded-[24px] bg-cover bg-center bg-no-repeat transition-all duration-1000 ease-in-out"
-        style={{
-          backgroundImage: `url(${HeroImages[currentIndex]})`,
-        }}
-      >
+      <div className="mt-[10dvh] lg:mt-0 h-full w-full relative flex flex-column rounded-[24px] transition-all duration-1000 ease-in-out overflow-hidden">
+        {HeroImages.map((img, index) => (
+          <Image
+            key={img}
+            src={img}
+            alt="PadHer hero image"
+            fill
+            priority={index === 0}
+            placeholder="blur"
+            blurDataURL="/images/blur-placeholder.jpg"
+            sizes="100vw"
+            className={`object-cover transition-opacity duration-1000 ${
+              index === currentIndex ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
         <div className="absolute inset-0 bg-[#00000099] rounded-[24px]" />
         <div
           style={{

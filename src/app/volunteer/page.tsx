@@ -12,11 +12,12 @@ import PartnerShip from "@/components/PartnerShip/PartnerShip";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Heart, Clock4, MapPin } from "lucide-react";
+import VolunteerForm from "@/components/Modals/VolunteerForm";
 
 const Page = () => {
   const [formOpen, setFormOpen] = useState<boolean>(false);
 
-  const hanldeClickApply = () => {
+  const handleClickApply = () => {
     setFormOpen(true);
   };
 
@@ -72,7 +73,7 @@ const Page = () => {
                 fill
                 className="object-cover object-top rounded-[16px] rounded-br-[8px]"
               />
-              <div className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
+              <div className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply" onClick={handleClickApply}>
                 <p
                   className="text-[#FFFFFF] text-[16px]"
                   style={{ fontFamily: "OpenSans-Semi" }}
@@ -255,6 +256,7 @@ const Page = () => {
         <PartnerShip />
       </div>
       <Footer />
+      {formOpen && <VolunteerForm onClose={() => setFormOpen(false)} />}
     </div>
   );
 };
