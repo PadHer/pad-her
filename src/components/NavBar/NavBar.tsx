@@ -20,7 +20,6 @@ const NavBar = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-
   const handleToggle = () => {
     setMobileMenuOpen((prev) => !prev);
   };
@@ -44,7 +43,7 @@ const NavBar = () => {
           : "lg:rounded-[40px] text-[#FFF] md:w-[90%] md:bg-[#FFFFFF40] md:backdrop-blur-[54px] md:shadow-[0px_4px_16px_0px_#FF07A914] top-0 w-full lg:top-10"
       }`}
     >
-      <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 relative">
+      <div className="w-full max-w-7xl mx-auto px-4 md:py-2 md:px-8 relative">
         <div className="w-full flex justify-between items-center h-16">
           <Link href="/">
             <Image
@@ -70,19 +69,22 @@ const NavBar = () => {
               >
                 <span
                   className={`text-sm font-open font-medium transition-colors hover:text-[#FF07A9] flex flex-col ${
-                    pathname === item.href ? "text-[#FF07A9] font-semiBold" : "text-[#393939]"
+                    pathname === item.href
+                      ? "text-[#FF07A9] font-semiBold"
+                      : isSticky
+                      ? "text-[#393939]"
+                      : "text-[#F0F0F0]"
                   }`}
                 >
                   {item.name}
                   <span
-                  className={`
+                    className={`
                     h-[3px] w-0 bg-[#FF07A9] transition-all duration-300 
                     group-hover:w-full
                     ${pathname === item.href ? "w-1/2" : ""}
                   `}
-                />
+                  />
                 </span>
-                
               </Link>
             ))}
           </div>

@@ -220,6 +220,8 @@
     gap: 8px;
     border-radius: 24px;
     padding: 8px 16px;
+    box-sizing: border-box;
+    height: 45px;
     cursor: pointer;
     color: #fff;
     font-weight: 700;

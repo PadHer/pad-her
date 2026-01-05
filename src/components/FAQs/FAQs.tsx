@@ -32,11 +32,11 @@ const FAQs = () => {
           className="w-full flex flex-col items-start md:items-center text-[32px] md:text-[64px] px-4 md:px-0 gap-4 md:gap-4"
           style={{ fontFamily: "Yeseva" }}
         >
-          <h2 className="text-[#111111] text-center p-0 m-0 w-2/3 leading-10 md:leading-[64px]">Got Questions About</h2>
-          <h2 className="text-[#11111199] text-center p-0 -mt-4 w-2/3 leading-10 md:leading-[64px]">PADHer With Love?</h2>
+          <h2 className="text-[#111111] text-start md:text-center p-0 m-0 w-2/3 leading-8 md:leading-[64px]">Got Questions About</h2>
+          <h2 className="text-[#11111199] text-start md:text-center p-0 -mt-4 w-2/3 leading-8 md:leading-[64px]">PADHer With Love?</h2>
         </div>
         <p
-          className="text-center w-[90%] md:w-[61%] capitalize text-[#393939] mt-4 md:mt-0 text-[14px] md:text-[16px]"
+          className="text-start md:text-center w-[90%] md:w-[61%] capitalize text-[#393939] mt-1 md:mt-0 text-[14px] md:text-[16px]"
           style={{ fontFamily: "OpenSans-Semi" }}
         >
           Find quick answers to the most common questions about who we are, what

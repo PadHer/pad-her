@@ -47,11 +47,10 @@ const Footer = () => {
         PAD HER WITH LOVE
       </h1>
       <p className="w-full md:w-[30%] text-[#989797] text-[16px] text-center font-open font-semibold mt-6 md:mt-0">
-        Join us as we create a world where no girl is held back because of her
-        period.
+        Subscribe to our newsletter
       </p>
       <form
-        className="w-[35%] flex gap-2 items-center justify-center mt-7"
+        className="w-[35%] flex gap-2 items-center justify-center mt-4"
         action=""
       >
         <input
@@ -59,7 +58,7 @@ const Footer = () => {
           onChange={(e) => setSubscribe(e.target.value)}
           value={subscribe}
           name="subscribe"
-          placeholder="Subscribe to Newsletter"
+          placeholder="Enter email address"
           className="border-[1px] border-[#EAEAEA] bg-[#FFF] rounded-[16px] px-4 py-2 outline-none placeholder:text-[#989797] placeholder:text-[12px] font-open text-[16px] text-[#1A1A1A]"
         />
         <button className="button">Subscribe</button>

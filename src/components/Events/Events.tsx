@@ -13,7 +13,7 @@ const Events = () => {
         className="absolute left-0 top-0"
       />
       <h1
-        className="uppercase text-[#111111] text-[32px] w-1/2  md:w-full md:text-[60px] md:text-center"
+        className="uppercase text-[#111111] text-[32px] w-1/2  md:w-full md:text-[60px] text-end md:text-center mt-4 md:mt-0"
         style={{ fontFamily: "Yeseva" }}
       >
         upcoming events
@@ -25,7 +25,7 @@ const Events = () => {
         you can&apos;t miss
       </h4>
       <p
-        className="text-center w-[70%] text-[#393939] text-4"
+        className="text-center w-4/5 md:w-[70%] text-[#393939] text-[14px] md:text-[24px]"
         style={{ fontFamily: "OpenSans" }}
       >
         Join our upcoming events and be a part of the movement to end period

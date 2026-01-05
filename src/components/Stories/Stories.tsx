@@ -50,16 +50,16 @@ const Stories = () => {
         height={400}
         className="absolute right-[-4%] top-0 transform scale-x-[-1]"
       />
-      <div className="w-full flex flex-col items-center mt-4 md:mt-0">
+      <div className="w-full flex flex-col items-start md:items-center mt-4 md:mt-0">
         <div
-          className="flex flex-col md:items-center text-[24px] md:text-[48px] capitalize items-start"
+          className="flex flex-col gap-1 md:gap-4 md:items-center text-[24px] md:text-[48px] capitalize items-start"
           style={{ fontFamily: "Yeseva" }}
         >
-          <h2 className="text-[#11111199] w-1/2 md:w-full">What Our Beneficiaries,</h2>
-          <h2 className="text-[#000000] w-2/3 md:w-full">Volunteers and Partners Say</h2>
+          <h2 className="text-[#11111199] w-1/2 md:w-full md:text-center leading-8 p-0 m-0">What Our Beneficiaries,</h2>
+          <h2 className="text-[#000000] w-2/3 md:w-full md:text-center leading-8 p-0 m-0">Volunteers and Partners Say</h2>
         </div>
         <p
-          className="text-[#393939] text-center w-3/4 md:w-[100%] text-[16px]"
+          className="text-[#393939] text-start md:text-center w-4/5 md:w-[55%] text-[18px] mt-2 md:mt-0"
           style={{ fontFamily: "OpenSans" }}
         >
           Every pad given, every conversation held, and every outreach organized

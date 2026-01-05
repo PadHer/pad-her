@@ -14,24 +14,45 @@ import Stories from "@/components/Stories/Stories";
 
 export default function Home() {
   return (
-    <div className="w-full bg-[#FFF] flex flex-col items-center justify-center relative">
-      <NavBar />
-      <HeroSection />
-      <DataCount />
-      <div className="sticky top-10 w-full z-10 bg-white overflow-hidden">
-        <About />
+    <>
+      <div className="w-full bg-[#FFF] md:flex flex-col items-center justify-center relative hidden">
+        <NavBar />
+        <HeroSection />
+        <DataCount />
+        <div className="sticky top-10 w-full z-10 bg-white overflow-hidden">
+          <About />
+        </div>
+        <Mission />
+        <GetInvolved />
+        <Events />
+        <BlogSection />
+        <Captures />
+        <Stories />
+        <FAQs />
+        <div id="partnership" className="scroll-mt-20">
+          <PartnerShip />
+        </div>
+        <Footer />
       </div>
-      <Mission />
-      <GetInvolved />
-      <Events />
-      <BlogSection />
-      <Captures />
-      <Stories />
-      <FAQs />
-      <div id="partnership" className="scroll-mt-20">
-        <PartnerShip />
+      <div className="w-full bg-[#FFF] flex flex-col items-center justify-center relative md:hidden overflow-hidden">
+        <NavBar />
+        <HeroSection />
+        <DataCount />
+        <div className="sticky top-10 w-full z-10 bg-white overflow-hidden">
+          <About />
+        </div>
+        <Mission />
+        <GetInvolved />
+        <Events />
+        <BlogSection />
+        <Captures />
+        <Stories />
+        <FAQs />
+        <div id="partnership" className="scroll-mt-20">
+          <PartnerShip />
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </>
   );
 }
