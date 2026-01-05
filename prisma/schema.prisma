@@ -21,5 +21,45 @@ model AdminSession {
   expiresAt  DateTime
 }
 
+model Volunteer {
+  id        String   @id @default(uuid())
+  fullName      String
+  emailAddress     String   @unique
+  phoneNumber     String?
+  interest  String?
+  whyVolunteer   String?
+  isAgree Boolean
+  createdAt DateTime @default(now())
+}
+
+model Donation {
+  id          String   @id @default(uuid())
+  name        String?
+  email       String?
+  amount      Int      // store in kobo (NGN) or cents
+  reference   String   @unique
+  status      String   // pending | successful | failed
+  createdAt   DateTime @default(now())
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  fullName      String
+  organisation String
+  emailAddress     String
+  phoneNumber String
+  typeOfEnquiry   String?
+  website String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+
 
 
