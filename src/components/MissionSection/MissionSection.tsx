@@ -30,7 +30,7 @@ const Mission = () => {
           thrive confidently in their communities.
         </p>
         <button
-          className="button mb-[32px]"
+          className="button mt-4"
         >
           Continue Reading
         </button>

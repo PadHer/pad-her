@@ -47,7 +47,7 @@ const About = () => {
           >
             About <br /> Pad<span className="text-pink-600">Her</span>
           </h3>
-          <p className="text-[#393939] text-[20px] md:text-[24px] w-full md:w-[90%]">
+          <p className="text-[#393939] text-[14px] md:text-[24px] w-full md:w-[90%]">
             PadHer With Love is a nonprofit initiative committed to ending
             period poverty by equipping young girls with free sanitary pads,
             menstrual health education, and compassionate support. We believe
