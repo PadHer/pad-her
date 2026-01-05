@@ -4,7 +4,7 @@ import { campaigns } from "@/data/campaigns";
 
 const Events = () => {
   return (
-    <div className="w-full flex flex-col items-end md:items-center relative py-10 px-4 md:py-[90px] md:px-48 bg-[#FFFFFF]">
+    <div className="w-full flex flex-col items-end md:items-center relative py-10 px-4 md:py-[90px] md:px-48 bg-[#FFFFFF] z-20">
       <Image
         src={"/svgs/Vector-2.svg"}
         alt={""}
@@ -13,7 +13,7 @@ const Events = () => {
         className="absolute left-0 top-0"
       />
       <h1
-        className="uppercase text-[#111111] text-[32px] w-1/2  md:w-full md:text-[60px]"
+        className="uppercase text-[#111111] text-[32px] w-1/2  md:w-full md:text-[60px] md:text-center"
         style={{ fontFamily: "Yeseva" }}
       >
         upcoming events

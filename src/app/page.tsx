@@ -14,11 +14,13 @@ import Stories from "@/components/Stories/Stories";
 
 export default function Home() {
   return (
-    <div className="w-full bg-[#FFF] flex flex-col items-center justify-center overflow-hidden relative">
+    <div className="w-full bg-[#FFF] flex flex-col items-center justify-center relative">
       <NavBar />
       <HeroSection />
       <DataCount />
-      <About />
+      <div className="sticky top-10 w-full z-10 bg-white overflow-hidden">
+        <About />
+      </div>
       <Mission />
       <GetInvolved />
       <Events />
@@ -26,7 +28,9 @@ export default function Home() {
       <Captures />
       <Stories />
       <FAQs />
-      <PartnerShip />
+      <div id="partnership" className="scroll-mt-20">
+        <PartnerShip />
+      </div>
       <Footer />
     </div>
   );

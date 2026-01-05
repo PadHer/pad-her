@@ -12,7 +12,7 @@ const navigation = [
   { name: "About Us", href: "/about" },
   { name: "Volunteer", href: "/volunteer" },
   { name: "Blog", href: "/blog" },
-  { name: "Contact Us", href: "/contact" },
+  { name: "Contact Us", href: "#partnership" },
 ];
 
 const NavBar = () => {
@@ -41,7 +41,7 @@ const NavBar = () => {
       className={`fixed flex justify-center z-100 py-1 transition-all duration-300 ${
         isSticky
           ? "bg-white top-[0] w-full"
-          : "lg:rounded-[40px] text-[#FFF] md:w-[90%] md:backdrop-blur-[54px] md:shadow-[0px_4px_16px_0px_#FF07A914] top-0 w-full lg:top-10"
+          : "lg:rounded-[40px] text-[#FFF] md:w-[90%] md:bg-[#FFFFFF40] md:backdrop-blur-[54px] md:shadow-[0px_4px_16px_0px_#FF07A914] top-0 w-full lg:top-10"
       }`}
     >
       <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 relative">
@@ -99,7 +99,7 @@ const NavBar = () => {
                 className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] hover:bg-[#FFE8F7] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D] cursor-pointer ${
                   isSticky
                     ? "text-[#ED006C] border-[#ED006C]"
-                    : "border-white text-[#FFF]"
+                    : "border-[#CCC] text-[#CCC]"
                 }`}
               >
                 Get Involved
@@ -128,7 +128,7 @@ const NavBar = () => {
                         className={`text-sm font-medium transition-colors hover:text-[#FF07A9] ${
                           pathname === item.href
                             ? "text-[#FF07A9] border-b-2 border-[#FF07A9] pb-1"
-                            : "text-[#393939]"
+                            : "text-[#393939] md:shadow-[0px_4px_16px_0px_#FF07A914]"
                         }`}
                       >
                         {item.name}

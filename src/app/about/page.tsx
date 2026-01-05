@@ -11,6 +11,9 @@ import Link from "next/link";
 import { aboutData } from "@/data/about";
 import Stories from "@/components/Stories/Stories";
 import Captures from "@/components/Captures/Captures";
+// import Head from "next/head";
+
+
 
 const Page = () => {
   return (
@@ -62,7 +65,7 @@ const Page = () => {
               alt="Vector"
               width={300}
               height={18}
-              className="transform scale-x-[-1]"
+              className="transform scale-x-[-1] -mt-4"
             />
             <div className="md:hidden w-full h-[40dvh] mt-8 rounded-[8px_60px_8px_60px] overflow-hidden relative">
               <Image
@@ -101,6 +104,7 @@ const Page = () => {
               alt="Vector"
               width={300}
               height={18}
+              className="-mt-4"
             />
             <div className="md:hidden w-full h-[40dvh] mt-8 rounded-[8px_60px_8px_60px] overflow-hidden relative">
               <Image
@@ -197,7 +201,7 @@ const Page = () => {
             alt="Vector"
             width={250}
             height={18}
-            className="mt-[-0.5rem] transform scale-x-[-1]"
+            className="mt-[-1rem] transform scale-x-[-1]"
           />
           <div className="md:hidden w-full h-[55dvh] relative mt-8">
             <div className="w-full rounded-[40px] overflow-hidden h-full absolute right-0 top-0 border-1 border-[#E7E7E7] shadow-[0px_4px_40px_0px_#0000000F]">
@@ -271,7 +275,9 @@ const Page = () => {
       <Captures />
       <Stories />
       <FAQs />
-      <PartnerShip />
+      <div id="partnership" className="scroll-mt-24">
+        <PartnerShip />
+      </div>
       <Footer />
     </div>
   );

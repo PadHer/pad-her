@@ -54,7 +54,7 @@ const Captures = () => {
     ...CarouselImages,
   ];
   return (
-    <div className="w-full bg-[#FFF] flex flex-col gap-6 items-center justify-center py-4 md:py-16">
+    <div className="w-full bg-[#FFF] flex flex-col gap-6 items-center justify-center py-4 md:py-16 z-20">
       <div className="w-full flex flex-col md:items-center gap-2 px-4">
         <h2
           className="text-[32px] md:text-[64px] text-[#111111] relative"

@@ -80,7 +80,7 @@ const PartnerShip = () => {
   };
 
   return (
-    <div className="w-full flex flex-col md:flex-row relative py-4 md:py-[70px] p-4 md:px-24 gap-8 md:justify-between bg-[#FFF]">
+    <div className="w-full flex flex-col md:flex-row relative py-4 md:py-[70px] p-4 md:px-24 gap-8 md:justify-between bg-[#FFF] z-20">
       <Image
         src={"/svgs/Vector-3.svg"}
         alt=""

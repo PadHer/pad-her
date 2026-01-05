@@ -35,7 +35,7 @@ const Page = () => {
   return (
     <div className="w-full bg-[#FFF] flex flex-col items-center justify-center overflow-hidden relative">
       <NavBar />
-      <div className="w-full h-[95dvh] md:h-[85dvh] mt-[10dvh] py-6 md:py-0 md:mt-30 px-4 md:px-24">
+      <div className="w-full h-[95dvh] md:h-screen mt-[10dvh] md:mt-[25dvh] py-6 md:py-0 px-4 md:px-24">
         <h1
           className="text-[32px] leading-[40px] md:text-[60px] text-[#111111]"
           style={{
@@ -44,7 +44,7 @@ const Page = () => {
         >
           Education & Awareness
         </h1>
-        <p className="text-[16px] font-open text-[#393939] w-full md:w-9/10">
+        <p className="text-[16px] font-open text-[#393939] mt-4 w-full md:w-9/10">
           At PadHer with Love, we believe that menstrual stigma and ending
           period poverty begins with open conversations and informed minds. This
           space is where we challenge harmful myths, share empowering stories,
@@ -95,7 +95,7 @@ const Page = () => {
                   </h6>
                 </div>
               </div>
-              <span className="border-1 border-[#FFF5F9] py-1 px-1 md:px-2.5 rounded-[12px] md:rounded-[16px] text-[10px] md:text-[16px] font-open text-[#FFF5F9]">
+              <span className="border-1 border-[#FFF5F9] py-1 px-1 md:px-2.5 rounded-[12px] md:rounded-[16px] text-[10px] md:text-[12px] font-open text-[#FFF5F9]">
                 12 min read
               </span>
             </div>
@@ -149,7 +149,9 @@ const Page = () => {
         </div>
         </div>
       </div>
-      <PartnerShip />
+      <div id="partnership" className="scroll-mt-24">
+        <PartnerShip />
+      </div>
       <Footer />
     </div>
   );
