@@ -1,41 +1,40 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
+import { useState } from "react";
 
 export default function AdminLogin() {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
 
-    const form = e.currentTarget
+    const form = e.currentTarget;
 
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         username: form.username.value,
         password: form.password.value,
       }),
-    })
+    });
 
     if (res.ok) {
-      window.location.href = '/admin/dashboard'
+      window.location.href = "/admin/dashboard";
     } else {
-      alert('Invalid credentials')
+      const data = await res.json();
+      alert(data.error);
     }
 
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <input name="username" placeholder="Admin username" required />
       <input name="password" type="password" required />
-      <button disabled={loading}>
-        {loading ? 'Logging in...' : 'Login'}
-      </button>
+      <button disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
     </form>
-  )
+  );
 }
