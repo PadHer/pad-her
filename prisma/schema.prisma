@@ -33,13 +33,15 @@ model Volunteer {
 }
 
 model Donation {
-  id          String   @id @default(uuid())
-  name        String?
-  email       String?
-  amount      Int      // store in kobo (NGN) or cents
-  reference   String   @unique
-  status      String   // pending | successful | failed
-  createdAt   DateTime @default(now())
+  id            String   @id @default(uuid())
+  donationAmount Int
+  donationType   String
+  donorName      String
+  donorEmail     String
+  isAnon         Boolean  @default(false)
+  reference      String   @unique
+  status         String   @default("pending") // pending | successful | failed
+  createdAt      DateTime @default(now())
 }
 
 model NewsletterSubscriber {

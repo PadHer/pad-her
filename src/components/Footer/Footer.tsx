@@ -28,6 +28,31 @@ const socials = [
 
 const Footer = () => {
   const [subscribe, setSubscribe] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!subscribe) return;
+
+    setLoading(true);
+
+    const res = await fetch("/api/newsletter", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: subscribe }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Subscribed successfully 🎉");
+      setLoading(false);
+      setSubscribe("");
+    } else {
+      alert(data.error || "Something went wrong");
+    }
+  };
   return (
     <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-4 md:pt-[25px] px-4 md:px-24 relative z-20">
       <span className="absolute left-[12%] md:left-[14%] -top-25 md:top-8">
@@ -42,7 +67,7 @@ const Footer = () => {
       <span className="absolute -top-15 right-10 md:right-[18%] md:-top-8">
         <Star size="6px" color={"#ED006C"} />
       </span>
-      
+
       <h1 className="font-playfair font-extrabold footer-text text-[40px] text-center  md:text-[100px] inset-0">
         PAD HER WITH LOVE
       </h1>
@@ -52,6 +77,7 @@ const Footer = () => {
       <form
         className="w-[35%] flex gap-2 items-center justify-center mt-4"
         action=""
+        onSubmit={handleSubmit}
       >
         <input
           type="text"
@@ -61,7 +87,7 @@ const Footer = () => {
           placeholder="Enter email address"
           className="border-[1px] border-[#EAEAEA] bg-[#FFF] rounded-[16px] px-4 py-2 outline-none placeholder:text-[#989797] placeholder:text-[12px] font-open text-[16px] text-[#1A1A1A]"
         />
-        <button className="button">Subscribe</button>
+        <button disabled={loading} type="submit" className="button">{loading ? "Subscribing..." : "Subscribe"}</button>
       </form>
       <div className="w-full flex flex-col-reverse md:flex-row md:mt-16 py-6 items-center gap-6 md:justify-between">
         <h4
