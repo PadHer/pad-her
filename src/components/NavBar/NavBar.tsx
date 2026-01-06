@@ -73,7 +73,7 @@ const NavBar = () => {
                       ? "text-[#FF07A9] font-semiBold"
                       : isSticky
                       ? "text-[#393939]"
-                      : "text-[#F0F0F0]"
+                      : "text-[#CCC]"
                   }`}
                 >
                   {item.name}

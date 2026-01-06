@@ -17,6 +17,7 @@ type DonationData = {
 
 const Page = () => {
   const [selectedAmount, setSelectedAmount] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<DonationData>({
     donationAmount: "",
     donationType: "",
@@ -44,8 +45,10 @@ const Page = () => {
     }));
   };
 
-  const handleDonate = (e: React.FormEvent) => {
+  const handleDonate = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const newErrors: Partial<DonationData> = {};
 
@@ -68,6 +71,7 @@ const Page = () => {
     }
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      setLoading(false);
       return;
     }
     const submissionData = {
@@ -77,6 +81,33 @@ const Page = () => {
       donorEmail: formData.donorEmail,
       isAnon: formData.isAnon,
     };
+
+    try {
+    const res = await fetch("/api/donations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(submissionData),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Donation submitted successfully!");
+      setLoading(false);
+      setFormData({
+        donationAmount: "",
+        donationType: "",
+        donorName: "",
+        donorEmail: "",
+        isAnon: false,
+      });
+    } else {
+      alert(data.error || "Donation submission failed.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong.");
+  }
 
     console.log("Submitting donation:", submissionData);
   };
@@ -257,8 +288,7 @@ const Page = () => {
               Make this donation anonymous
             </label>
             <div className="w-full flex justify-center items-center">
-              <button className="button" type="submit">
-                Donate{" "}
+              <button disabled={loading} type="submit" className="button">{loading ? "Donating..." : "Donate"}
                 {formData.donationAmount && <>${formData.donationAmount}</>} now
               </button>
             </div>
