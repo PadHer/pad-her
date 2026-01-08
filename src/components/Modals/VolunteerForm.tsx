@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
+import SuccessModal from "./SuccessModal";
 
 type FormData = {
   fullName: string;
@@ -36,6 +37,7 @@ const VolunteerForm = ({ onClose }: FormProps) => {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [isSuccess, setIsSucces] = useState<boolean>(false);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -109,7 +111,7 @@ const VolunteerForm = ({ onClose }: FormProps) => {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Volunteer registered successfully!");
+        setIsSucces(true);
         setLoading(false);
         setVolunteerForm({
           fullName: "",
@@ -129,8 +131,23 @@ const VolunteerForm = ({ onClose }: FormProps) => {
   };
 
   return (
-    <div className="h-screen w-full inset-0 bg-[#00000099] z-999 fixed flex items-center justify-center top-0 left-0">
-      <div className="w-2/3 py-4 md:px-10 md:grid grid-cols-2 grid-rows-1 gap-4 shadow-[#0000001F] bg-[#FFFFFF] rounded-4xl">
+    <div
+      onClick={onClose}
+      className="h-screen w-full inset-0 bg-[#00000099] z-999 fixed flex items-center justify-center top-0 left-0"
+    >
+      {isSuccess && (
+        <SuccessModal
+          title="Thank You for Signing Up!"
+          message="We’re excited to have you join the PadHer With Love volunteer community. Our team will review your application and reach out with next steps soon."
+          primary="Back to Homepage"
+          secondary="Explore Events"
+          onClose={() => setIsSucces(false)}
+        />
+      )}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-2/3 py-4 md:px-10 md:grid grid-cols-2 grid-rows-1 gap-4 shadow-[#0000001F] bg-[#FFFFFF] rounded-4xl"
+      >
         <div className="w-full relative h-auto bg-[#9D9D9D] rounded-[24px] overflow-hidden"></div>
         <form
           className="w-full flex flex-col gap-4"
