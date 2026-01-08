@@ -23,7 +23,7 @@ const GetInvolved = () => {
         animate={{ opacity: isInView ? 0 : 1 }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
         style={{
-          backgroundImage: `url('images/bg.png')`,
+          backgroundImage: `url('images/Bg.png')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
