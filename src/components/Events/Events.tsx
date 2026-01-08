@@ -25,7 +25,7 @@ const Events = () => {
         you can&apos;t miss
       </h4>
       <p
-        className="text-center w-4/5 md:w-[70%] text-[#393939] text-[14px] md:text-[24px]"
+        className="text-center w-4/5 md:w-[70%] text-[#393939] text-[14px] md:text-[16px]"
         style={{ fontFamily: "OpenSans" }}
       >
         Join our upcoming events and be a part of the movement to end period

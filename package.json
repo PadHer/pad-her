@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hiseb/confetti": "^2.1.0",
     "@lottiefiles/dotlottie-react": "^0.14.4",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
