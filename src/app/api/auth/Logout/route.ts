@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import prisma from "@/lib/prisma";
 
 export async function POST() {
   const sessionId = (await cookies()).get("admin_session")?.value;
