@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import crypto from "node:crypto";
 import { cookies } from "next/headers";
-import prisma from "@/lib/db";
+import prisma from "@/lib/prisma";
 
 export async function POST(req: Request) {
   const { username, password } = await req.json();

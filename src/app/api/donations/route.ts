@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import crypto from "node:crypto";
-import prisma from "@/lib/db";
+import prisma from "@/lib/prisma";
 
 interface DonationRequest {
   donationAmount: number;

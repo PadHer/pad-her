@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import prisma from '@/lib/db'
+import prisma from '@/lib/prisma'
 
 export async function middleware(req: NextRequest) {
   const sessionId = req.cookies.get('admin_session')?.value
