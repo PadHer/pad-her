@@ -47,7 +47,7 @@ const About = () => {
           >
             About <br /> Pad<span className="text-pink-600">Her</span>
           </h3>
-          <p className="text-[#393939] text-[14px] md:text-[24px] w-full md:w-[90%]">
+          <p className="text-[#393939] text-[16px] md:text-[24px] w-full md:w-[90%]">
             PadHer With Love is a nonprofit initiative committed to ending
             period poverty by equipping young girls with free sanitary pads,
             menstrual health education, and compassionate support. We believe
@@ -55,7 +55,7 @@ const About = () => {
             matter her background.
           </p>
         </section>
-        <section className="w-full h-[55dvh] md:h-auto md:w-1/2 relative">
+        <section className="w-full hidden lg:flex h-[55dvh] md:h-auto md:w-1/2 relative">
           <motion.aside
             custom={{
               enterTop: "80%",
@@ -76,7 +76,7 @@ const About = () => {
               />
             </span>
             <p
-              className="text-white text-[24px]"
+              className="text-white text-[16px] md:text-[24px]"
               style={{ fontFamily: "OpenSans-Semi" }}
             >
               Volunteer-Led
@@ -102,7 +102,7 @@ const About = () => {
               />
             </span>
             <p
-              className="text-white text-[24px]"
+              className="text-white text-[16px] md:text-[24px]"
               style={{ fontFamily: "OpenSans-Semi" }}
             >
               Transparent Donations
@@ -128,7 +128,7 @@ const About = () => {
               />
             </span>
             <p
-              className="text-white text-[24px]"
+              className="text-white text-[16px] md:text-[24px]"
               style={{ fontFamily: "OpenSans-Semi" }}
             >
               Grassroot Impact
@@ -154,12 +154,82 @@ const About = () => {
               />
             </span>
             <p
-              className="text-white text-[24px]"
+              className="text-white text-[16px] md:text-[24px]"
               style={{ fontFamily: "OpenSans-Semi" }}
             >
               4,000+ girls reached
             </p>
           </motion.aside>
+        </section>
+        <section className="w-full h-[40dvh] relative">
+          <aside className="bg-[#6DC6C9] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-2 absolute top-[45%] right-0 rotate-25 whitespace-nowrap">
+            <span className="bg-[#FDFDFD40] h-[40px] w-[40px] flex justify-center items-center rounded-full">
+              <Image
+                src={"/svgs/Vector.svg"}
+                alt="svg"
+                width={24}
+                height={24}
+                priority
+              />
+            </span>
+            <p
+              className="text-white text-[16px]"
+              style={{ fontFamily: "OpenSans-Semi" }}
+            >
+              Volunteer-Led
+            </p>
+          </aside>
+          <aside className="bg-[#8C89EE] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-3 absolute -rotate-25 top-[10%] -right-10 whitespace-nowrap">
+            <span className="bg-[#FDFDFD40] h-[40px] w-[40px] flex justify-center items-center rounded-full">
+              <Image
+                src={"/svgs/donate.svg"}
+                alt="donate-svg"
+                width={24}
+                height={24}
+                priority
+              />
+            </span>
+            <p
+              className="text-white text-[16px]"
+              style={{ fontFamily: "OpenSans-Semi" }}
+            >
+              Transparent Donations
+            </p>
+          </aside>
+          <aside className="bg-[#FF67E3] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-2 absolute top-[25%] left-0 rotate-20 whitespace-nowrap">
+            <span className="bg-[#FDFDFD40] h-[40px] w-[40px] flex justify-center items-center rounded-full">
+              <Image
+                src={"/svgs/check.svg"}
+                alt="check-svg"
+                width={24}
+                height={24}
+                priority
+              />
+            </span>
+            <p
+              className="text-white text-[16px]"
+              style={{ fontFamily: "OpenSans-Semi" }}
+            >
+              Grassroot Impact
+            </p>
+          </aside>
+          <aside className="bg-[#B451BC] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-2 absolute -rotate-20 top-[55%] left-0">
+            <span className="bg-[#FDFDFD40] h-[40px] w-[40px] flex justify-center items-center rounded-full">
+              <Image
+                src={"/svgs/location.svg"}
+                alt="location-svg"
+                width={24}
+                height={24}
+                priority
+              />
+            </span>
+            <p
+              className="text-white text-[16px]"
+              style={{ fontFamily: "OpenSans-Semi" }}
+            >
+              4,000+ girls reached
+            </p>
+          </aside>
         </section>
       </motion.div>
     </div>
