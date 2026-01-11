@@ -2,9 +2,9 @@ import Image from "next/image";
 
 const Loader = () => {
   return (
-    <div>
+    <div className="flex flex-col gap-4 items-center">
       <Image
-        src={"/images/Main-Logo.png"}
+        src={"/logos/Main-Logo.png"}
         alt="Pad Her Logo"
         width={80}
         height={35}

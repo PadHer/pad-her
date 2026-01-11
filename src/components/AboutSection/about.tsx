@@ -161,7 +161,7 @@ const About = () => {
             </p>
           </motion.aside>
         </section>
-        <section className="w-full h-[40dvh] relative">
+        <section className="w-full flex md:hidden h-[40dvh] relative">
           <aside className="bg-[#6DC6C9] rounded-[40px] py-[12px] px-[24px] flex flex-row items-center gap-2 absolute top-[45%] right-0 rotate-25 whitespace-nowrap">
             <span className="bg-[#FDFDFD40] h-[40px] w-[40px] flex justify-center items-center rounded-full">
               <Image
