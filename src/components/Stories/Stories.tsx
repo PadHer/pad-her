@@ -59,11 +59,11 @@ const Stories = () => {
           <h2 className="text-[#000000] w-2/3 md:w-full md:text-center leading-8 p-0 m-0">Volunteers and Partners Say</h2>
         </div>
         <p
-          className="text-[#393939] text-start md:text-center w-4/5 md:w-[55%] text-[18px] mt-2 md:mt-0"
+          className="text-[#393939] text-start md:text-center w-4/5 md:w-[55%] text-[18px] mt-2 md:mt-6"
           style={{ fontFamily: "OpenSans" }}
         >
-          Every pad given, every conversation held, and every outreach organized
-          is changing a life. Here&apos;s what some of our girls, volunteers, and
+          <span className="hidden md:flex">Every pad given, every conversation held, and every outreach organized
+          is changing a life.</span> Here&apos;s what some of our girls, volunteers, and
           partners have to say about us.
         </p>
       </div>

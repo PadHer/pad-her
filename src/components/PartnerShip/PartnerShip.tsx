@@ -108,10 +108,10 @@ const PartnerShip = () => {
           style={{ fontFamily: "OpenSans" }}
         >
           We&apos;re always excited to welcome partners and sponsors who share our
-          passion for empowering young girls and ending period poverty. If
+          passion for empowering young girls and ending period poverty. <span className="hidden md:flex">If
           you&apos;re interested in collaborating with us whether through corporate
           sponsorship, resource donations, community partnerships, or
-          volunteering support, please reach out by filling the form.
+          volunteering support, please reach out by filling the form.</span>
         </p>
         <div className="w-full h-[45dvh] object-cover object-bottom md:h-[480px] relative">
           <Image src={"/images/Contact.png"} alt="" fill />

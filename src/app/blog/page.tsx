@@ -5,12 +5,12 @@ import NavBar from "@/components/NavBar/NavBar";
 import Footer from "@/components/Footer/Footer";
 import PartnerShip from "@/components/PartnerShip/PartnerShip";
 import Image from "next/image";
-// import Link from "next/link";
 import { blogs } from "@/data/blogs";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Page = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [[page], setPage] = useState<[number, number]>([0, 0]);
   const rowsPerPage = 6;
 
   const indexOfLastRow = currentPage * rowsPerPage;
@@ -134,8 +134,8 @@ const Page = () => {
       <div className="w-full px-4 md:px-24 py-4 overflow-hidden">
         <div className="relative w-full flex items-center justify-center">
             <span className="absolute w-full border-1 border-[#B9B9B9]"></span>
-        <div onClick={handlePrevPage} className="flex gap-4 items-center bg-[#FFF] z-30 px-2">
-            <button className="border-1 border-[#929292] flex items-center justify-center h-6 w-6 md:h-8 md:w-8 rounded-[4px] md:rounded-[8px] hover:bg-[#FF07A9] hover:border-1 hover:border-[#FFF] transition-colors duration-300 ease-in-out cursor-pointer">
+        <div className="flex gap-4 items-center bg-[#FFF] z-30 px-2">
+            <button onClick={handlePrevPage} className="border-1 border-[#929292] flex items-center justify-center h-6 w-6 md:h-8 md:w-8 rounded-[4px] md:rounded-[8px] hover:bg-[#FF07A9] hover:border-1 hover:border-[#FFF] transition-colors duration-300 ease-in-out cursor-pointer">
                 <ChevronLeft />
             </button>
             {pageNumbers.map((p, idx) => (

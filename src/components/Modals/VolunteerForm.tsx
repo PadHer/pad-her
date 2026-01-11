@@ -146,11 +146,11 @@ const VolunteerForm = ({ onClose }: FormProps) => {
       )}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-2/3 py-4 md:px-10 md:grid grid-cols-2 grid-rows-1 gap-4 shadow-[#0000001F] bg-[#FFFFFF] rounded-4xl"
+        className="w-5/6 md:w-2/3 py-4 md:px-10 md:grid grid-cols-2 grid-rows-1 gap-4 shadow-[#0000001F] bg-[#FFFFFF] rounded-4xl"
       >
-        <div className="w-full relative h-auto bg-[#9D9D9D] rounded-[24px] overflow-hidden"></div>
+        <div className="w-full hidden lg:flex relative h-auto bg-[#9D9D9D] rounded-[24px] overflow-hidden"></div>
         <form
-          className="w-full flex flex-col gap-4"
+          className="w-full flex flex-col gap-4 px-8 md:px-0"
           action=""
           onSubmit={handleSubmitForm}
         >
@@ -158,11 +158,11 @@ const VolunteerForm = ({ onClose }: FormProps) => {
             className="text-[#000000] flex items-center gap-4 cursor-pointer font-open font-light text-[16px] capitalize"
             onClick={onClose}
           >
-            <ArrowLeft size={32} color="#000000" />
+            <ArrowLeft size={20} color="#000000" />
             back
           </span>
           <h4
-            className="text-[#ED006C] text-[40px] "
+            className="text-[#ED006C] text-[40px] leading-10"
             style={{ fontFamily: "Yeseva" }}
           >
             Get Involved <span className="text-[#393939]">with us</span>
