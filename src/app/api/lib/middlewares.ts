@@ -1,25 +1,25 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import prisma from '@/lib/prisma'
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import prisma from "@/lib/prisma";
 
 export async function middleware(req: NextRequest) {
-  const sessionId = req.cookies.get('admin_session')?.value
+  const sessionId = req.cookies.get("admin_session")?.value;
 
   if (!sessionId) {
-    return NextResponse.redirect(new URL('/admin/login', req.url))
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   const session = await prisma.adminSession.findUnique({
     where: { id: sessionId },
-  })
+  });
 
   if (!session || session.expiresAt < new Date()) {
-    return NextResponse.redirect(new URL('/admin/login', req.url))
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/admin/dashboard/:path*'],
-}
+  matcher: ["/admin/dashboard/:path*"],
+};
