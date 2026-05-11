@@ -63,7 +63,7 @@
     font-size: 14px;
     font-family: OpenSans;
     position: relative;
-    margin-top: 8px;
+    /* margin-top: 8px; */
     /* width: 100%; */
     span {
       color: red;

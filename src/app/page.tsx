@@ -1,3 +1,6 @@
+
+"use client";
+
 import About from "@/components/AboutSection/about";
 import BlogSection from "@/components/BlogSection/BlogSection";
 import Captures from "@/components/Captures/Captures";

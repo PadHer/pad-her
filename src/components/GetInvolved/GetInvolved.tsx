@@ -4,8 +4,10 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const GetInvolved = () => {
+  const router = useRouter();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(sectionRef, {
     amount: 0.8,
@@ -89,7 +91,10 @@ const GetInvolved = () => {
               fill
               className="object-cover object-top rounded-[16px] rounded-br-[8px]"
             />
-            <div className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
+            <div
+              onClick={() => router.push("/volunteer")}
+              className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply"
+            >
               <p
                 className="text-[#FFFFFF] text-[16px]"
                 style={{ fontFamily: "OpenSans-Semi" }}
@@ -127,7 +132,10 @@ const GetInvolved = () => {
               fill
               className="object-cover rounded-[16px] rounded-br-[8px]"
             />
-            <div className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
+            <div
+              onClick={() => router.push("/volunteer")}
+              className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply"
+            >
               <p
                 className="text-[#FFFFFF] text-[16px]"
                 style={{ fontFamily: "OpenSans-Semi" }}
@@ -165,7 +173,10 @@ const GetInvolved = () => {
               fill
               className="object-cover rounded-[16px] rounded-br-[8px]"
             />
-            <div className="apply w-1/2 md:w-[37%] backdrop-blur-[5px]">
+            <div
+              onClick={() => router.push("/volunteer")}
+              className="apply w-1/2 md:w-[37%] backdrop-blur-[5px]"
+            >
               <p
                 className="text-[#FFFFFF] text-[16px]"
                 style={{ fontFamily: "OpenSans-Semi" }}
