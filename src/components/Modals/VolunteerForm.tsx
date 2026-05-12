@@ -1,140 +1,126 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 import SuccessModal from "./SuccessModal";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { campaigns } from "@/data/campaigns";
 
-type FormData = {
-  fullName: string;
-  emailAddress: string;
-  phoneNumber: string;
-  interest: string;
-  whyVolunteer: string;
-  isAgree: boolean;
-};
+const volunteerFormSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  phone: z.string().optional(),
+  skills: z.array(z.string()).optional(),
+  availability: z.string().optional(),
+  opportunityId: z.number().optional(),
+});
 
-type FormErrors = {
-  fullName?: string;
-  emailAddress?: string;
-  phoneNumber?: string;
-  interest?: string;
-  whyVolunteer?: string;
-  isAgree?: string;
-};
+type FormData = z.infer<typeof volunteerFormSchema>;
 
-interface FormProps {
-  onClose: () => void;
-}
-
-const VolunteerForm = ({ onClose }: FormProps) => {
-  const [volunteerForm, setVolunteerForm] = useState<FormData>({
-    fullName: "",
-    emailAddress: "",
-    phoneNumber: "",
-    interest: "",
-    whyVolunteer: "",
-    isAgree: false,
-  });
-  const [loading, setLoading] = useState<boolean>(false);
-  const [errors, setErrors] = useState<FormErrors>({});
+const VolunteerForm = () => {
+  // const [loading, setLoading] = useState<boolean>(false);
   const [isSuccess, setIsSucces] = useState<boolean>(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { name, value, type } = e.target;
+  const form = useForm<FormData>({
+    resolver: zodResolver(volunteerFormSchema),
+    defaultValues: {
+      email: "",
+      firstName: "",
+      lastName: "",
+      phone: "",
+      skills: [],
+      availability: "",
+    },
+  });
 
-    setVolunteerForm((prev) => ({
-      ...prev,
-      [name]:
-        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
-    }));
+  const skillOptions = [
+    "Teaching/Education",
+    "Healthcare",
+    "Social Media/Marketing",
+    "Event Planning",
+    "Translation",
+    "Photography",
+    "Fundraising",
+    "Community Outreach",
+  ];
 
-    setErrors((prev) => ({ ...prev, [name]: "" }));
-  };
+  // if (loading) return;
 
-  const validate = () => {
-    const newErrors: FormErrors = {};
+  // const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-    if (!volunteerForm.fullName.trim()) {
-      newErrors.fullName = "Full name is required";
-    }
-    if (!volunteerForm.emailAddress.trim()) {
-      newErrors.emailAddress = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(volunteerForm.emailAddress)) {
-      newErrors.emailAddress = "Enter a valid email address";
-    }
-    if (!volunteerForm.interest.trim()) {
-      newErrors.interest = "Please select your area of interest";
-    }
-    if (!volunteerForm.whyVolunteer.trim()) {
-      newErrors.whyVolunteer = "Message cannot be empty";
-    }
-    if (!volunteerForm.isAgree) {
-      newErrors.isAgree = "You must agree before submitting";
-    }
-    return newErrors;
-  };
+  //   setLoading(true);
 
-  if (loading) return;
+  //   const validationErrors = validate();
 
-  const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  //   if (Object.keys(validationErrors).length > 0) {
+  //     setErrors(validationErrors);
+  //     setLoading(false);
+  //     return;
+  //   }
 
-    setLoading(true);
+  //   const submissionData = {
+  //     fullName: volunteerForm.fullName,
+  //     emailAddress: volunteerForm.emailAddress,
+  //     phoneNumber: volunteerForm.phoneNumber,
+  //     interest: volunteerForm.interest,
+  //     whyVolunteer: volunteerForm.whyVolunteer,
+  //     isAgree: volunteerForm.isAgree,
+  //   };
 
-    const validationErrors = validate();
+  //   try {
+  //     const res = await fetch("/api/volunteer", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(submissionData),
+  //     });
+  //     const data = await res.json();
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      setLoading(false);
-      return;
-    }
-
-    const submissionData = {
-      fullName: volunteerForm.fullName,
-      emailAddress: volunteerForm.emailAddress,
-      phoneNumber: volunteerForm.phoneNumber,
-      interest: volunteerForm.interest,
-      whyVolunteer: volunteerForm.whyVolunteer,
-      isAgree: volunteerForm.isAgree,
-    };
-
-    try {
-      const res = await fetch("/api/volunteer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(submissionData),
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        setIsSucces(true);
-        setLoading(false);
-        setVolunteerForm({
-          fullName: "",
-          emailAddress: "",
-          phoneNumber: "",
-          interest: "",
-          whyVolunteer: "",
-          isAgree: false,
-        });
-        setErrors({});
-      } else {
-        alert(data.error || "Volunteer Registration failed.");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  //     if (res.ok) {
+  //       setIsSucces(true);
+  //       setLoading(false);
+  //       setVolunteerForm({
+  //         fullName: "",
+  //         emailAddress: "",
+  //         phoneNumber: "",
+  //         interest: "",
+  //         whyVolunteer: "",
+  //         isAgree: false,
+  //       });
+  //       setErrors({});
+  //     } else {
+  //       alert(data.error || "Volunteer Registration failed.");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   return (
-    <div
-      onClick={onClose}
-      className="h-screen w-full inset-0 bg-[#00000099] z-999 fixed flex items-center justify-center top-0 left-0"
-    >
+    <div className="w-full bg-[#FFF5F9] py-10 flex items-center justify-center">
       {isSuccess && (
         <SuccessModal
           title="Thank You for Signing Up!"
@@ -144,125 +130,232 @@ const VolunteerForm = ({ onClose }: FormProps) => {
           onClose={() => setIsSucces(false)}
         />
       )}
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="w-5/6 md:w-2/3 py-4 md:px-10 md:grid grid-cols-2 grid-rows-1 gap-4 shadow-[#0000001F] bg-[#FFFFFF] rounded-4xl"
-      >
-        <div className="w-full hidden lg:flex relative h-auto bg-[#9D9D9D] rounded-[24px] overflow-hidden"></div>
-        <form
-          className="w-full flex flex-col gap-4 px-8 md:px-0"
-          action=""
-          onSubmit={handleSubmitForm}
-        >
-          <span
-            className="text-[#000000] flex items-center gap-4 cursor-pointer font-open font-light text-[16px] capitalize"
-            onClick={onClose}
-          >
-            <ArrowLeft size={20} color="#000000" />
-            back
-          </span>
-          <h4
-            className="text-[#ED006C] text-[40px] leading-10"
-            style={{ fontFamily: "Yeseva" }}
-          >
-            Get Involved <span className="text-[#393939]">with us</span>
-          </h4>
-          <p className="font-open text-[#393939] text-[16px] -mt-4">
-            Kindly fill the right information in the form below.
-          </p>
-          <label className="vol-label" htmlFor="fullName">
-            Full Name
-            <span className="name left-0 ml-5 md:ml-4">*</span>
-            <input
-              type="text"
-              name="fullName"
-              value={volunteerForm.fullName}
-              onChange={handleChange}
-              placeholder="Enter full name"
+      <div className="w-full md:w-2/3 overflow-hidden gap-4 shadow-[#0000001F] rounded-4xl bg-white pb-10">
+        {/* Application Form */}
+        <section className="w-full flex flex-col items-center justify-center">
+          <div className="relative w-full h-54 md:h-64 overflow-hidden">
+            <Image
+              src={"/images/Image-1.png"}
+              alt="Digital Advocacy"
+              fill
+              className="object-cover object-[50%_10%]"
             />
-            {errors.fullName && (
-              <p className="text-[12px] text-[red] absolute left-0 -bottom-4.5">
-                *{errors.fullName}
-              </p>
-            )}
-          </label>
-          <label className="vol-label" htmlFor="emailAddress">
-            Email Address
-            <span className="email ml-10 md:ml-8">*</span>
-            <input
-              type="text"
-              name="emailAddress"
-              value={volunteerForm.emailAddress}
-              onChange={handleChange}
-              placeholder="Enter email address"
-            />
-            {errors.emailAddress && (
-              <p className="text-[12px] text-[red] absolute left-0 -bottom-4.5">
-                *{errors.emailAddress}
-              </p>
-            )}
-          </label>
-          <label className="vol-label" htmlFor="">
-            Phone Number
-            <span className="name left-0 ml-5 md:ml-14">*</span>
-            <input
-              type="text"
-              name="phoneNumber"
-              value={volunteerForm.phoneNumber}
-              onChange={handleChange}
-              placeholder="Enter phone number"
-            />
-          </label>
-          <label className="vol-label" htmlFor="">
-            Area(s) of Interest
-            <span className="ml-10 md:ml-13">*</span>
-            <input
-              type="text"
-              name="interest"
-              value={volunteerForm.interest}
-              onChange={handleChange}
-              placeholder="Select here"
-            />
-            {errors.interest && (
-              <p className="text-[12px] text-[red] absolute left-0 -bottom-4.5">
-                *{errors.interest}
-              </p>
-            )}
-          </label>
-          <label className="vol-label" htmlFor="">
-            Why do you want to volunteer with us?
-            <textarea
-              onChange={handleChange}
-              name="whyVolunteer"
-              value={volunteerForm.whyVolunteer}
-              placeholder="Enter message"
-            ></textarea>
-            {errors.whyVolunteer && (
-              <p className="text-[12px] text-[red] absolute left-0 -bottom-4.5">
-                *{errors.whyVolunteer}
-              </p>
-            )}
-          </label>
-          <label
-            className="text-[#121212] text-[12px] md:text-[14px] font-open flex items-start p-0 m-0 font-normal leading-[14px] mt-4"
-            htmlFor="isAgree"
-          >
-            <input
-              type="checkbox"
-              onChange={handleChange}
-              checked={volunteerForm.isAgree}
-              name="isAgree"
-              className="mr-2 w-4 h-4 border-1 border-[#FF00B8] rounded-[6px] checked:bg-[#FF00B8]"
-            />
-            I agree to be contacted by PadHer and understand my role as a
-            volunteer.
-          </label>
-          <div className="w-full flex justify-start items-center">
-            <button disabled={loading} type="submit" className="vol-button">
-              {loading ? "Submiting..." : "Submit"}
-            </button>
+
+            <div className="absolute w-[80px] h-[70px] flex items-center justify-center left-[50%] transform -translate-x-1/2 top-[10%] rounded-[8px] bg-white backdrop-blur-[5px] z-1">
+              <Image 
+              src={"/logos/Main-Logo.png"}
+              alt="PadHer Logo"
+              width={60}
+              height={50}
+              className="object-contain object-center"
+              />
+            </div>
+
+            <div className="absolute inset-0 bg-gradient-to-t from-transparent to-[#FF07A9] opacity-90" />
           </div>
-        </form>
+          <div className="-mt-20 z-10 bg-white px-4 sm:px-6 lg:px-8 w-full md:w-4/5 rounded-[100px_8px_100px_8px] shadow-[0px_2px_16px_0px_#00000014] py-8 flex flex-col items-center gap-4">
+            <div className="text-center mb-12">
+              <h2 className="text-[32px] font-bold text-[#393939] mb-6 font-playfair">
+                Apply to <span className="text-[#ED006C]">Volunteer</span>
+              </h2>
+              <p className="text-[16px] text-[#393939] font-open">
+                Kindly fill the right information in the form below.
+              </p>
+            </div>
+
+            <Card className="card-shadow w-full mb-10">
+              <CardHeader>
+                <CardTitle className="text-[24px] text-center font-bold text-[#393939] mb-6 font-playfair">
+                  Volunteer Application
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Form {...form}>
+                  <form
+                    // onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-6"
+                  >
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="firstName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>First Name</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Enter your first name"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="lastName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Last Name</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Enter your last name"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email Address</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="email"
+                                placeholder="Enter your email"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Phone Number (Optional)</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Enter your phone number"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <FormField
+                      control={form.control}
+                      name="opportunityId"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Preferred Opportunity</FormLabel>
+                          <Select
+                            value={field.value?.toString()}
+                            onValueChange={(value) =>
+                              field.onChange(parseInt(value))
+                            }
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select a volunteer opportunity" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="0">Any opportunity</SelectItem>
+                              {campaigns?.map((opportunity) => (
+                                <SelectItem
+                                  key={opportunity.id}
+                                  value={opportunity.id.toString()}
+                                >
+                                  {opportunity.title}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="skills"
+                      render={() => (
+                        <FormItem>
+                          <FormLabel>Skills & Interests</FormLabel>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            {skillOptions.map((skill) => (
+                              <FormField
+                                key={skill}
+                                control={form.control}
+                                name="skills"
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(skill)}
+                                        onCheckedChange={(checked) => {
+                                          const updatedSkills = checked
+                                            ? [...(field.value || []), skill]
+                                            : field.value?.filter(
+                                                (value) => value !== skill,
+                                              ) || [];
+                                          field.onChange(updatedSkills);
+                                        }}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="text-sm font-normal">
+                                      {skill}
+                                    </FormLabel>
+                                  </FormItem>
+                                )}
+                              />
+                            ))}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="availability"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            Availability & Additional Information
+                          </FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="Tell us about your availability, experience, and why you want to volunteer with us..."
+                              className="min-h-[100px]"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <Button
+                      type="submit"
+                      className="w-full button"
+                      // disabled={volunteerMutation.isPending}
+                    >
+                      {/* {volunteerMutation.isPending ? "Submitting..." : "Submit Application"} */}
+                      Submit Application
+                    </Button>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
       </div>
     </div>
   );

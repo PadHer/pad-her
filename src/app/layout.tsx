@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Open_Sans } from "next/font/google";
 import "./globals.css";
+import RouteLoader from "@/components/RouteLoader/RouteLoader";
 
 
 const playfair = Playfair_Display({
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${openSans.variable} antialiased`}
       >
+        <RouteLoader />
         {children}
       </body>
     </html>

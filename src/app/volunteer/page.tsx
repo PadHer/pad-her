@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import React from "react";
@@ -13,13 +13,9 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Heart, Clock4, MapPin } from "lucide-react";
 import VolunteerForm from "@/components/Modals/VolunteerForm";
+import Link from "next/link";
 
 const Page = () => {
-  const [formOpen, setFormOpen] = useState<boolean>(false);
-
-  const handleClickApply = () => {
-    setFormOpen(true);
-  };
 
   return (
     <div className="w-full bg-[#FFF] flex flex-col items-center justify-center overflow-hidden relative">
@@ -73,7 +69,7 @@ const Page = () => {
                 fill
                 className="object-cover object-top rounded-[16px] rounded-br-[8px]"
               />
-              <div className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply" onClick={handleClickApply}>
+              <Link href={"#volunteer-form"} className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
                 <p
                   className="text-[#FFFFFF] text-[16px]"
                   style={{ fontFamily: "OpenSans-Semi" }}
@@ -83,7 +79,7 @@ const Page = () => {
                 <span className="h-[24px] w-[24px] bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
                   <ArrowRight className="text-[#000] text-[16px]" />
                 </span>
-              </div>
+              </Link>
             </div>
           </section>
           <section className="card w-full md:w-[32%]">
@@ -111,7 +107,7 @@ const Page = () => {
                 fill
                 className="object-cover rounded-[16px] rounded-br-[8px]"
               />
-              <div className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
+              <Link href={"#volunteer-form"} className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
                 <p
                   className="text-[#FFFFFF] text-[16px]"
                   style={{ fontFamily: "OpenSans-Semi" }}
@@ -121,7 +117,7 @@ const Page = () => {
                 <span className="h-[24px] w-[24px] bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
                   <ArrowRight className="text-[#000] text-[16px]" />
                 </span>
-              </div>
+              </Link>
             </div>
           </section>
           <section className="card w-full md:w-[32%]">
@@ -149,7 +145,7 @@ const Page = () => {
                 fill
                 className="object-cover rounded-[16px] rounded-br-[8px]"
               />
-              <div className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
+              <Link href={"#volunteer-form"} className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
                 <p
                   className="text-[#FFFFFF] text-[16px]"
                   style={{ fontFamily: "OpenSans-Semi" }}
@@ -159,7 +155,7 @@ const Page = () => {
                 <span className="h-[24px] w-[24px] bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
                   <ArrowRight className="text-[#000] text-[16px]" />
                 </span>
-              </div>
+              </Link>
             </div>
           </section>
         </div>
@@ -248,15 +244,17 @@ const Page = () => {
           </div>
         </div>
       </div>
+      <Stories />
+      <div id="volunteer-form" className="w-full scroll-mt-24">
+        <VolunteerForm />
+      </div>
       <Events />
       <Captures />
-      <Stories />
       <FAQs />
       <div id="partnership" className="scroll-mt-24">
         <PartnerShip />
       </div>
       <Footer />
-      {formOpen && <VolunteerForm onClose={() => setFormOpen(false)} />}
     </div>
   );
 };
