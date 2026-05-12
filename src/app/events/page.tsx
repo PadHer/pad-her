@@ -9,9 +9,11 @@ import FAQs from "@/components/FAQs/FAQs";
 import Stories from "@/components/Stories/Stories";
 import PartnerShip from "@/components/PartnerShip/PartnerShip";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import { MapPin } from "lucide-react";
-import { campaigns, Campaign } from "@/data/campaigns";
+import { campaigns, 
+  // Campaign 
+} from "@/data/campaigns";
 import EventForm from "@/components/Modals/EventForm";
 
 const Page = () => {

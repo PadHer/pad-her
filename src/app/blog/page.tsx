@@ -10,7 +10,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Page = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [[page], setPage] = useState<[number, number]>([0, 0]);
+    // const [[page], setPage] = useState<[number, number]>([0, 0]);
   const rowsPerPage = 6;
 
   const indexOfLastRow = currentPage * rowsPerPage;

@@ -40,15 +40,7 @@ interface FormProps {
 }
 
 const EventForm = ({ onClose, eventName }: FormProps) => {
-  const [volunteerForm, setVolunteerForm] = useState<FormData>({
-    fullName: "",
-    emailAddress: "",
-    phoneNumber: "",
-    location: "",
-    whyInterest: "",
-    isAgreed: false,
-  });
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [isSuccess, setIsSucces] = useState<boolean>(false);
 
   const form = useForm<FormData>({
@@ -63,9 +55,9 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
     },
   });
 
-  const watchAgreed = form.watch("isAgreed");
+  // const watchAgreed = form.watch("isAgreed");
 
-  if (loading) return;
+  // if (loading) return;
 
  
 
@@ -210,8 +202,9 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
             )}
             />
             <div className="w-full flex justify-start items-center">
-              <button disabled={loading} type="submit" className="vol-button">
-                {loading ? "Submiting..." : "Submit"}
+              <button  type="submit" className="vol-button">
+                {/* {loading ? "Submiting..." : "Submit"} */}
+                Submit
               </button>
             </div>
           </form>

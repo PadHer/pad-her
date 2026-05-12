@@ -41,7 +41,7 @@ const volunteerFormSchema = z.object({
 type FormData = z.infer<typeof volunteerFormSchema>;
 
 const VolunteerForm = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [isSuccess, setIsSucces] = useState<boolean>(false);
 
   const form = useForm<FormData>({
@@ -67,7 +67,7 @@ const VolunteerForm = () => {
     "Community Outreach",
   ];
 
-  if (loading) return;
+  // if (loading) return;
 
   // const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
   //   e.preventDefault();
