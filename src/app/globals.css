@@ -4,6 +4,58 @@
 
 @layer theme, base, components, utilities;
 
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 15%);
+  --muted: hsl(331, 100%, 97%);
+  --muted-foreground: hsl(0, 0%, 42%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(0, 0%, 15%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(0, 0%, 15%);
+  --border: hsl(331, 20%, 90%);
+  --input: hsl(331, 20%, 90%);
+  --primary: hsl(340, 82%, 52%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(331, 100%, 97%);
+  --secondary-foreground: hsl(0, 0%, 15%);
+  --accent: hsl(331, 100%, 97%);
+  --accent-foreground: hsl(0, 0%, 15%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(340, 82%, 52%);
+  --radius: 0.5rem;
+  
+  /* PadHer custom colors */
+  --primary-pink: hsl(340, 82%, 52%);
+  --secondary-purple: hsl(291, 64%, 42%);
+  --accent-pink: hsl(331, 100%, 97%);
+  --text-dark: hsl(0, 0%, 18%);
+  --text-light: hsl(0, 0%, 42%);
+}
+
+.dark {
+  --background: hsl(340, 10%, 4%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(340, 15%, 15%);
+  --muted-foreground: hsl(0, 0%, 65%);
+  --popover: hsl(340, 10%, 4%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(340, 10%, 4%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(340, 15%, 15%);
+  --input: hsl(340, 15%, 15%);
+  --primary: hsl(340, 82%, 52%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(340, 15%, 15%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(340, 15%, 15%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(340, 82%, 52%);
+}
+
 @layer utilities {
   .label {
     display: flex;
@@ -57,19 +109,19 @@
 
   .vol-label {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 4px;
     color: #121212;
     font-size: 14px;
     font-family: OpenSans;
-    position: relative;
+    /* position: relative; */
     /* margin-top: 8px; */
     /* width: 100%; */
     span {
       color: red;
-      position: absolute;
-      top: 0;
-      left: 19%;
+      /* position: absolute; */
+      /* top: 0; */
+      /* left: 19%; */
     }
     .name {
       left: 14%;
@@ -406,10 +458,6 @@
   }
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 @font-face {
   font-family: Yeseva;
   src: url("../../public/fonts/Yeseva_One/YesevaOne-Regular.ttf");

@@ -54,7 +54,7 @@ const Page = () => {
                 Community Outreach
               </h2>
               <h6
-                className="text-[#FFF5F9] text-[16px] h-[80px]"
+                className="text-[#FFF5F9] text-[16px] h-20"
                 style={{ fontFamily: "OpenSans" }}
               >
                 Join our field teams to distribute pads and conduct educational
@@ -62,12 +62,12 @@ const Page = () => {
               </h6>
             </div>
 
-            <div className="w-full h-[260px] rounded-[16px] rounded-br-[8px] flex flex-col justify-end px-6 pb-6 relative">
+            <div className="w-full h-65 rounded-4 rounded-br-lg flex flex-col justify-end px-6 pb-6 relative">
               <Image
                 src={"/images/Image-6.png"}
                 alt="Community Outreach"
                 fill
-                className="object-cover object-top rounded-[16px] rounded-br-[8px]"
+                className="object-cover object-top rounded-2xl rounded-br-lg"
               />
               <Link href={"#volunteer-form"} className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
                 <p
@@ -76,8 +76,8 @@ const Page = () => {
                 >
                   Apply Now
                 </p>
-                <span className="h-[24px] w-[24px] bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
-                  <ArrowRight className="text-[#000] text-[16px]" />
+                <span className="h-6 w-6 bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
+                  <ArrowRight className="text-black text-[16px]" />
                 </span>
               </Link>
             </div>
@@ -93,19 +93,19 @@ const Page = () => {
                 Education & Training
               </h2>
               <h6
-                className="text-[#393939] text-[16px] h-[80px]"
+                className="text-[#393939] text-[16px] h-20"
                 style={{ fontFamily: "OpenSans" }}
               >
                 Lead workshops on menstrual hygiene and reproductive health in
                 schools and community centers.
               </h6>
             </div>
-            <div className="w-full h-[260px] rounded-[16px] rounded-br-[8px] flex flex-col justify-end px-6 pb-6 relative">
+            <div className="w-full h-65 rounded-4 rounded-br-lg flex flex-col justify-end px-6 pb-6 relative">
               <Image
                 src={"/images/Image-2.png"}
                 alt="Education & Training"
                 fill
-                className="object-cover rounded-[16px] rounded-br-[8px]"
+                className="object-cover rounded-2xl rounded-br-lg"
               />
               <Link href={"#volunteer-form"} className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
                 <p
@@ -114,8 +114,8 @@ const Page = () => {
                 >
                   Apply Now
                 </p>
-                <span className="h-[24px] w-[24px] bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
-                  <ArrowRight className="text-[#000] text-[16px]" />
+                <span className="h-6 w-6 bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
+                  <ArrowRight className="text-black text-[16px]" />
                 </span>
               </Link>
             </div>
@@ -131,19 +131,19 @@ const Page = () => {
                 Digital <br /> Advocacy
               </h2>
               <h6
-                className="text-[#393939] text-[16px] h-[80px]"
+                className="text-[#393939] text-[16px] h-20"
                 style={{ fontFamily: "OpenSans" }}
               >
                 Help us spread awareness through social media, content creation,
                 and digital campaigns.
               </h6>
             </div>
-            <div className="w-full h-[260px] rounded-[16px] rounded-br-[8px] flex flex-col justify-end px-6 pb-6 relative">
+            <div className="w-full h-65 rounded-4 rounded-br-lg flex flex-col justify-end px-6 pb-6 relative">
               <Image
                 src={"/images/Image-3.png"}
                 alt="Digital Advocacy"
                 fill
-                className="object-cover rounded-[16px] rounded-br-[8px]"
+                className="object-cover rounded-2xl rounded-br-lg"
               />
               <Link href={"#volunteer-form"} className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
                 <p
@@ -152,8 +152,8 @@ const Page = () => {
                 >
                   Apply Now
                 </p>
-                <span className="h-[24px] w-[24px] bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
-                  <ArrowRight className="text-[#000] text-[16px]" />
+                <span className="h-6 w-6 bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
+                  <ArrowRight className="text-black text-[16px]" />
                 </span>
               </Link>
             </div>
@@ -169,7 +169,7 @@ const Page = () => {
           girls&apos; lives.
         </p>
         <div className="w-full flex flex-col md:flex-row md:justify-between items-center py-4 md:py-24 gap-4 md:gap-0">
-          <div className="w-[75%] md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] rotate-4 border-1 border-[#E7E7E7]">
+          <div className="w-[75%] md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] rotate-4 border border-[#E7E7E7]">
             <span className="bg-[#ED006C33] flex items-center justify-center h-20 w-20 rounded-full">
               <Heart size={30} color="#ED006C" />
             </span>
@@ -186,7 +186,7 @@ const Page = () => {
               of period poverty.
             </p>
           </div>
-          <div className="w-3/4 md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] -rotate-4 border-1 border-[#E7E7E7]">
+          <div className="w-3/4 md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] -rotate-4 border border-[#E7E7E7]">
             <span className="bg-[#9747FF33] flex items-center justify-center h-20 w-20 rounded-full">
               <Image
                 src={"/svgs/group.svg"}
@@ -208,7 +208,7 @@ const Page = () => {
               change.
             </p>
           </div>
-          <div className="w-3/4 md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] rotate-4 border-1 border-[#E7E7E7]">
+          <div className="w-3/4 md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] rotate-4 border border-[#E7E7E7]">
             <span className="bg-[#C80C8640] flex items-center justify-center h-20 w-20 rounded-full">
               <Clock4 size={30} color="#C80C86" />
             </span>
@@ -225,7 +225,7 @@ const Page = () => {
               availability.
             </p>
           </div>
-          <div className="w-3/4 md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] -rotate-4 border-1 border-[#E7E7E7]">
+          <div className="w-3/4 md:w-[23.5%] flex flex-col items-center gap-4 rounded-[8px_60px_8px_60px] p-4 md:p-8 bg-[#FFFFFF] -rotate-4 border border-[#E7E7E7]">
             <span className="bg-[#219AA633] flex items-center justify-center h-20 w-20 rounded-full">
               <MapPin size={30} color="#219AA6" />
             </span>

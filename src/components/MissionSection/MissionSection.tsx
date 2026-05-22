@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Mission = () => {
   return (
-    <div className="w-full bg-[#FFF5F9] flex justify-center items-center px-4 py-4 md:px-[100px] md:py-[80px] z-20">
-      <div className="w-full py-4 md:py-[32px] bg-[#FFF] flex flex-col items-center rounded-[40px]">
+    <div className="w-full bg-[#FFF5F9] flex justify-center items-center px-4 py-4 md:px-25 md:py-20 z-20">
+      <div className="w-full py-4 md:py-8 bg-[#FFF] flex flex-col items-center rounded-[40px]">
         <h2
           className="text-[48px] text-[#111111]"
           style={{
@@ -17,10 +18,10 @@ const Mission = () => {
           alt="Vector"
           width={300}
           height={18}
-          className="md:mt-[-16px]"
+          className="md:-mt-4"
         />
         <p
-          className="text-[#393939] text-[16px] md:text-[24px] text-center w-full md:w-[60%] leading-[36px] md:mt-4"
+          className="text-[#393939] text-[16px] md:text-[24px] text-center w-full md:w-[60%] leading-9 md:mt-4"
           style={{
             fontFamily: "OpenSans",
           }}
@@ -29,11 +30,12 @@ const Mission = () => {
           education, empowering them to stay in school, build self-worth, and
           thrive confidently in their communities.
         </p>
-        <button
+        <Link
+          href={"/about"}
           className="button mt-4"
         >
           Continue Reading
-        </button>
+        </Link>
       </div>
     </div>
   );

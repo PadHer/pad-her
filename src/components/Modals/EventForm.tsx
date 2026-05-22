@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { z } from "zod";
 import Image from "next/image";
+import { useEventRegistration } from "@/hooks/use-eventRegistration";
 
 const eventSchema = z.object({
   fullName: z.string().min(2, "Full name is required"),
@@ -40,8 +41,7 @@ interface FormProps {
 }
 
 const EventForm = ({ onClose, eventName }: FormProps) => {
-  // const [loading, setLoading] = useState<boolean>(false);
-  const [isSuccess, setIsSucces] = useState<boolean>(false);
+  const { register, isSuccess } = useEventRegistration();
 
   const form = useForm<FormData>({
     resolver: zodResolver(eventSchema),
@@ -55,6 +55,9 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
     },
   });
 
+  const onSubmit = async (data: FormData) => {
+    register(data);
+  }
   // const watchAgreed = form.watch("isAgreed");
 
   // if (loading) return;
@@ -72,14 +75,17 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
           message="We’re excited to have you join the PadHer With Love volunteer community. Our team will review your application and reach out with next steps soon."
           primary="Back to Homepage"
           secondary="Explore Events"
-          onClose={() => setIsSucces(false)}
+          onClose={() => {
+            form.reset();
+            onClose();
+          }}
         />
       )}
       <div
         onClick={(e) => e.stopPropagation()}
         className="w-5/6 md:w-2/3 py-4 md:px-10 md:grid grid-cols-2 grid-rows-1 gap-4 shadow-[#0000001F] bg-[#FFFFFF] rounded-4xl"
       >
-        <div className="w-full hidden lg:flex relative h-auto bg-[#9D9D9D] rounded-[24px] overflow-hidden">
+        <div className="w-full hidden lg:flex relative h-auto bg-[#9D9D9D] rounded-3xl overflow-hidden">
           <Image
             src={"/images/event.png"}
             alt="Events"
@@ -176,7 +182,7 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
                   <FormControl>
                     <Textarea
                       placeholder="Tell us about your availability, experience, and why you want to volunteer with us..."
-                      className="min-h-[100px]"
+                      className="min-h-25"
                       {...field}
                     />
                   </FormControl>

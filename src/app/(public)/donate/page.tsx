@@ -6,14 +6,35 @@ import NavBar from "@/components/NavBar/NavBar";
 import Image from "next/image";
 import DataCount from "@/components/Data/Data";
 import { Heart, BookOpen, Shield } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useInitializeDonation } from "@/hooks/use-initializeDonations";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Input } from "@/components/ui/input";
+import { z } from "zod";
+import { Label } from "@/components/ui/label";
 
-type DonationData = {
-  donationAmount: string;
-  donationType: string;
-  donorName: string;
-  donorEmail: string;
-  isAnon: boolean;
-};
+const donationSchema = z.object({
+  donationAmount: z.string().min(1, "Donation amount is required"),
+  donationType: z.string().min(1, "Donation type is required"),
+  donorName: z.string().min(1, "Donor name is required"),
+  donorEmail: z
+    .string()
+    .min(1, "Donor email is required")
+    .email("Invalid email address"),
+  isAnon: z.boolean(),
+});
+
+type DonationData = z.infer<typeof donationSchema>;
 
 const Page = () => {
   const [selectedAmount, setSelectedAmount] = useState<string>("");
@@ -37,12 +58,31 @@ const Page = () => {
     console.log(errors);
   };
 
+  const form = useForm<DonationData>({
+    resolver: zodResolver(donationSchema),
+    defaultValues: {
+      donationAmount: "₦",
+      donationType: "",
+      donorName: "",
+      donorEmail: "",
+      isAnon: false,
+    },
+  });
+
+  const donationTypes = [
+    { value: "one-time", label: "One-time donation" },
+    { value: "monthly", label: "Monthly Donation" },
+  ];
+
+  // const watchAnon = form.watch("isAnon");
+  const watchDonationAmount = form.watch("donationAmount");
+
   const handleSelectAmount = (amount: string) => {
     setSelectedAmount(amount);
-    setFormData((prev) => ({
-      ...prev,
-      donationAmount: amount,
-    }));
+    form.setValue("donationAmount", amount, {
+      shouldDirty: true,
+      shouldTouch: true,
+    });
   };
 
   const handleDonate = async (e: React.FormEvent) => {
@@ -83,31 +123,31 @@ const Page = () => {
     };
 
     try {
-    const res = await fetch("/api/donations", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(submissionData),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      alert("Donation submitted successfully!");
-      setLoading(false);
-      setFormData({
-        donationAmount: "",
-        donationType: "",
-        donorName: "",
-        donorEmail: "",
-        isAnon: false,
+      const res = await fetch("/api/donations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(submissionData),
       });
-    } else {
-      alert(data.error || "Donation submission failed.");
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Donation submitted successfully!");
+        setLoading(false);
+        setFormData({
+          donationAmount: "",
+          donationType: "",
+          donorName: "",
+          donorEmail: "",
+          isAnon: false,
+        });
+      } else {
+        alert(data.error || "Donation submission failed.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong.");
     }
-  } catch (err) {
-    console.error(err);
-    alert("Something went wrong.");
-  }
 
     console.log("Submitting donation:", submissionData);
   };
@@ -144,17 +184,15 @@ const Page = () => {
           Choose an amount that works for you. Every contribution makes a
           meaningful difference.
         </p>
-        <div className="w-full md:w-[75%] flex flex-col border-1 border-[#C3C3C3] rounded-[20px] md:rounded-[40px] px-4 p-3 md:px-6 md:py-10 gap-3 md:gap-6 mt-8">
-          <h6 className="text-[#111111CC] font-playfair font-bold text-[16px] md:text-[24px]">
-            Choose Amount
-          </h6>
+        <div className="w-full md:w-[75%] flex flex-col border border-[#C3C3C3] rounded-[20px] md:rounded-[40px] px-4 p-3 md:px-6 md:py-10 gap-3 md:gap-6 mt-8">
+          <h6 className="vol-label">Choose Amount</h6>
           <div className="w-full flex justify-between">
-            {["10", "20", "50", "100"].map((amount, idx) => (
+            {["1000", "2000", "5000", "10000"].map((amount, idx) => (
               <span
                 style={{
                   fontFamily: "Yeseva",
                 }}
-                className={`text-[16px] md:text-[24px] py-2 rounded-[2px_6px_2px_6px] md:rounded-[4px_12px_4px_12px] w-[23.5%] flex items-center justify-center border-1 border-[#FF07A9] text-[#FF00B8] hover:bg-[#FF07A9] hover:text-[#FFF] transition-colors ease-in-out duration-300 cursor-pointer ${
+                className={`text-[16px] md:text-[24px] py-2 rounded-[2px_6px_2px_6px] md:rounded-[4px_12px_4px_12px] w-[23.5%] flex items-center justify-center border border-[#FF07A9] text-[#FF00B8] hover:bg-[#FF07A9] hover:text-[#FFF] transition-colors ease-in-out duration-300 cursor-pointer ${
                   selectedAmount === amount
                     ? "bg-[#FF07A9] text-[#FFF] z-10"
                     : "bg-[#FFF5F9]"
@@ -162,137 +200,126 @@ const Page = () => {
                 key={idx}
                 onClick={() => handleSelectAmount(amount)}
               >
-                ${amount}
+                ₦{amount}
               </span>
             ))}
           </div>
-          <form
-            className="w-full flex flex-col gap-8"
-            onSubmit={handleDonate}
-            action=""
-          >
-            <label
-              htmlFor="donationAmount"
-              className="w-full relative flex flex-col"
+          <Form {...form}>
+            <form
+              className="w-full flex flex-col gap-8"
+              // onSubmit={form.handleSubmit(handleDonate)}
+              action=""
             >
-              <span
-                style={{
-                  fontFamily: "Yeseva",
-                }}
-                className="absolute text-[16px] text-[#393939CC] left-3 flex items-center justify-center top-3.5"
-              >
-                $
-              </span>
-              <input
-                type="text"
-                value={formData.donationAmount}
+              <FormField
+                control={form.control}
                 name="donationAmount"
-                onChange={handleDonationChange}
-                placeholder={"Custom Amount"}
-                className="w-full pl-6 py-3 bg-[#FAFAFA] border-1 border-[#8A8C8E] rounded-[12px] outline-none focus:border-1 focus:border-[#ED006C33] placeholder:text-[#39393980] placeholder:font-open placeholder:text-[16px] text-[#111111] font-playfair text-[16px]"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="vol-label">Donation Amount</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="w-full px-2 py-1.5 md:px-4 md:py-3 bg-[#FAFAFA] border border-[#8A8C8E] outline-none placeholder:text-[#39393980] placeholder:font-open placeholder:text-[12px] md:placeholder:text-[16px] text-[#111111] font-playfair text-[16px]"
+                        placeholder="Enter custom amount"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
               />
-              {errors.donationAmount && (
-                <p className="text-[12px] text-[red] font-open">
-                  *{errors.donationAmount}
-                </p>
-              )}
-            </label>
 
-            <div className="w-full flex flex-col gap-6">
-              <h4 className="font-playfair font-bold text-[#111111CC] text-[16px] md:text-[24px]">
-                Donation Type
-              </h4>
-              <div className="w-full flex flex-col md:flex-row md:items-center gap-8">
-                {[
-                  { value: "one-time", label: "One-time donation" },
-                  { value: "monthly", label: "Monthly Donation" },
-                ].map((item) => (
-                  <div
-                    key={item.value}
-                    className="radio flex items-center gap-2"
-                  >
-                    <input
-                      type="radio"
-                      name="donationType"
-                      value={item.value}
-                      checked={formData.donationType === item.value}
-                      onChange={handleDonationChange}
-                      className=""
-                    />
-                    <label
-                      className="text-[12px] md:text-[16px] font-open text-[#121212]"
-                      htmlFor=""
-                    >
-                      {item.label}
-                    </label>
-                  </div>
-                ))}
+              <div className="w-full flex flex-col gap-6">
+                <FormField
+                  control={form.control}
+                  name="donationType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="vol-label">
+                        Donation Type <span className="text-red">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          value={field.value}
+                          onValueChange={field.onChange}
+                          className="flex flex-wrap gap-4 mt-1"
+                        >
+                          {donationTypes.map((item) => (
+                            <div
+                              key={item.value}
+                              className="flex items-center gap-2"
+                            >
+                              <RadioGroupItem
+                                id={item.value}
+                                value={item.value}
+                                data-testid={`radio-${item.value}`}
+                              />
+                              <Label className="vol-label text-[12px] md:text-[16px] font-medium cursor-pointer">
+                                {item.label}
+                              </Label>
+                            </div>
+                          ))}
+                        </RadioGroup>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
               </div>
-              {errors.donationType && (
-                <p className="text-[12px] text-[red] -mt-3 font-open">
-                  *{errors.donationType}
-                </p>
-              )}
-            </div>
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-              <label
-                htmlFor="donorName"
-                className="flex flex-col gap-2 text-[#121212] text-[12px] md:text-[16px] font-open"
-              >
-                Full Name
-                <input
-                  type="text"
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
                   name="donorName"
-                  value={formData.donorName}
-                  placeholder="Enter your full name"
-                  onChange={handleDonationChange}
-                  className="w-full px-2 py-1.5 md:px-4 md:py-3 bg-[#FAFAFA] border-1 border-[#8A8C8E] rounded-[12px] outline-none focus:border-1 focus:border-[#ED006C33] placeholder:text-[#39393980] placeholder:font-open placeholder:text-[12px] md:placeholder:text-[16px] text-[#111111] font-playfair text-[16px]"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="vol-label">Full Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          {...field}
+                          placeholder="Enter your full name"
+                          className="w-full px-2 py-1.5 md:px-4 md:py-3 bg-[#FAFAFA] border border-[#8A8C8E] outline-none placeholder:text-[#39393980] placeholder:font-open placeholder:text-[12px] md:placeholder:text-[16px] text-[#111111] font-playfair text-[16px]"
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
                 />
-                {errors.donorName && (
-                  <p className="text-[12px] text-[red] font-open">
-                    *{errors.donorName}
-                  </p>
-                )}
-              </label>
-              <label
-                htmlFor="donorEmail"
-                className="flex flex-col gap-2 text-[#121212] text-[12px] md:text-[16px] font-open"
-              >
-                Email Address
-                <input
-                  type="text"
+                <FormField
+                  control={form.control}
                   name="donorEmail"
-                  value={formData.donorEmail}
-                  placeholder="Enter your email address"
-                  onChange={handleDonationChange}
-                  className="w-full px-2 py-1.5 md:px-4 md:py-3 bg-[#FAFAFA] border-1 border-[#8A8C8E] rounded-[12px] outline-none focus:border-1 focus:border-[#ED006C33] placeholder:text-[#39393980] placeholder:font-open placeholder:text-[12px] md:placeholder:text-[16px] text-[#111111] font-playfair text-[16px]"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="vol-label">Email Address</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your email"
+                          {...field}
+                          type="email"
+                          className="w-full px-2 py-1.5 md:px-4 md:py-3 bg-[#FAFAFA] border border-[#8A8C8E] outline-none placeholder:text-[#39393980] placeholder:font-open placeholder:text-[12px] md:placeholder:text-[16px] text-[#111111] font-playfair text-[16px]"
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
                 />
-                {errors.donorEmail && (
-                  <p className="text-[12px] text-[red] font-open">
-                    *{errors.donorEmail}
-                  </p>
-                )}
+              </div>
+              <label
+                className="text-[#393939] text-[12px] md:text-[16px] font-open flex items-center"
+                htmlFor="isAnon"
+              >
+                <input
+                  type="checkbox"
+                  name="isAnon"
+                  checked={formData.isAnon}
+                  onChange={handleDonationChange}
+                  className="mr-2 w-4 h-4 border border-[#FF00B8] rounded-md checked:bg-[#FF00B8]"
+                />
+                Make this donation anonymous
               </label>
-            </div>
-            <label
-              className="text-[#393939] text-[12px] md:text-[16px] font-open flex items-center"
-              htmlFor="isAnon"
-            >
-              <input
-                type="checkbox"
-                name="isAnon"
-                checked={formData.isAnon}
-                onChange={handleDonationChange}
-                className="mr-2 w-4 h-4 border-1 border-[#FF00B8] rounded-[6px] checked:bg-[#FF00B8]"
-              />
-              Make this donation anonymous
-            </label>
-            <div className="w-full flex justify-center items-center">
-              <button disabled={loading} type="submit" className="button">{loading ? "Donating..." : "Donate"}
-                {formData.donationAmount && <>${formData.donationAmount}</>} now
-              </button>
-            </div>
-          </form>
+              <div className="w-full flex justify-center items-center">
+                <button disabled={loading} type="submit" className="button">
+                  {loading ? "Donating... " : "Donate "}
+                  {watchDonationAmount && <>₦{watchDonationAmount}</>} now
+                </button>
+              </div>
+            </form>
+          </Form>
         </div>
       </div>
       <DataCount />
@@ -310,7 +337,7 @@ const Page = () => {
           and communities.
         </p>
         <div className={"w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 mt-12"}>
-          <div className="w-full flex flex-col items-center gap-4 px-2 py-2 md:px-8 md:py-4 border-1 border-[#E7E7E7] rounded-[4px_20px_4px_20px] md:rounded-[8px_60px_8px_60px]">
+          <div className="w-full flex flex-col items-center gap-4 px-2 py-2 md:px-8 md:py-4 border border-[#E7E7E7] rounded-[4px_20px_4px_20px] md:rounded-[8px_60px_8px_60px]">
             <span className="w-15 h-15 flex items-center justify-center rounded-full bg-[#8C89EE]">
               <Heart size={30} color="#FFF" />
             </span>
@@ -320,17 +347,17 @@ const Page = () => {
               }}
               className="font-[24px] text-[#393939]"
             >
-              $10
+              ₦10
             </h6>
             <p className="text-center text-[12px] md:text-[16px] text-[#393939CC] font-open">
               Provides a 6-month supply of sanitary pads for one girl, ensuring
               she never misses school due to her period.
             </p>
-            <span className="px-2 py-1 font-open font-semibold text-[#8C89EE] text-[10px] md:text-[14px] rounded-[16px] bg-[#8C89EE33]">
+            <span className="px-2 py-1 font-open font-semibold text-[#8C89EE] text-[10px] md:text-[14px] rounded-2xl bg-[#8C89EE33]">
               Basic Support
             </span>
           </div>
-          <div className="w-full flex flex-col items-center gap-4 px-2 py-2 md:px-8 md:py-4 border-1 border-[#E7E7E7] rounded-[4px_20px_4px_20px] md:rounded-[8px_60px_8px_60px]">
+          <div className="w-full flex flex-col items-center gap-4 px-2 py-2 md:px-8 md:py-4 border border-[#E7E7E7] rounded-[4px_20px_4px_20px] md:rounded-[8px_60px_8px_60px]">
             <span className="w-15 h-15 flex items-center justify-center rounded-full bg-[#B351BC]">
               <BookOpen size={30} color="#FFF" />
             </span>
@@ -340,17 +367,17 @@ const Page = () => {
               }}
               className="font-[24px] text-[#393939]"
             >
-              $50
+              ₦50
             </h6>
             <p className="text-center text-[12px] md:text-[16px] text-[#393939CC] font-open">
               Funds educational workshops for 20 girls, providing crucial
               knowledge about menstrual health and hygiene.
             </p>
-            <span className="px-2 py-1 font-open font-semibold text-[#B351BC] text-[10px] md:text-[14px] rounded-[16px] bg-[#B351BC33]">
+            <span className="px-2 py-1 font-open font-semibold text-[#B351BC] text-[10px] md:text-[14px] rounded-2xl bg-[#B351BC33]">
               Education Package
             </span>
           </div>
-          <div className="w-full flex flex-col items-center gap-4 px-2 py-2 md:px-8 md:py-4 border-1 border-[#E7E7E7] rounded-[4px_20px_4px_20px] md:rounded-[8px_60px_8px_60px]">
+          <div className="w-full flex flex-col items-center gap-4 px-2 py-2 md:px-8 md:py-4 border border-[#E7E7E7] rounded-[4px_20px_4px_20px] md:rounded-[8px_60px_8px_60px]">
             <span className="w-15 h-15 flex items-center justify-center rounded-full bg-[#FF67E3]">
               <Image
                 src={"/svgs/donate-svg.svg"}
@@ -365,20 +392,22 @@ const Page = () => {
               }}
               className="font-[24px] text-[#393939]"
             >
-              $100
+              ₦100
             </h6>
             <p className="text-center text-[12px] md:text-[16px] text-[#393939CC] font-open">
               Supports a complete community outreach program, reaching 50+ girls
               with products and education.
             </p>
-            <span className="px-2 py-1 font-open font-semibold text-[#FF67E3] text-[10px] md:text-[14px] rounded-[16px] bg-[#FF67E333]">
+            <span className="px-2 py-1 font-open font-semibold text-[#FF67E3] text-[10px] md:text-[14px] rounded-2xl bg-[#FF67E333]">
               Community Impact
             </span>
           </div>
         </div>
       </div>
       <div
-        className={"w-full bg-[#FFFAFC] flex flex-col items-center px-4 py-6 md:px-24 md:py-16"}
+        className={
+          "w-full bg-[#FFFAFC] flex flex-col items-center px-4 py-6 md:px-24 md:py-16"
+        }
       >
         <h2 className="font-playfair font-extrabold text-[28px] text-center md:text-[56px] text-[#111111]">
           Why Your <span className="text-[#FF07A9]">Donation</span> Matters
@@ -388,11 +417,11 @@ const Page = () => {
           Your support helps us tackle this problem head-on.
         </p>
         <div className="w-[90%] md:w-[70%] relative h-auto md:h-[60dvh] flex flex-col gap-8 md:flex-row items-center justify-between mt-12">
-          <span className="bg-[#FFE9F9] w-30 h-30 rounded-[4px] absolute -left-5 -top-5 md:-left-10 md:-top-10"></span>
-          <span className="bg-[#EDE2F5] w-30 h-30 rounded-[4px] absolute left-52 top-60 md:top-100 md:left-100"></span>
+          <span className="bg-[#FFE9F9] w-30 h-30 rounded-sm absolute -left-5 -top-5 md:-left-10 md:-top-10"></span>
+          <span className="bg-[#EDE2F5] w-30 h-30 rounded-sm absolute left-52 top-60 md:top-100 md:left-100"></span>
           <div className="relative w-full md:w-[54%] h-[50dvh] md:h-full overflow-hidden rounded-[40px_8px_40px_8px]">
-            <span className="absolute right-0 w-1/2 h-full border-l-[16px] z-10 border-[#FFF]"></span>
-            <span className="absolute right-0 w-full h-1/2 border-b-[16px] z-10 border-[#FFF]"></span>
+            <span className="absolute right-0 w-1/2 h-full border-l-16 z-10 border-[#FFF]"></span>
+            <span className="absolute right-0 w-full h-1/2 border-b-16 z-10 border-[#FFF]"></span>
             <Image
               src={"/images/heart-image.png"}
               alt={""}
@@ -402,7 +431,7 @@ const Page = () => {
             />
           </div>
           <div className="w-full md:w-[44%] z-20 flex flex-col gap-4 mt-8">
-            <div className="w-full flex items-center justify-between group hover:shadow-[0px_8px_16px_0px_#0000001A] hover:bg-[#ED006C] p-4 rounded-[24px] transition-all duration-200 shadow-[0px_8px_16px_0px_#0000001A] md:shadow-none">
+            <div className="w-full flex items-center justify-between group hover:shadow-[0px_8px_16px_0px_#0000001A] hover:bg-[#ED006C] p-4 rounded-3xl transition-all duration-200 shadow-[0px_8px_16px_0px_#0000001A] md:shadow-none">
               <span
                 className="h-10 w-10 group-hover:bg-[#FFF] rounded-full flex items-center justify-center text-[#111111] group-hover:text-[#ED006C] text-[24px]"
                 style={{ fontFamily: "Yeseva" }}
@@ -411,19 +440,19 @@ const Page = () => {
               </span>
               <div className="w-[85%] flex flex-col gap-1">
                 <h6
-                  className="text-[16px] text-[#111111] group-hover:text-[#FFF] leading-[20px]"
+                  className="text-[16px] text-[#111111] group-hover:text-[#FFF] leading-5"
                   style={{ fontFamily: "Yeseva" }}
                 >
                   Breaking Educational Barriers
                 </h6>
-                <p className="text-[12px] text-[#393939] group-hover:text-[#FFF] leading-[16px] font-open">
+                <p className="text-[12px] text-[#393939] group-hover:text-[#FFF] leading-4 font-open">
                   1 in 4 girls miss school during their period due to lack of
                   access to menstrual products. Your donation keeps girls in
                   school.
                 </p>
               </div>
             </div>
-            <div className="w-full flex items-center justify-between group hover:shadow-[0px_8px_16px_0px_#0000001A] hover:bg-[#ED006C] p-4 rounded-[24px] transition-all duration-200 shadow-[0px_8px_16px_0px_#0000001A] md:shadow-none">
+            <div className="w-full flex items-center justify-between group hover:shadow-[0px_8px_16px_0px_#0000001A] hover:bg-[#ED006C] p-4 rounded-3xl transition-all duration-200 shadow-[0px_8px_16px_0px_#0000001A] md:shadow-none">
               <span
                 className="h-10 w-10 group-hover:bg-[#FFF] rounded-full flex items-center justify-center text-[#111111] group-hover:text-[#ED006C] text-[24px]"
                 style={{ fontFamily: "Yeseva" }}
@@ -432,18 +461,18 @@ const Page = () => {
               </span>
               <div className="w-[85%] flex flex-col gap-1">
                 <h6
-                  className="text-[16px] text-[#111111] group-hover:text-[#FFF] leading-[20px]"
+                  className="text-[16px] text-[#111111] group-hover:text-[#FFF] leading-5"
                   style={{ fontFamily: "Yeseva" }}
                 >
                   Reducing Stigma
                 </h6>
-                <p className="text-[12px] text-[#393939] group-hover:text-[#FFF] leading-[16px] font-open">
+                <p className="text-[12px] text-[#393939] group-hover:text-[#FFF] leading-4 font-open">
                   Our education programs help normalize menstruation and break
                   down harmful myths and taboos in communities.
                 </p>
               </div>
             </div>
-            <div className="w-full flex items-center justify-between group hover:shadow-[0px_8px_16px_0px_#0000001A] hover:bg-[#ED006C] p-4 rounded-[24px] transition-all duration-200 shadow-[0px_8px_16px_0px_#0000001A] md:shadow-none">
+            <div className="w-full flex items-center justify-between group hover:shadow-[0px_8px_16px_0px_#0000001A] hover:bg-[#ED006C] p-4 rounded-3xl transition-all duration-200 shadow-[0px_8px_16px_0px_#0000001A] md:shadow-none">
               <span
                 className="h-10 w-10 group-hover:bg-[#FFF] rounded-full flex items-center justify-center text-[#111111] group-hover:text-[#ED006C] text-[24px]"
                 style={{ fontFamily: "Yeseva" }}
@@ -452,12 +481,12 @@ const Page = () => {
               </span>
               <div className="w-[85%] flex flex-col gap-1">
                 <h6
-                  className="text-[16px] text-[#111111] group-hover:text-[#FFF] leading-[20px]"
+                  className="text-[16px] text-[#111111] group-hover:text-[#FFF] leading-5"
                   style={{ fontFamily: "Yeseva" }}
                 >
                   Building Confidence
                 </h6>
-                <p className="text-[12px] text-[#393939] group-hover:text-[#FFF] leading-[16px] font-open">
+                <p className="text-[12px] text-[#393939] group-hover:text-[#FFF] leading-4 font-open">
                   Access to proper menstrual products and education gives girls
                   the confidence to pursue their dreams without interruption.
                 </p>
@@ -485,11 +514,11 @@ const Page = () => {
           />
         </div>
         <p className="font-open text-center w-full text-[12px] md:text-[16px] md:w-[45%] text-[#393939]">
-          We believe in full transparency. Here&apos;s exactly how your donations are
-          used to create maximum impact.
+          We believe in full transparency. Here&apos;s exactly how your
+          donations are used to create maximum impact.
         </p>
         <div className="w-[80%] grid grid-cols-1 md:grid-cols-3 gap-8 mt-15">
-          <div className="w-full flex flex-col gap-3 py-2 md:py-6 items-center rounded-[8px_60px_8px_60px] border-1 border-[#E7E7E7] bg-[#FFF6FC] rotate-4">
+          <div className="w-full flex flex-col gap-3 py-2 md:py-6 items-center rounded-[8px_60px_8px_60px] border border-[#E7E7E7] bg-[#FFF6FC] rotate-4">
             <h3
               className="text-[24px] md:text-[40px] text-[#E11B9F] "
               style={{
@@ -510,7 +539,7 @@ const Page = () => {
               Product procurement, distribution, and educational workshops
             </p>
           </div>
-          <div className="w-full flex flex-col gap-3 py-2 md:py-6 items-center rounded-[8px_60px_8px_60px] border-1 border-[#E7E7E7] bg-[#FCEFF4] rotate-2">
+          <div className="w-full flex flex-col gap-3 py-2 md:py-6 items-center rounded-[8px_60px_8px_60px] border border-[#E7E7E7] bg-[#FCEFF4] rotate-2">
             <h3
               className="text-[24px] md:text-[40px] text-[#EA2A74] "
               style={{
@@ -531,7 +560,7 @@ const Page = () => {
               Staff salaries, office expenses, and program coordination
             </p>
           </div>
-          <div className="w-full flex flex-col gap-3 py-2 md:py-6 items-center rounded-[8px_60px_8px_60px] border-1 border-[#E7E7E7] bg-[#FCF8FF] -rotate-4">
+          <div className="w-full flex flex-col gap-3 py-2 md:py-6 items-center rounded-[8px_60px_8px_60px] border border-[#E7E7E7] bg-[#FCF8FF] -rotate-4">
             <h3
               className="text-[24px] md:text-[40px] text-[#9725EC] "
               style={{
@@ -553,12 +582,12 @@ const Page = () => {
             </p>
           </div>
         </div>
-        <span className="flex gap-2 items-center mt-15">
+        {/* <span className="flex gap-2 items-center mt-15">
           <Shield size={20} color="#393939" />
           <p className="text-[#393939] font-open capitalize text-[12px] md:text-[16px] ">
             All donations are secured with SSL encryption
           </p>
-        </span>
+        </span> */}
       </div>
       <Footer />
     </div>

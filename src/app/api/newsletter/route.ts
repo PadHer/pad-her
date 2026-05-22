@@ -1,16 +1,51 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function POST(req: Request) {
-  const { email } = await req.json();
+export async function POST(req: NextRequest) {
+  try {
+    const { email } = await req.json();
 
-  console.log("Newsletter email received:", email);
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      return NextResponse.json(
+        { error: "Invalid email address" },
+        { status: 400 },
+      );
+    }
 
-  await prisma.newsletterSubscriber.upsert({
-    where: { email },
-    update: {},
-    create: { email },
-  });
+    if (!email) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    }
 
-  return NextResponse.json({ success: true });
+    const existingSubscriber = await prisma.newsletterSubscriber.findUnique({
+      where: { email },
+    });
+
+    if (existingSubscriber) {
+      return NextResponse.json(
+        {
+          success: true,
+          message: "You are already subscribed",
+        },
+        { status: 200 },
+      );
+    }
+
+    await prisma.newsletterSubscriber.upsert({
+      where: { email },
+      update: {},
+      create: { email },
+    });
+
+    return NextResponse.json(
+      { success: true, message: "Subscribed successfully" },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error("Newsletter subscription error:", error);
+
+    return NextResponse.json(
+      { success: false, message: "Internal server error" },
+      { status: 500 },
+    );
+  }
 }
