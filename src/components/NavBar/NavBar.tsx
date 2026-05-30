@@ -91,7 +91,7 @@ const NavBar = () => {
           </div>
           <div className="hidden md:flex flex-row items-center gap-4">
             <Link href="/donate">
-              <button className="flex flex-row gap-2 items-center bg-linear-to-b from-[#FF07A9] to-[#B90D7D] px-6 py-3 rounded-6 cursor-pointer">
+              <button className="flex flex-row gap-2 items-center bg-linear-to-b from-[#FF07A9] to-[#B90D7D] px-6 py-3 rounded-3xl cursor-pointer">
                 <ClickHeart />
                 Donate Now
               </button>
@@ -99,7 +99,7 @@ const NavBar = () => {
 
             <Link href="/volunteer">
               <button
-                className={`border-[1.5px] font-medium font-open px-6 py-3 rounded-6 hover:bg-[#FFE8F7] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D] cursor-pointer ${
+                className={`border-[1.5px] font-medium font-open px-6 py-3 rounded-3xl hover:bg-[#FFE8F7] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D] cursor-pointer ${
                   isSticky
                     ? "text-[#ED006C] border-[#ED006C]"
                     : "border-[#CCC] text-[#CCC]"

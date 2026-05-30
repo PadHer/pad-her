@@ -55,11 +55,11 @@ model NewsletterSubscriber {
 model ContactMessage {
   id        String   @id @default(uuid())
   fullName      String
-  organisation String
+  organisation String?
   emailAddress     String
-  phoneNumber String
-  typeOfEnquiry   String?
-  website String
+  phoneNumber String?
+  typeOfEnquiry   String
+  website String?
   message   String
   createdAt DateTime @default(now())
 }

@@ -1,73 +1,45 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useContactMessage } from "@/hooks/use-contact";
 
-type FormData = {
-  fullName: string;
-  organisation: string;
-  emailAddress: string;
-  phoneNumber: string;
-  typeOfEnquiry: string;
-  website: string;
-  message: string;
-};
+const partnerSchema = z.object({
+  fullName: z.string().min(2, "Full name must be at least 2 characters long"),
+  organisation: z.string().optional(),
+  emailAddress: z.string().min(2, "Please enter a valid email address"),
+  phoneNumber: z
+    .string()
+    .min(10, "Phone number must be at least 10 characters long"),
+  typeOfEnquiry: z
+    .string()
+    .min(2, "Type of enquiry must be at least 2 characters long"),
+  website: z.string().optional(),
+  message: z.string().min(10, "Message must be at least 10 characters long"),
+});
+
+type FormData = z.infer<typeof partnerSchema>;
+
 const PartnerShip = () => {
-  const [formData, setFormData] = useState<FormData>({
-    fullName: "",
-    organisation: "",
-    emailAddress: "",
-    phoneNumber: "",
-    typeOfEnquiry: "",
-    website: "",
-    message: "",
-  });
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const { submitMessage, isPending } = useContactMessage();
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    setErrors((prev) => ({ ...prev, [name]: "" }));
-    console.log(errors);
-  };
-
-  const validate = () => {
-    const newErrors: Partial<FormData> = {};
-
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full name is required";
-    }
-    if (!formData.emailAddress.trim()) {
-      newErrors.emailAddress = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.emailAddress)) {
-      newErrors.emailAddress = "Enter a valid email address";
-    }
-    if (!formData.typeOfEnquiry.trim()) {
-      newErrors.typeOfEnquiry = "Please enter your type of enquiry"
-    }
-    if (!formData.message.trim()) {
-      newErrors.message = "Message cannot be empty";
-    }
-
-    return newErrors;
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-    setFormData({
+  const form = useForm<FormData>({
+    resolver: zodResolver(partnerSchema),
+    defaultValues: {
       fullName: "",
       organisation: "",
       emailAddress: "",
@@ -75,8 +47,11 @@ const PartnerShip = () => {
       typeOfEnquiry: "",
       website: "",
       message: "",
-    });
-    setErrors({});
+    },
+  });
+
+  const handleSubmit = (data: FormData) => {
+    submitMessage(data);
   };
 
   return (
@@ -107,107 +82,141 @@ const PartnerShip = () => {
           className="text-[#393939] text-[16px] mt-8 md:mt-0"
           style={{ fontFamily: "OpenSans" }}
         >
-          We&apos;re always excited to welcome partners and sponsors who share our
-          passion for empowering young girls and ending period poverty. <span className="hidden md:flex">If
-          you&apos;re interested in collaborating with us whether through corporate
-          sponsorship, resource donations, community partnerships, or
-          volunteering support, please reach out by filling the form.</span>
+          We&apos;re always excited to welcome partners and sponsors who share
+          our passion for empowering young girls and ending period poverty.{" "}
+          <span className="hidden md:flex">
+            If you&apos;re interested in collaborating with us whether through
+            corporate sponsorship, resource donations, community partnerships,
+            or volunteering support, please reach out by filling the form.
+          </span>
         </p>
         <div className="w-full h-[45dvh] object-cover object-bottom md:h-120 relative">
           <Image src={"/images/Contact.png"} alt="" fill />
         </div>
       </div>
-      <form className="w-full md:w-[45%] flex flex-col gap-2" onSubmit={handleSubmit}>
-        <label className="label" htmlFor="">
-          Full Name
-          <span className="name left-0 ml-5 md:ml-0">*</span>
-          <input
-            type="text"
+      <Form {...form}>
+        <form
+          className="w-full md:w-[45%] flex flex-col gap-4"
+          onSubmit={form.handleSubmit(handleSubmit)}
+        >
+          <FormField
+            control={form.control}
             name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            placeholder="Enter full name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="label mb-2">
+                  Full Name<span className="">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter full name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          {errors.fullName && (
-            <p className="text-[12px] text-[red]">*{errors.fullName}</p>
-          )}
-        </label>
-        <label className="label" htmlFor="">
-          Organisation Name
-          <input
-            type="text"
+          <FormField
+            control={form.control}
             name="organisation"
-            value={formData.organisation}
-            onChange={handleChange}
-            placeholder="Enter organistation name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="label mb-2">Organisation Name (Optional)</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter organistation name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </label>
-        <label className="label" htmlFor="">
-          Email Address
-          <span className="email ml-10 md:ml-0">*</span>
-          <input
-            type="text"
+
+          <FormField
+            control={form.control}
             name="emailAddress"
-            value={formData.emailAddress}
-            onChange={handleChange}
-            placeholder="Enter email address"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="label mb-2">
+                  Email Address<span className="">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter email address" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          {errors.emailAddress && (
-            <p className="text-[12px] text-[red]">*{errors.emailAddress}</p>
-          )}
-        </label>
-        <label className="label" htmlFor="">
-          Phone Number (Optional)
-          <input
-            type="text"
+
+          <FormField
+            control={form.control}
             name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            placeholder="Enter phone number"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="label mb-2">
+                  Phone Number (Optional)
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter phone number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </label>
-        <label className="label" htmlFor="">
-          Type of Inquiry
-          <span className="ml-10 md:ml-0">*</span>
-          <input
-            type="text"
+
+          <FormField
+            control={form.control}
             name="typeOfEnquiry"
-            value={formData.typeOfEnquiry}
-            onChange={handleChange}
-            placeholder="Enter here (e.g Sponsorship, Donation, partnership, other)"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="label mb-2">
+                  Type of Enquiry<span className="">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter here (e.g Sponsorship, Donation, Partnership, other)"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          {errors.typeOfEnquiry && (
-            <p className="text-[12px] text-[red]">*{errors.typeOfEnquiry}</p>
-          )}
-        </label>
-        <label className="label" htmlFor="">
-          Website/Social Handle (Optional)
-          <input
-            type="text"
+          <FormField
+            control={form.control}
             name="website"
-            value={formData.website}
-            onChange={handleChange}
-            placeholder="Enter URL"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="label mb-2">
+                  Website/Social Handle (Optional)
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter URL" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </label>
-        <label className="label" htmlFor="">
-          Message
-          <textarea
-            onChange={handleChange}
+          <FormField
+            control={form.control}
             name="message"
-            value={formData.message}
-            placeholder="Enter message"
-          ></textarea>
-          {errors.message && (
-            <p className="text-[12px] text-[red]">*{errors.message}</p>
-          )}
-        </label>
-        <label htmlFor="">
-          <button className="button" type="submit">
-            Send Message
-          </button>
-        </label>
-      </form>
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="label mb-2">
+                  Message<span className="">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Enter message"
+                    {...field}
+                    className="resize-none h-30"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button  className="button" type="submit" disabled={isPending}>
+            {isPending ? "Sending..." : "Send Message"}
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 };

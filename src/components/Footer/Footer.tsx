@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const newsletterSchema = z.object({
-  email: z.string().email("Invalid email address"),
+  email: z.string().min(1, "Email is required"),
 });
 
 type NewsletterFormData = z.infer<typeof newsletterSchema>;
@@ -68,7 +68,7 @@ const Footer = () => {
       <span className="absolute -right-40 md:right-[3%] md:top-18">
         <Star size="12px" color={"#ED006C"} />
       </span>
-      <span className="absolute left-10 md:left-[41%] md:top-2">
+      <span className="absolute left-10 md:left-[41%] md:top-0">
         <Star size="6px" color={"#ED006C"} />
       </span>
       <span className="absolute -top-15 right-10 md:right-[18%] md:-top-8">

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "@/components/NavBar/NavBar";
 import Footer from "@/components/Footer/Footer";
+import Link from "next/link";
 
 function CheckIcon() {
   return (
@@ -61,9 +62,9 @@ export default function SuccessPage() {
       {/* Card */}
       <div
         className={`
-          bg-white rounded-3xl shadow-2xl shadow-pink-100 w-full max-w-lg
+          bg-white rounded-3xl shadow-2xl shadow-pink-100 w-full
           flex flex-col items-center px-10 pt-12 pb-12 gap-6
-          transition-all duration-700
+          transition-all duration-700 border
           ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}
         `}
       >
@@ -82,14 +83,14 @@ export default function SuccessPage() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center leading-tight">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center leading-tight font-playfair">
           Thank You for Your Generous Donation!
         </h1>
 
         {/* Body */}
-        <p className="text-gray-500 text-center text-base leading-relaxed max-w-sm">
+        <p className="text-[#393939] text-center text-base leading-relaxed max-w-sm font-open">
           Your support helps{" "}
-          <span className="font-semibold text-[#E91E8C]">PadHer With Love</span>{" "}
+          <span className="font-semibold text-[#E91E8C] font-playfair">PadHer With Love</span>{" "}
           provide sanitary pads and menstrual health education to young girls who need it most.
           We&apos;ve sent a confirmation email with your donation details.
         </p>
@@ -97,44 +98,19 @@ export default function SuccessPage() {
         {/* Divider */}
         <div className="w-16 h-0.5 rounded-full bg-pink-100" />
 
-        {/* Impact stat */}
-        <div className="flex gap-8 text-center">
-          <div>
-            <p className="text-2xl font-bold text-[#E91E8C]">10K+</p>
-            <p className="text-xs text-gray-400 mt-0.5">Girls Reached</p>
-          </div>
-          <div className="w-px bg-gray-100" />
-          <div>
-            <p className="text-2xl font-bold text-[#E91E8C]">50K+</p>
-            <p className="text-xs text-gray-400 mt-0.5">Pads Distributed</p>
-          </div>
-          <div className="w-px bg-gray-100" />
-          <div>
-            <p className="text-2xl font-bold text-[#E91E8C]">15+</p>
-            <p className="text-xs text-gray-400 mt-0.5">Communities</p>
-          </div>
-        </div>
-
         {/* CTA button */}
-        <button
+        <Link
+          href="/"
           className="
             mt-2 w-full max-w-xs py-3.5 rounded-full
-            bg-[#E91E8C] hover:bg-[#c91578] active:scale-95
-            text-white font-semibold text-base
+            button active:scale-95
+            text-white font-semibold text-base flex items-center justify-center
             transition-all duration-200 shadow-md shadow-pink-200
             focus:outline-none focus:ring-4 focus:ring-pink-300
           "
         >
           Back to Homepage
-        </button>
-
-        {/* Secondary link */}
-        <a
-          href="#"
-          className="text-sm text-gray-400 hover:text-[#E91E8C] transition-colors underline underline-offset-2"
-        >
-          View donation receipt
-        </a>
+        </Link>
       </div>
     </div>
     <Footer />
