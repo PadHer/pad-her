@@ -68,9 +68,6 @@
     /* width: 100%; */
     span {
       color: red;
-      position: absolute;
-      top: 0;
-      left: 19%;
     }
     .name {
       left: 14%;

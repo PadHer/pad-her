@@ -30,7 +30,7 @@ export const useSubscribe = () => {
         mutationFn: subscribe,
         onSuccess: (data) => {
             toast({
-                title: "Subscribed successfully 🎉",
+                title: "Subscription Notification  🎉",
                 description: data.message,
             });
             queryClient.invalidateQueries({queryKey: ["subscribers"]});
