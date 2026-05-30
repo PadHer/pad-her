@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const GetInvolved = () => {
@@ -76,7 +77,7 @@ const GetInvolved = () => {
               Community Outreach
             </h2>
             <h6
-              className="text-[16px] h-[80px]"
+              className="text-[16px] h-20"
               style={{ fontFamily: "OpenSans" }}
             >
               Join our field teams to distribute pads and conduct educational
@@ -84,12 +85,12 @@ const GetInvolved = () => {
             </h6>
           </div>
 
-          <div className="w-full h-[260px] rounded-[16px] rounded-br-[8px] flex flex-col justify-end px-6 pb-6 relative">
+          <div className="w-full h-65 rounded-2xl rounded-br-lg flex flex-col justify-end px-6 pb-6 relative">
             <Image
               src={"/images/Image-6.png"}
               alt="Community Outreach"
               fill
-              className="object-cover object-top rounded-[16px] rounded-br-[8px]"
+              className="object-cover object-top rounded-2xl rounded-br-lg"
             />
             <div
               onClick={() => router.push("/volunteer")}
@@ -101,8 +102,8 @@ const GetInvolved = () => {
               >
                 Apply Now
               </p>
-              <span className="h-[24px] w-[24px] bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
-                <ArrowRight className="text-[#000] text-[16px]" />
+              <span className="h-6 w-6 bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
+                <ArrowRight className="text-black text-[16px]" />
               </span>
             </div>
           </div>
@@ -118,19 +119,19 @@ const GetInvolved = () => {
               Education & Training
             </h2>
             <h6
-              className="text-[16px] h-[80px]"
+              className="text-[16px] h-20"
               style={{ fontFamily: "OpenSans" }}
             >
               Lead workshops on menstrual hygiene and reproductive health in
               schools and community centers.
             </h6>
           </div>
-          <div className="w-full h-[260px] rounded-[16px] rounded-br-[8px] flex flex-col justify-end px-6 pb-6 relative">
+          <div className="w-full h-65 rounded-2xl rounded-br-lg flex flex-col justify-end px-6 pb-6 relative">
             <Image
               src={"/images/Image-2.png"}
               alt="Education & Training"
               fill
-              className="object-cover rounded-[16px] rounded-br-[8px]"
+              className="object-cover rounded-2xl rounded-br-lg"
             />
             <div
               onClick={() => router.push("/volunteer")}
@@ -142,8 +143,8 @@ const GetInvolved = () => {
               >
                 Apply Now
               </p>
-              <span className="h-[24px] w-[24px] bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
-                <ArrowRight className="text-[#000] text-[16px]" />
+              <span className="h-6 w-6 bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
+                <ArrowRight className="text-black text-[16px]" />
               </span>
             </div>
           </div>
@@ -159,19 +160,19 @@ const GetInvolved = () => {
               Digital <br /> Advocacy
             </h2>
             <h6
-              className="text-[16px] h-[80px]"
+              className="text-[16px] h-20"
               style={{ fontFamily: "OpenSans" }}
             >
               Help us spread awareness through social media, content creation,
               and digital campaigns.
             </h6>
           </div>
-          <div className="w-full h-[260px] rounded-[16px] rounded-br-[8px] flex flex-col justify-end px-6 pb-6 relative">
+          <div className="w-full h-65 rounded-2xl rounded-br-lg flex flex-col justify-end px-6 pb-6 relative">
             <Image
               src={"/images/Image-3.png"}
               alt="Digital Advocacy"
               fill
-              className="object-cover rounded-[16px] rounded-br-[8px]"
+              className="object-cover rounded-2xl rounded-br-lg"
             />
             <div
               onClick={() => router.push("/volunteer")}
@@ -183,20 +184,21 @@ const GetInvolved = () => {
               >
                 Apply Now
               </p>
-              <span className="h-[24px] w-[24px] bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
-                <ArrowRight className="text-[#000] text-[16px]" />
+              <span className="h-6 w-6 bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
+                <ArrowRight className="text-black text-[16px]" />
               </span>
             </div>
           </div>
         </section>
       </div>
       <div className="w-full flex justify-center z-30">
-        <button
+        <Link
+        href={"/volunteer"}
           className="button-secondary"
           style={{ fontFamily: "OpenSans-Bold" }}
         >
           View All Opportunities
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -80,7 +80,7 @@ const PartnerShip = () => {
   };
 
   return (
-    <div className="w-full flex flex-col md:flex-row relative py-4 md:py-[70px] p-4 md:px-24 gap-8 md:justify-between bg-[#FFF] z-20">
+    <div className="w-full flex flex-col md:flex-row relative py-4 md:py-17.5 p-4 md:px-24 gap-8 md:justify-between bg-[#FFF] z-20">
       <Image
         src={"/svgs/Vector-3.svg"}
         alt=""
@@ -90,7 +90,7 @@ const PartnerShip = () => {
       />
       <div className="w-full md:w-[45%] flex flex-col gap-4">
         <span
-          className="w-full relative text-[#111111] text-[48px] leading-[46px]"
+          className="w-full relative text-[#111111] text-[48px] leading-11.5"
           style={{ fontFamily: "Yeseva" }}
         >
           <h2>Partner or</h2>
@@ -113,7 +113,7 @@ const PartnerShip = () => {
           sponsorship, resource donations, community partnerships, or
           volunteering support, please reach out by filling the form.</span>
         </p>
-        <div className="w-full h-[45dvh] object-cover object-bottom md:h-[480px] relative">
+        <div className="w-full h-[45dvh] object-cover object-bottom md:h-120 relative">
           <Image src={"/images/Contact.png"} alt="" fill />
         </div>
       </div>

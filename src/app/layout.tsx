@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Playfair_Display, Open_Sans } from "next/font/google";
 import "./globals.css";
 import RouteLoader from "@/components/RouteLoader/RouteLoader";
-
+import { Toaster } from "@/components/ui/toaster";
+import ReactQueryProvider from "@/QueryClientProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -31,8 +32,11 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${openSans.variable} antialiased`}
       >
-        <RouteLoader />
-        {children}
+        <ReactQueryProvider>
+          <RouteLoader />
+          {children}
+          <Toaster />
+        </ReactQueryProvider>
       </body>
     </html>
   );

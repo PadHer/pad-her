@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
@@ -27,6 +28,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { campaigns } from "@/data/campaigns";
+import { useVolunteerApplication } from "@/hooks/use-volunteer";
 
 const volunteerFormSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -35,14 +37,12 @@ const volunteerFormSchema = z.object({
   phone: z.string().optional(),
   skills: z.array(z.string()).optional(),
   availability: z.string().optional(),
-  opportunityId: z.number().optional(),
 });
 
 type FormData = z.infer<typeof volunteerFormSchema>;
 
 const VolunteerForm = () => {
-  // const [loading, setLoading] = useState<boolean>(false);
-  const [isSuccess, setIsSucces] = useState<boolean>(false);
+  const { apply, isPending, isSuccess } = useVolunteerApplication();
 
   const form = useForm<FormData>({
     resolver: zodResolver(volunteerFormSchema),
@@ -67,57 +67,9 @@ const VolunteerForm = () => {
     "Community Outreach",
   ];
 
-  // if (loading) return;
-
-  // const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   setLoading(true);
-
-  //   const validationErrors = validate();
-
-  //   if (Object.keys(validationErrors).length > 0) {
-  //     setErrors(validationErrors);
-  //     setLoading(false);
-  //     return;
-  //   }
-
-  //   const submissionData = {
-  //     fullName: volunteerForm.fullName,
-  //     emailAddress: volunteerForm.emailAddress,
-  //     phoneNumber: volunteerForm.phoneNumber,
-  //     interest: volunteerForm.interest,
-  //     whyVolunteer: volunteerForm.whyVolunteer,
-  //     isAgree: volunteerForm.isAgree,
-  //   };
-
-  //   try {
-  //     const res = await fetch("/api/volunteer", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(submissionData),
-  //     });
-  //     const data = await res.json();
-
-  //     if (res.ok) {
-  //       setIsSucces(true);
-  //       setLoading(false);
-  //       setVolunteerForm({
-  //         fullName: "",
-  //         emailAddress: "",
-  //         phoneNumber: "",
-  //         interest: "",
-  //         whyVolunteer: "",
-  //         isAgree: false,
-  //       });
-  //       setErrors({});
-  //     } else {
-  //       alert(data.error || "Volunteer Registration failed.");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+  const onSubmit = async (data: FormData) => {
+    apply(data);
+  };
 
   return (
     <div className="w-full bg-[#FFF5F9] py-10 flex items-center justify-center">
@@ -126,8 +78,10 @@ const VolunteerForm = () => {
           title="Thank You for Signing Up!"
           message="We’re excited to have you join the PadHer With Love volunteer community. Our team will review your application and reach out with next steps soon."
           primary="Back to Homepage"
-          secondary="Explore Events"
-          onClose={() => setIsSucces(false)}
+          secondary="Explore Opportunities"
+          onClose={() => {
+            form.reset();
+          }}
         />
       )}
       <div className="w-full md:w-2/3 overflow-hidden gap-4 shadow-[#0000001F] rounded-4xl bg-white pb-10">
@@ -141,17 +95,17 @@ const VolunteerForm = () => {
               className="object-cover object-[50%_10%]"
             />
 
-            <div className="absolute w-[80px] h-[70px] flex items-center justify-center left-[50%] transform -translate-x-1/2 top-[10%] rounded-[8px] bg-white backdrop-blur-[5px] z-1">
-              <Image 
-              src={"/logos/Main-Logo.png"}
-              alt="PadHer Logo"
-              width={60}
-              height={50}
-              className="object-contain object-center"
+            <div className="absolute w-20 h-17.5 flex items-center justify-center left-[50%] transform -translate-x-1/2 top-[10%] rounded-2 bg-white backdrop-blur-[5px] z-1">
+              <Image
+                src={"/logos/Main-Logo.png"}
+                alt="PadHer Logo"
+                width={60}
+                height={50}
+                className="object-contain object-center"
               />
             </div>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-transparent to-[#FF07A9] opacity-90" />
+            <div className="absolute inset-0 bg-linear-to-t from-transparent to-[#FF07A9] opacity-90" />
           </div>
           <div className="-mt-20 z-10 bg-white px-4 sm:px-6 lg:px-8 w-full md:w-4/5 rounded-[100px_8px_100px_8px] shadow-[0px_2px_16px_0px_#00000014] py-8 flex flex-col items-center gap-4">
             <div className="text-center mb-12">
@@ -172,7 +126,7 @@ const VolunteerForm = () => {
               <CardContent>
                 <Form {...form}>
                   <form
-                    // onSubmit={form.handleSubmit(onSubmit)}
+                    onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-6"
                   >
                     <div className="grid md:grid-cols-2 gap-6">
@@ -250,40 +204,6 @@ const VolunteerForm = () => {
 
                     <FormField
                       control={form.control}
-                      name="opportunityId"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Preferred Opportunity</FormLabel>
-                          <Select
-                            value={field.value?.toString()}
-                            onValueChange={(value) =>
-                              field.onChange(parseInt(value))
-                            }
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select a volunteer opportunity" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="0">Any opportunity</SelectItem>
-                              {campaigns?.map((opportunity) => (
-                                <SelectItem
-                                  key={opportunity.id}
-                                  value={opportunity.id.toString()}
-                                >
-                                  {opportunity.title}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
                       name="skills"
                       render={() => (
                         <FormItem>
@@ -333,7 +253,7 @@ const VolunteerForm = () => {
                           <FormControl>
                             <Textarea
                               placeholder="Tell us about your availability, experience, and why you want to volunteer with us..."
-                              className="min-h-[100px]"
+                              className="min-h-25"
                               {...field}
                             />
                           </FormControl>
@@ -345,9 +265,9 @@ const VolunteerForm = () => {
                     <Button
                       type="submit"
                       className="w-full button"
-                      // disabled={volunteerMutation.isPending}
+                      disabled={isPending}
                     >
-                      {/* {volunteerMutation.isPending ? "Submitting..." : "Submit Application"} */}
+                      {isPending ? "Submitting..." : "Submit Application"}
                       Submit Application
                     </Button>
                   </form>

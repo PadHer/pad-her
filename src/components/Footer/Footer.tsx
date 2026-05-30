@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
@@ -6,6 +7,26 @@ import { FaMedium, FaLinkedinIn } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { PiInstagramLogoFill } from "react-icons/pi";
 import Star from "../Star/Star";
+import { useSubscribe } from "@/hooks/use-subscribe";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+const newsletterSchema = z.object({
+  email: z.string().email("Invalid email address"),
+});
+
+type NewsletterFormData = z.infer<typeof newsletterSchema>;
 
 const socials = [
   {
@@ -27,41 +48,27 @@ const socials = [
 ];
 
 const Footer = () => {
-  const [subscribe, setSubscribe] = useState<string>("");
-  const [loading, setLoading] = useState(false);
+  const { subscribe, isPending, isError } = useSubscribe();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const form = useForm<NewsletterFormData>({
+    resolver: zodResolver(newsletterSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
 
-    if (!subscribe) return;
-
-    setLoading(true);
-
-    const res = await fetch("/api/newsletter", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: subscribe }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      alert("Subscribed successfully 🎉");
-      setLoading(false);
-      setSubscribe("");
-    } else {
-      alert(data.error || "Something went wrong");
-    }
+  const handleSubmit = async (values: NewsletterFormData) => {
+    subscribe(values);
   };
   return (
-    <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-4 md:pt-[25px] px-4 md:px-24 relative z-20">
+    <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-4 md:pt-6.25 px-4 md:px-24 relative z-20">
       <span className="absolute left-[12%] md:left-[14%] -top-25 md:top-8">
         <Star size="16px" color={"#ED006C"} />
       </span>
       <span className="absolute -right-40 md:right-[3%] md:top-18">
         <Star size="12px" color={"#ED006C"} />
       </span>
-      <span className="absolute left-10 md:left-[41%] md:top-7">
+      <span className="absolute left-10 md:left-[41%] md:top-2">
         <Star size="6px" color={"#ED006C"} />
       </span>
       <span className="absolute -top-15 right-10 md:right-[18%] md:-top-8">
@@ -74,21 +81,32 @@ const Footer = () => {
       <p className="w-full md:w-[30%] text-[#989797] text-[16px] text-center font-open font-semibold mt-6 md:mt-0">
         Subscribe to our newsletter
       </p>
-      <form
-        className="w-[35%] flex gap-2 items-center justify-center mt-4"
+      <div className="md:w-1/2 flex justify-center items-center md:mt-2">
+        <Form {...form}>
+        <form
+        className="w-[95%] flex gap-2 items-center justify-center"
         action=""
-        onSubmit={handleSubmit}
+        onSubmit={form.handleSubmit(handleSubmit)}
       >
-        <input
-          type="text"
-          onChange={(e) => setSubscribe(e.target.value)}
-          value={subscribe}
-          name="subscribe"
-          placeholder="Enter email address"
-          className="border-[1px] border-[#EAEAEA] bg-[#FFF] rounded-[16px] px-4 py-2 outline-none placeholder:text-[#989797] placeholder:text-[12px] font-open text-[16px] text-[#1A1A1A]"
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              {/* <FormLabel>Email</FormLabel> */}
+              <FormControl>
+                <Input placeholder="Enter email address" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        <button disabled={loading} type="submit" className="button">{loading ? "Subscribing..." : "Subscribe"}</button>
+        <Button className="button" disabled={isPending} type="submit">
+          {isPending ? "Subscribing..." : "Subscribe"}
+        </Button>
       </form>
+      </Form>
+      </div>
       <div className="w-full flex flex-col-reverse md:flex-row md:mt-16 py-6 items-center gap-6 md:justify-between">
         <h4
           style={{ fontFamily: "Yeseva" }}

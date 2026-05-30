@@ -23,25 +23,29 @@ const SuccessModal = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-auto h-auto flex flex-col gap-4 items-center py-10 px-8"
+        className="w-1/3 h-1/2 flex flex-col gap-1 items-center py-6 px-8 bg-white rounded-lg"
       >
-        <SuccessTick />
-        <h2
+        <div className="w-120 h-90 flex items-center justify-center -mt-10">
+          <SuccessTick />
+        </div>
+        <div className="w-full flex flex-col items-center space-y-1.5">
+          <h2
           style={{ fontFamily: "Yeseva" }}
-          className="text-[#111111] text-[32px] "
+          className="text-[#111111] text-[24px] "
         >
           {title}
         </h2>
-        <p className="text-[#393939] font-open text-[16px] font-normal">
+        <p className="text-[#111] font-open text-[16px] font-normal">
           {message}
         </p>
-        <div>
+        <div className="flex gap-2 items-center">
           <button onClick={onClose} className="button-secondary">
             {secondary}
           </button>
           <button onClick={() => router.push("/")} className="button">
             {primary}
           </button>
+        </div>
         </div>
       </div>
     </div>
