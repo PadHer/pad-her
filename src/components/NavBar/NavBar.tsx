@@ -40,7 +40,7 @@ const NavBar = () => {
     <nav
       className={`fixed flex justify-center z-100 py-1 transition-all duration-300 ${
         isSticky
-          ? "bg-white top-[0] w-full"
+          ? "bg-white top-0 w-full"
           : "lg:rounded-[40px] text-[#FFF] md:w-[90%] md:bg-[#FFFFFF40] md:backdrop-blur-[54px] md:shadow-[0px_4px_16px_0px_#FF07A914] top-0 w-full lg:top-10"
       }`}
     >
@@ -80,7 +80,7 @@ const NavBar = () => {
                   {item.name}
                   <span
                     className={`
-                    h-[3px] w-0 bg-[#FF07A9] transition-all duration-300 
+                    h-0.75 w-0 bg-[#FF07A9] transition-all duration-300 
                     group-hover:w-full
                     ${pathname === item.href ? "w-1/2" : ""}
                   `}
@@ -91,7 +91,7 @@ const NavBar = () => {
           </div>
           <div className="hidden md:flex flex-row items-center gap-4">
             <Link href="/donate">
-              <button className="flex flex-row gap-2 items-center bg-gradient-to-b from-[#FF07A9] to-[#B90D7D] px-[24px] py-[12px] rounded-[24px] cursor-pointer">
+              <button className="flex flex-row gap-2 items-center bg-linear-to-b from-[#FF07A9] to-[#B90D7D] px-6 py-3 rounded-6 cursor-pointer">
                 <ClickHeart />
                 Donate Now
               </button>
@@ -99,7 +99,7 @@ const NavBar = () => {
 
             <Link href="/volunteer">
               <button
-                className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] hover:bg-[#FFE8F7] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D] cursor-pointer ${
+                className={`border-[1.5px] font-medium font-open px-6 py-3 rounded-6 hover:bg-[#FFE8F7] transition-colors duration-300 ease-in-out hover:text-[#B90D7D] hover:border-[#B90D7D] cursor-pointer ${
                   isSticky
                     ? "text-[#ED006C] border-[#ED006C]"
                     : "border-[#CCC] text-[#CCC]"
@@ -141,7 +141,7 @@ const NavBar = () => {
                 </div>
                 <div className="flex flex-col items-center gap-4">
                   <Link href="/donate">
-                    <button className="flex flex-row gap-2 items-center bg-gradient-to-b from-[#FF07A9] to-[#B90D7D] px-[24px] py-[12px] rounded-[24px] cursor-pointer">
+                    <button className="flex flex-row gap-2 items-center bg-linear-to-b from-[#FF07A9] to-[#B90D7D] px-6 py-3 rounded-6 cursor-pointer">
                       <ClickHeart />
                       Donate Now
                     </button>
@@ -149,7 +149,7 @@ const NavBar = () => {
 
                   <Link href="/volunteer">
                     <button
-                      className={`border-[1.5px] font-medium font-open px-[24px] py-[12px] rounded-[24px] text-[#ED006C] border-[#ED006C]`}
+                      className={`border-[1.5px] font-medium font-open px-6 py-3 rounded-6 text-[#ED006C] border-[#ED006C]`}
                     >
                       Get Involved
                     </button>

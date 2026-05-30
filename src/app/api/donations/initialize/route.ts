@@ -1,9 +1,11 @@
 // app/api/donations/initialize/route.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import axios from "axios";
 import crypto from "crypto";
+import { PaystackInitializeResponse } from "@/types/paystack";
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,11 +19,11 @@ export async function POST(req: NextRequest) {
       isAnon,
     } = body;
 
-    if (!donationAmount || donationAmount < 100) {
+    if (!donationAmount || donationAmount < 1000) {
       return NextResponse.json(
         {
           success: false,
-          message: "Minimum donation is ₦100",
+          message: "Minimum donation is ₦1000",
         },
         { status: 400 }
       );
@@ -54,7 +56,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Initialize Paystack transaction
-    const paystackResponse = await axios.post(
+    const paystackResponse = await axios.post<PaystackInitializeResponse>(
       "https://api.paystack.co/transaction/initialize",
       {
         email: donorEmail,
@@ -64,8 +66,7 @@ export async function POST(req: NextRequest) {
           donorName,
           donationType,
         },
-        callback_url:
-          "http://localhost:3000/donation/success",
+        callback_url: `${process.env.NEXT_PUBLIC_APP_URL}/donate/success`,
       },
       {
         headers: {

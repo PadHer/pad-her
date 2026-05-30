@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 "use client";
 
 import React, { useState } from "react";
@@ -5,7 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import Image from "next/image";
 import DataCount from "@/components/Data/Data";
-import { Heart, BookOpen, Shield } from "lucide-react";
+import { Heart, BookOpen } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useInitializeDonation } from "@/hooks/use-initializeDonations";
@@ -24,7 +26,7 @@ import { z } from "zod";
 import { Label } from "@/components/ui/label";
 
 const donationSchema = z.object({
-  donationAmount: z.string().min(1, "Donation amount is required"),
+  donationAmount: z.number().min(1, "Donation amount is required"),
   donationType: z.string().min(1, "Donation type is required"),
   donorName: z.string().min(1, "Donor name is required"),
   donorEmail: z
@@ -37,31 +39,14 @@ const donationSchema = z.object({
 type DonationData = z.infer<typeof donationSchema>;
 
 const Page = () => {
-  const [selectedAmount, setSelectedAmount] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [formData, setFormData] = useState<DonationData>({
-    donationAmount: "",
-    donationType: "",
-    donorName: "",
-    donorEmail: "",
-    isAnon: false,
-  });
-  const [errors, setErrors] = useState<Partial<DonationData>>({});
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
 
-  const handleDonationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setErrors((prev) => ({ ...prev, [name]: "" }));
-    console.log(errors);
-  };
+  const { initialize, isPending, isError } = useInitializeDonation();
 
   const form = useForm<DonationData>({
     resolver: zodResolver(donationSchema),
     defaultValues: {
-      donationAmount: "₦",
+      donationAmount: 0,
       donationType: "",
       donorName: "",
       donorEmail: "",
@@ -77,7 +62,7 @@ const Page = () => {
   // const watchAnon = form.watch("isAnon");
   const watchDonationAmount = form.watch("donationAmount");
 
-  const handleSelectAmount = (amount: string) => {
+  const handleSelectAmount = (amount: number) => {
     setSelectedAmount(amount);
     form.setValue("donationAmount", amount, {
       shouldDirty: true,
@@ -85,72 +70,74 @@ const Page = () => {
     });
   };
 
-  const handleDonate = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    setLoading(true);
-
-    const newErrors: Partial<DonationData> = {};
-
-    if (!formData.donationAmount) {
-      newErrors.donationAmount = "Please enter the amount you want to donate.";
-    }
-
-    if (!formData.donationType) {
-      newErrors.donationType = "Please select a donation type.";
-    }
-
-    if (!formData.donorName.trim()) {
-      newErrors.donorName = "Name is required.";
-    }
-
-    if (!formData.donorEmail.trim()) {
-      newErrors.donorEmail = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.donorEmail)) {
-      newErrors.donorEmail = "Please enter a valid email address.";
-    }
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      setLoading(false);
-      return;
-    }
-    const submissionData = {
-      donationAmount: Number(formData.donationAmount),
-      donationType: formData.donationType,
-      donorName: formData.donorName,
-      donorEmail: formData.donorEmail,
-      isAnon: formData.isAnon,
-    };
-
-    try {
-      const res = await fetch("/api/donations", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(submissionData),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        alert("Donation submitted successfully!");
-        setLoading(false);
-        setFormData({
-          donationAmount: "",
-          donationType: "",
-          donorName: "",
-          donorEmail: "",
-          isAnon: false,
-        });
-      } else {
-        alert(data.error || "Donation submission failed.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong.");
-    }
-
-    console.log("Submitting donation:", submissionData);
+  const handleDonate = async (data: DonationData) => {
+    initialize(data);
   };
+  //   e.preventDefault();
+
+  //   setLoading(true);
+
+  //   const newErrors: Partial<DonationData> = {};
+
+  //   if (!formData.donationAmount) {
+  //     newErrors.donationAmount = "Please enter the amount you want to donate.";
+  //   }
+
+  //   if (!formData.donationType) {
+  //     newErrors.donationType = "Please select a donation type.";
+  //   }
+
+  //   if (!formData.donorName.trim()) {
+  //     newErrors.donorName = "Name is required.";
+  //   }
+
+  //   if (!formData.donorEmail.trim()) {
+  //     newErrors.donorEmail = "Email is required.";
+  //   } else if (!/\S+@\S+\.\S+/.test(formData.donorEmail)) {
+  //     newErrors.donorEmail = "Please enter a valid email address.";
+  //   }
+  //   if (Object.keys(newErrors).length > 0) {
+  //     setErrors(newErrors);
+  //     setLoading(false);
+  //     return;
+  //   }
+  //   const submissionData = {
+  //     donationAmount: Number(formData.donationAmount),
+  //     donationType: formData.donationType,
+  //     donorName: formData.donorName,
+  //     donorEmail: formData.donorEmail,
+  //     isAnon: formData.isAnon,
+  //   };
+
+  //   try {
+  //     const res = await fetch("/api/donations", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(submissionData),
+  //     });
+
+  //     const data = await res.json();
+
+  //     if (res.ok) {
+  //       alert("Donation submitted successfully!");
+  //       setLoading(false);
+  //       setFormData({
+  //         donationAmount: "",
+  //         donationType: "",
+  //         donorName: "",
+  //         donorEmail: "",
+  //         isAnon: false,
+  //       });
+  //     } else {
+  //       alert(data.error || "Donation submission failed.");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert("Something went wrong.");
+  //   }
+
+  //   console.log("Submitting donation:", submissionData);
+  // };
 
   return (
     <div className="w-full bg-[#FFF] flex flex-col items-center justify-center overflow-hidden relative">
@@ -187,7 +174,7 @@ const Page = () => {
         <div className="w-full md:w-[75%] flex flex-col border border-[#C3C3C3] rounded-[20px] md:rounded-[40px] px-4 p-3 md:px-6 md:py-10 gap-3 md:gap-6 mt-8">
           <h6 className="vol-label">Choose Amount</h6>
           <div className="w-full flex justify-between">
-            {["1000", "2000", "5000", "10000"].map((amount, idx) => (
+            {[1000, 2000, 5000, 10000].map((amount, idx) => (
               <span
                 style={{
                   fontFamily: "Yeseva",
@@ -207,7 +194,7 @@ const Page = () => {
           <Form {...form}>
             <form
               className="w-full flex flex-col gap-8"
-              // onSubmit={form.handleSubmit(handleDonate)}
+              onSubmit={form.handleSubmit(handleDonate)}
               action=""
             >
               <FormField
@@ -215,9 +202,12 @@ const Page = () => {
                 name="donationAmount"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="vol-label">Donation Amount</FormLabel>
+                    <FormLabel className="vol-label mb-2">
+                      Donation Amount
+                    </FormLabel>
                     <FormControl>
                       <Input
+                        type="number"
                         className="w-full px-2 py-1.5 md:px-4 md:py-3 bg-[#FAFAFA] border border-[#8A8C8E] outline-none placeholder:text-[#39393980] placeholder:font-open placeholder:text-[12px] md:placeholder:text-[16px] text-[#111111] font-playfair text-[16px]"
                         placeholder="Enter custom amount"
                         {...field}
@@ -233,7 +223,7 @@ const Page = () => {
                   name="donationType"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="vol-label">
+                      <FormLabel className="vol-label mb-2">
                         Donation Type <span className="text-red">*</span>
                       </FormLabel>
                       <FormControl>
@@ -269,7 +259,9 @@ const Page = () => {
                   name="donorName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="vol-label">Full Name</FormLabel>
+                      <FormLabel className="vol-label mb-2">
+                        Full Name
+                      </FormLabel>
                       <FormControl>
                         <Input
                           type="text"
@@ -286,7 +278,9 @@ const Page = () => {
                   name="donorEmail"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="vol-label">Email Address</FormLabel>
+                      <FormLabel className="vol-label mb-2">
+                        Email Address
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Enter your email"
@@ -299,23 +293,37 @@ const Page = () => {
                   )}
                 />
               </div>
-              <label
-                className="text-[#393939] text-[12px] md:text-[16px] font-open flex items-center"
-                htmlFor="isAnon"
-              >
-                <input
-                  type="checkbox"
-                  name="isAnon"
-                  checked={formData.isAnon}
-                  onChange={handleDonationChange}
-                  className="mr-2 w-4 h-4 border border-[#FF00B8] rounded-md checked:bg-[#FF00B8]"
-                />
-                Make this donation anonymous
-              </label>
+              <FormField
+                control={form.control}
+                name="isAnon"
+                render={({ field }) => (
+                  <FormItem className="flex items-center">
+                    <FormControl className="flex items-center">
+                      <Checkbox
+                        id="isAnon"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        // className="data-[state=checked]:bg-[#FF00B8] h-4 w-4 rounded-md border border-[#FF00B8] bg-[#FFF] checked:bg-[#FF00B8]"
+                      />
+                    </FormControl>
+                    <FormLabel className="ml-2 label">
+                      Make this donation anonymous
+                    </FormLabel>
+                  </FormItem>
+                )}
+              />
               <div className="w-full flex justify-center items-center">
-                <button disabled={loading} type="submit" className="button">
-                  {loading ? "Donating... " : "Donate "}
-                  {watchDonationAmount && <>₦{watchDonationAmount}</>} now
+                <button disabled={isPending} type="submit" className="button">
+                  {isPending ? "Donating... " : "Donate "}
+                  {watchDonationAmount && (
+                    <>
+                      ₦
+                      {new Intl.NumberFormat("en-NG").format(
+                        watchDonationAmount,
+                      )}
+                    </>
+                  )}{" "}
+                  now
                 </button>
               </div>
             </form>

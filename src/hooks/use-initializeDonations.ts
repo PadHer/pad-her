@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
-import { api, publicApi } from "@/lib/axios";
+import { publicApi } from "@/lib/axios";
 
 export type DonationPayload = {
   donationAmount: number;

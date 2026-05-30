@@ -59,12 +59,12 @@
 @layer utilities {
   .label {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-direction: row;
+    /* gap: 8px; */
     color: #121212;
     font-size: 16px;
     font-family: OpenSans;
-    position: relative;
+    /* position: relative; */
     /* width: 100%; */
     span {
       color: red;
@@ -499,6 +499,33 @@
   --font-mono: var(--font-geist-mono);
   --font-playfair: var(--font-playfair);
   --font-open: var(--font-open-sans);
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 15%);
+  --muted: hsl(331, 100%, 97%);
+  --muted-foreground: hsl(0, 0%, 42%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(0, 0%, 15%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(0, 0%, 15%);
+  --border: hsl(331, 20%, 90%);
+  --input: hsl(331, 20%, 90%);
+  --primary: hsl(340, 82%, 52%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(331, 100%, 97%);
+  --secondary-foreground: hsl(0, 0%, 15%);
+  --accent: hsl(331, 100%, 97%);
+  --accent-foreground: hsl(0, 0%, 15%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(340, 82%, 52%);
+  --radius: 0.5rem;
+  
+  /* PadHer custom colors */
+  --primary-pink: hsl(340, 82%, 52%);
+  --secondary-purple: hsl(291, 64%, 42%);
+  --accent-pink: hsl(331, 100%, 97%);
+  --text-dark: hsl(0, 0%, 18%);
+  --text-light: hsl(0, 0%, 42%);
 }
 
 @media (prefers-color-scheme: dark) {

@@ -98,6 +98,7 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
           <form
             className="w-full flex flex-col gap-4 px-8 md:px-0"
             action=""
+            onSubmit={form.handleSubmit(onSubmit)}
           >
             <span
               className="text-[#000000] flex items-center gap-4 cursor-pointer font-open font-light text-[16px] capitalize"

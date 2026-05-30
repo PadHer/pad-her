@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import axios from "axios";
+import { PaystackVerifyResponse } from "@/types/paystack";
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const response = await axios.get(
+    const response = await axios.get<PaystackVerifyResponse>(
       `https://api.paystack.co/transaction/verify/${reference}`,
       {
         headers: {
