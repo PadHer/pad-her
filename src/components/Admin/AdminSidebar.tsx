@@ -37,8 +37,8 @@ const AdminSidebar = () => {
   ];
 
   const NavContent = () => (
-    <div className="w-64 border-r border-slate-200 bg-white hidden md:block sticky h-screen">
-      <ScrollArea className="h-full py-6">
+    <div className="w-64 border-r border-slate-200 bg-white hidden md:flex flex-col justify-between sticky h-screen py-3">
+      <ScrollArea>
         <div className="p-6 flex items-center gap-3">
           <div className="h-10 w-10 bg-white border-border border rounded-lg flex items-center justify-center shadow-lg shadow-primary/20">
             <Image
@@ -85,10 +85,11 @@ const AdminSidebar = () => {
             );
           })}
         </nav>
-        <div className="w-full p-6">
+        
+      </ScrollArea>
+      <div className="w-full p-6">
           <AdminLogoutButton />
         </div>
-      </ScrollArea>
     </div>
   );
   return (

@@ -7,7 +7,7 @@ export function AdminLogoutButton() {
   return (
     <Button
       variant="destructive"
-      className="w-full"
+      className="w-full button-secondary"
       onClick={() =>
         signOut({
           callbackUrl: "/login",
