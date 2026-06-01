@@ -76,6 +76,26 @@ model EventRegistration {
   updatedAt     DateTime @updatedAt
 }
 
+model CreateEvent {
+  id            String @id @default(cuid())
+  title         String
+  type          String
+  date          String
+  location      String
+  capacity      String
+  imageUrl      String
+  description   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model VolunteerRole {
+  id            String @id @default(cuid())
+  roleTitle     String
+  description   String
+  requirements  String
+  slots         String
+}
 
 
 

@@ -12,7 +12,7 @@ const FAQs = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
   return (
-    <div className="w-full flex flex-col items-center relative bg-[#FFF9FB] py-4 md:py-[80px] gap-4 md:gap-16 z-20 overflow-hidden">
+    <div className="w-full flex flex-col items-center relative bg-[#FFF9FB] py-4 md:py-20 gap-4 md:gap-16 z-20 overflow-hidden">
       <Image
         src={"/svgs/flower-1.svg"}
         alt={"Flower Decoration"}
@@ -32,8 +32,8 @@ const FAQs = () => {
           className="w-full flex flex-col items-start md:items-center text-[32px] md:text-[64px] px-4 md:px-0 gap-4 md:gap-4"
           style={{ fontFamily: "Yeseva" }}
         >
-          <h2 className="text-[#111111] text-start md:text-center p-0 m-0 w-2/3 leading-8 md:leading-[64px]">Got Questions About</h2>
-          <h2 className="text-[#11111199] text-start md:text-center p-0 -mt-4 w-2/3 leading-8 md:leading-[64px]">PADHer With Love?</h2>
+          <h2 className="text-[#111111] text-start md:text-center p-0 m-0 w-2/3 leading-8 md:leading-16">Got Questions About</h2>
+          <h2 className="text-[#11111199] text-start md:text-center p-0 -mt-4 w-2/3 leading-8 md:leading-16">PADHer With Love?</h2>
         </div>
         <p
           className="text-start md:text-center w-[90%] md:w-[61%] capitalize text-[#393939] mt-1 md:mt-0 text-[14px] md:text-[16px]"
@@ -43,11 +43,11 @@ const FAQs = () => {
           we do, and how you can be part of the movement to end period poverty.
         </p>
       </div>
-      <div className="w-full flex flex-col items-center gap-[16px] px-4 md:px-0">
+      <div className="w-full flex flex-col items-center gap-4 px-4 md:px-0">
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="w-full md:w-[61%] bg-[#FFF] rounded-[8px] px-3 md:px-6 py-3 md:py-[24px] cursor-pointer"
+            className="w-full md:w-[61%] bg-[#FFF] rounded-lg px-3 md:px-6 py-3 md:py-6 cursor-pointer"
             onClick={() => toggleFAQ(index)}
             style={{borderTop: "1px solid #1A1A0028", borderBottom: "1px solid #1A1A0028"}}
           >
@@ -73,7 +73,7 @@ const FAQs = () => {
             <div
         className={`
           overflow-hidden transition-all duration-500 ease-in-out
-          ${activeIndex === index ? "max-h-[500px] opacity-100 mt-6" : "max-h-0 opacity-0 mt-0"}
+          ${activeIndex === index ? "max-h-125 opacity-100 mt-6" : "max-h-0 opacity-0 mt-0"}
         `}
       >
         <p
