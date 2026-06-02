@@ -67,14 +67,14 @@ export default function AdminLogin() {
       description: "Welcome back, Admin.",
     });
 
-    router.push("/admin/dashboard");
+    router.push("/admin/overview");
   }
 
   return (
-    <div className="min-h-screen bg-muted/30 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#FFF9FB] flex items-center justify-center p-4">
 
-      <div className="w-full max-w-md">
-        <Card className="border-none shadow-2xl rounded-[2rem] overflow-hidden">
+      <div className="w-full max-w-md bg-white">
+        <Card className="border-none shadow-2xl rounded-4xl overflow-hidden">
           <CardHeader className="pt-12 pb-8 flex flex-col items-center gap-6">
             <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center shadow-lg transform -rotate-3">
               <Image
@@ -85,15 +85,15 @@ export default function AdminLogin() {
                 priority
                 height={56}
                 width={56}
-                className="w-14 h-14 object-contain brightness-0 invert"
+                className="w-14 h-14 object-contain"
               />
             </div>
             <div className="text-center">
-              <h1 className="text-3xl font-serif font-bold text-secondary">
+              <h1 className="text-3xl font-serif font-bold text-[#111111]">
                 Authorized Access
               </h1>
-              <p className="text-muted-foreground text-sm mt-2">
-                Pad Her Platform Administration
+              <p className="text-[#11111199] text-sm mt-2">
+                PadHer Platform Administration
               </p>
             </div>
           </CardHeader>
@@ -109,14 +109,14 @@ export default function AdminLogin() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-secondary font-bold">
+                      <FormLabel className="text-[#111111] label mb-4">
                         Email Address
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Enter your email"
                           type="email"
-                          className="h-12 rounded-xl bg-muted/50 border-none focus-visible:ring-primary"
+                          // className="h-12 rounded-xl bg-muted/50 border-none focus-visible:ring-primary"
                           {...field}
                         />
                       </FormControl>
@@ -130,14 +130,14 @@ export default function AdminLogin() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-secondary font-bold">
+                      <FormLabel className="text-[#111111] label mb-4">
                         Password
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Enter your password"
                           type="password"
-                          className="h-12 rounded-xl bg-muted/50 border-none focus-visible:ring-primary"
+                          // className="h-12 rounded-xl bg-muted/50 border-none focus-visible:ring-primary"
                           {...field}
                         />
                       </FormControl>
@@ -148,7 +148,7 @@ export default function AdminLogin() {
 
                 <Button
                   type="submit"
-                  className="w-full h-12 rounded-xl text-lg font-bold shadow-lg shadow-primary/20"
+                  className="button w-full"
                   disabled={isLoading}
                 >
                   {isLoading ? "Signing In..." : "Sign In"}
@@ -159,12 +159,12 @@ export default function AdminLogin() {
             <div className="mt-8 text-center">
               <a
                 href="#"
-                className="text-sm text-primary hover:underline font-medium"
+                className="text-sm text-[#FF07A9] hover:underline font-medium"
               >
                 Forgot Password?
               </a>
               <div className="mt-4 pt-4 border-t border-border">
-                <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">
+                <p className="text-xs text-[#11111199] font-medium uppercase tracking-widest">
                   Authorized Users Only
                 </p>
               </div>
@@ -173,12 +173,12 @@ export default function AdminLogin() {
         </Card>
 
         <div className="mt-8 text-center">
-          <p className="text-xs text-muted-foreground font-medium">
-            Pad Her With Love – Authorized Access Only
+          <p className="text-xs text-[#11111199] font-medium">
+            PadHer With Love – Authorized Access Only
           </p>
           <Link
             href="/"
-            className="inline-block mt-4 text-xs text-muted-foreground hover:text-primary transition-colors"
+            className="inline-block mt-4 text-xs text-[#11111199] hover:text-[#FF07A9] transition-colors"
           >
             ← Back to Public Website
           </Link>
