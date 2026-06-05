@@ -53,15 +53,15 @@ model NewsletterSubscriber {
 }
 
 model ContactMessage {
-  id        String   @id @default(uuid())
-  fullName      String
-  organisation String?
+  id               String   @id @default(uuid())
+  fullName         String
+  organisation     String?
   emailAddress     String
-  phoneNumber String?
-  typeOfEnquiry   String
-  website String?
-  message   String
-  createdAt DateTime @default(now())
+  phoneNumber      String?
+  typeOfEnquiry    String
+  website          String?
+  message          String
+  createdAt        DateTime @default(now())
 }
 
 model EventRegistration {
@@ -82,7 +82,7 @@ model CreateEvent {
   type          String
   date          String
   location      String
-  capacity      String
+  capacity      String?
   imageUrl      String
   description   String
   createdAt     DateTime @default(now())
@@ -95,6 +95,7 @@ model VolunteerRole {
   description   String
   requirements  String
   slots         String
+  applicants   String?
 }
 
 
