@@ -21,7 +21,6 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 
-
 const loginSchema = z.object({
   email: z.string().email("You have to enter a valid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
@@ -67,20 +66,20 @@ export default function AdminLogin() {
       description: "Welcome back, Admin.",
     });
 
-    router.push("/admin/overview");
+    if (res?.ok) {
+      router.replace("/admin/overview");
+      router.refresh();
+    }
   }
 
   return (
     <div className="min-h-screen bg-[#FFF9FB] flex items-center justify-center p-4">
-
       <div className="w-full max-w-md bg-white">
         <Card className="border-none shadow-2xl rounded-4xl overflow-hidden">
           <CardHeader className="pt-12 pb-8 flex flex-col items-center gap-6">
             <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center shadow-lg transform -rotate-3">
               <Image
-                src={
-                  "/logos/Main-Logo.png"
-                }
+                src={"/logos/Main-Logo.png"}
                 alt="PadHer Logo"
                 priority
                 height={56}

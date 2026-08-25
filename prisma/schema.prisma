@@ -21,6 +21,12 @@ model AdminSession {
   expiresAt  DateTime
 }
 
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 model Volunteer {
   id            Int      @id @default(autoincrement())
   email         String
@@ -28,15 +34,22 @@ model Volunteer {
   lastName      String
   phone         String?
   skills        String[]
-  availability  String?
-  opportunityId Int?
+  availability  String[]
+  additionalNotes String?
+  opportunityId String? @unique
+  role          VolunteerRole? @relation(fields: [opportunityId], references: [id])
+  status        ApplicationStatus @default(PENDING)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
+  @@unique([email, opportunityId])
 }
+
 
 model Donation {
   id            String   @id @default(uuid())
   donationAmount Int
+  currency        String   @default("NGN")
   donationType   String
   donorName      String
   donorEmail     String
@@ -44,49 +57,73 @@ model Donation {
   reference      String   @unique
   status         String   @default("pending") // pending | successful | failed
   createdAt      DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
 }
 
 model NewsletterSubscriber {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  createdAt DateTime @default(now())
+  id             String    @id @default(uuid())
+  email          String    @unique
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime @default(now()) @updatedAt
+  unsubscribedAt DateTime?
+  unsubscribeRequestedAt DateTime?
 }
 
 model ContactMessage {
-  id        String   @id @default(uuid())
-  fullName      String
-  organisation String?
+  id               String   @id @default(uuid())
+  fullName         String
+  organisation     String?
   emailAddress     String
-  phoneNumber String?
-  typeOfEnquiry   String
-  website String?
-  message   String
-  createdAt DateTime @default(now())
+  phoneNumber      String?
+  typeOfEnquiry    String
+  website          String?
+  message          String
+  createdAt        DateTime @default(now())
 }
 
 model EventRegistration {
-  id            String   @id @default(cuid())
+  id            String      @id @default(cuid())
   fullName      String
   emailAddress  String
   phoneNumber   String
   location      String
   whyInterest   String
   isAgreed      Boolean
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+
+  eventId       String
+  event         CreateEvent  @relation(fields: [eventId], references: [id])
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@unique([eventId, emailAddress])
+}
+
+enum EventType {
+  CAMPAIGN
+  OUTREACH
+  WORKSHOP
 }
 
 model CreateEvent {
   id            String @id @default(cuid())
   title         String
-  type          String
-  date          String
+  type          EventType
+  date          DateTime
   location      String
-  capacity      String
-  imageUrl      String
+  capacity      Int?
+  imageUrl      String?
+  imagePublicId String?
   description   String
+  registrations  EventRegistration[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+}
+
+enum VolunteerCategory {
+  DIGITAL_ADVOCACY
+  COMMUNITY_OUTREACH
+  EDUCATION_AND_TRAINING
 }
 
 model VolunteerRole {
@@ -94,8 +131,21 @@ model VolunteerRole {
   roleTitle     String
   description   String
   requirements  String
-  slots         String
+  category      VolunteerCategory
+  slots         Int
+  applicationDeadline DateTime?
+  createdAt           DateTime    @default(now())
+  applicants   Volunteer[]
 }
 
-
-
+model ImpactStat {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  label       String
+  value       Int
+  description String?
+  icon        String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

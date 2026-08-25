@@ -2,9 +2,9 @@
 
 "use client";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
-import { api, publicApi } from "@/lib/axios";
+import { publicApi } from "@/lib/axios";
 
 export type EventRegistrationPayload = {
   fullName: string;
@@ -13,10 +13,11 @@ export type EventRegistrationPayload = {
   location: string;
   whyInterest: string;
   isAgreed: boolean;
+  eventId: string;
 };
 
 type ApiResponse = {
-  registeration: EventRegistration;
+  registration: EventRegistration;
   message: string;
 };
 
@@ -54,14 +55,4 @@ export const useEventRegistration = () => {
     register: mutation.mutateAsync,
     ...mutation,
   };
-};
-
-export const useEventRegistrations = () => {
-  return useQuery({
-    queryKey: ["event-registrations"],
-    queryFn: async () => {
-      const { data } = await api.get<EventRegistration[]>("/event-registrations");
-      return data;
-    },
-  });
 };

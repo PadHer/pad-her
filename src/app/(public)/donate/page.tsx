@@ -27,7 +27,8 @@ import { Label } from "@/components/ui/label";
 
 const donationSchema = z.object({
   donationAmount: z.number().min(1, "Donation amount is required"),
-  donationType: z.string().min(1, "Donation type is required"),
+  currency: z.enum(["NGN", "USD"]),
+  donationType: z.enum(["one-time", "monthly"]),
   donorName: z.string().min(1, "Donor name is required"),
   donorEmail: z
     .string()
@@ -47,7 +48,8 @@ const Page = () => {
     resolver: zodResolver(donationSchema),
     defaultValues: {
       donationAmount: 0,
-      donationType: "",
+      currency: "NGN",
+      donationType: "one-time",
       donorName: "",
       donorEmail: "",
       isAnon: false,
@@ -61,83 +63,72 @@ const Page = () => {
 
   // const watchAnon = form.watch("isAnon");
   const watchDonationAmount = form.watch("donationAmount");
+const currency = form.watch("currency");
 
-  const handleSelectAmount = (amount: number) => {
-    setSelectedAmount(amount);
-    form.setValue("donationAmount", amount, {
+const presetAmounts: Record<"NGN" | "USD", number[]> = {
+  NGN: [1000, 2000, 5000, 10000],
+  USD: [10, 20, 50, 100],
+};
+
+const amounts = presetAmounts[currency];
+
+const handleSelectAmount = (amount: number) => {
+  setSelectedAmount(amount);
+
+  form.setValue("donationAmount", amount, {
+    shouldDirty: true,
+    shouldTouch: true,
+    shouldValidate: true,
+  });
+};
+
+const handleCurrencyChange = (newCurrency: "NGN" | "USD") => {
+  const currentCurrency = form.getValues("currency");
+  const currentAmount = form.getValues("donationAmount");
+
+  // Change currency
+  form.setValue("currency", newCurrency, {
+    shouldDirty: true,
+    shouldTouch: true,
+  });
+
+  // If the user hasn't selected anything yet,
+  // don't change the amount.
+  if (!currentAmount) {
+    setSelectedAmount(null);
+    return;
+  }
+
+  // Check if the current amount is one of our presets
+  const currentPresetIndex =
+    presetAmounts[currentCurrency].indexOf(
+      currentAmount as (typeof presetAmounts)[typeof currentCurrency][number],
+    );
+
+  if (currentPresetIndex !== -1) {
+    // Find the corresponding amount in the new currency
+    const newAmount = presetAmounts[newCurrency][currentPresetIndex];
+
+    setSelectedAmount(newAmount);
+
+    form.setValue("donationAmount", newAmount, {
       shouldDirty: true,
       shouldTouch: true,
+      shouldValidate: true,
     });
-  };
 
-  const handleDonate = async (data: DonationData) => {
-    initialize(data);
-  };
-  //   e.preventDefault();
+    return;
+  }
 
-  //   setLoading(true);
+  // Custom amount:
+  // We don't automatically convert it.
+  // Clear the preset selection but preserve the amount.
+  setSelectedAmount(null);
+};
 
-  //   const newErrors: Partial<DonationData> = {};
-
-  //   if (!formData.donationAmount) {
-  //     newErrors.donationAmount = "Please enter the amount you want to donate.";
-  //   }
-
-  //   if (!formData.donationType) {
-  //     newErrors.donationType = "Please select a donation type.";
-  //   }
-
-  //   if (!formData.donorName.trim()) {
-  //     newErrors.donorName = "Name is required.";
-  //   }
-
-  //   if (!formData.donorEmail.trim()) {
-  //     newErrors.donorEmail = "Email is required.";
-  //   } else if (!/\S+@\S+\.\S+/.test(formData.donorEmail)) {
-  //     newErrors.donorEmail = "Please enter a valid email address.";
-  //   }
-  //   if (Object.keys(newErrors).length > 0) {
-  //     setErrors(newErrors);
-  //     setLoading(false);
-  //     return;
-  //   }
-  //   const submissionData = {
-  //     donationAmount: Number(formData.donationAmount),
-  //     donationType: formData.donationType,
-  //     donorName: formData.donorName,
-  //     donorEmail: formData.donorEmail,
-  //     isAnon: formData.isAnon,
-  //   };
-
-  //   try {
-  //     const res = await fetch("/api/donations", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(submissionData),
-  //     });
-
-  //     const data = await res.json();
-
-  //     if (res.ok) {
-  //       alert("Donation submitted successfully!");
-  //       setLoading(false);
-  //       setFormData({
-  //         donationAmount: "",
-  //         donationType: "",
-  //         donorName: "",
-  //         donorEmail: "",
-  //         isAnon: false,
-  //       });
-  //     } else {
-  //       alert(data.error || "Donation submission failed.");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert("Something went wrong.");
-  //   }
-
-  //   console.log("Submitting donation:", submissionData);
-  // };
+const handleDonate = async (data: DonationData) => {
+  await initialize(data);
+};
 
   return (
     <div className="w-full bg-[#FFF] flex flex-col items-center justify-center overflow-hidden relative">
@@ -174,7 +165,7 @@ const Page = () => {
         <div className="w-full md:w-[75%] flex flex-col border border-[#C3C3C3] rounded-[20px] md:rounded-[40px] px-4 p-3 md:px-6 md:py-10 gap-3 md:gap-6 mt-8">
           <h6 className="vol-label">Choose Amount</h6>
           <div className="w-full flex justify-between">
-            {[1000, 2000, 5000, 10000].map((amount, idx) => (
+            {amounts.map((amount, idx) => (
               <span
                 style={{
                   fontFamily: "Yeseva",
@@ -187,7 +178,8 @@ const Page = () => {
                 key={idx}
                 onClick={() => handleSelectAmount(amount)}
               >
-                ₦{amount}
+                {currency === "NGN" ? "₦" : "$"}
+    {amount.toLocaleString()}
               </span>
             ))}
           </div>
@@ -197,6 +189,39 @@ const Page = () => {
               onSubmit={form.handleSubmit(handleDonate)}
               action=""
             >
+              <FormField
+                control={form.control}
+                name="currency"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="vol-label mb-2">Currency</FormLabel>
+
+                    <FormControl>
+                      <RadioGroup
+                        value={field.value}
+                        onValueChange={handleCurrencyChange}
+                        className="flex gap-4"
+                      >
+                        <div className="flex items-center gap-2">
+                          <RadioGroupItem value="NGN" id="ngn" />
+                          <Label htmlFor="ngn" className="cursor-pointer">
+                            Nigerian Naira (₦)
+                          </Label>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <RadioGroupItem value="USD" id="usd" />
+                          <Label htmlFor="usd" className="cursor-pointer">
+                            US Dollar ($)
+                          </Label>
+                        </div>
+                      </RadioGroup>
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="donationAmount"
@@ -317,7 +342,7 @@ const Page = () => {
                   {isPending ? "Donating... " : "Donate "}
                   {watchDonationAmount && (
                     <>
-                      ₦
+                      {currency === "NGN" ? "₦" : "$"}
                       {new Intl.NumberFormat("en-NG").format(
                         watchDonationAmount,
                       )}

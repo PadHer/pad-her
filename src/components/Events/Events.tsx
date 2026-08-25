@@ -5,7 +5,7 @@ import { campaigns } from "@/data/campaigns";
 
 const Events = () => {
   return (
-    <div className="w-full flex flex-col items-end md:items-center relative py-10 px-4 md:py-[90px] md:px-48 bg-[#FFFFFF] z-20">
+    <div className="w-full flex flex-col items-end md:items-center relative py-10 px-4 md:py-22.5 md:px-48 bg-[#FFFFFF] z-20">
       <Image
         src={"/svgs/Vector-2.svg"}
         alt={""}
@@ -38,7 +38,7 @@ const Events = () => {
           <section key={camp.id} className="w-full md:w-[32%] flex flex-col gap-4">
             <div className="w-full h-[45dvh] md:h-[35dvh] flex flex-col relative">
               <Image
-                src={camp.image}
+                src={camp.imageUrl}
                 alt=""
                 fill
                 className="object-cover rounded-[60px_8px_60px_8px]"
@@ -46,7 +46,7 @@ const Events = () => {
             </div>
             <div className="w-full flex flex-col gap-2">
               <div className="flex w-full items-center gap-4">
-                <Link href={"/events"} className="rounded-[24px] px-6 py-2 cursor-pointer text-[#FFF5F9] text-[12px]" style={{ background: "linear-gradient(180deg, #ED006C 0%, #B90D7D 100%)", fontFamily: "OpenSans-Semi"}}>Join the Movement</Link>
+                <Link href={"/events"} className="rounded-3xl px-6 py-2 cursor-pointer text-[#FFF5F9] text-[12px]" style={{ background: "linear-gradient(180deg, #ED006C 0%, #B90D7D 100%)", fontFamily: "OpenSans-Semi"}}>Join the Movement</Link>
                 <span className="text-[10px] text-[#393939]" style={{fontFamily: "OpenSans"}}>{camp.date}</span>
               </div>
               <h3 className="text-[20px] text-[#000000]" style={{fontFamily: "Yeseva"}}>{camp.title}</h3>

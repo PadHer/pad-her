@@ -48,7 +48,7 @@ const socials = [
 ];
 
 const Footer = () => {
-  const { subscribe, isPending, isError } = useSubscribe();
+  const { subscribe, isPending } = useSubscribe();
 
   const form = useForm<NewsletterFormData>({
     resolver: zodResolver(newsletterSchema),
@@ -57,8 +57,12 @@ const Footer = () => {
     },
   });
 
-  const handleSubmit = async (values: NewsletterFormData) => {
-    subscribe(values);
+  const handleSubmit = (values: NewsletterFormData) => {
+    subscribe(values, {
+      onSuccess: () => {
+        form.reset();
+      },
+    });
   };
   return (
     <div className="w-full flex flex-col items-center bg-[#FFF8FB] pt-4 md:pt-6.25 px-4 md:px-24 relative z-20">
@@ -83,29 +87,29 @@ const Footer = () => {
       </p>
       <div className="md:w-1/2 flex justify-center items-center md:mt-2">
         <Form {...form}>
-        <form
-        className="w-[95%] flex gap-2 items-center justify-center"
-        action=""
-        onSubmit={form.handleSubmit(handleSubmit)}
-      >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              {/* <FormLabel>Email</FormLabel> */}
-              <FormControl>
-                <Input placeholder="Enter email address" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button className="button" disabled={isPending} type="submit">
-          {isPending ? "Subscribing..." : "Subscribe"}
-        </Button>
-      </form>
-      </Form>
+          <form
+            className="w-[95%] flex gap-2 items-center justify-center"
+            action=""
+            onSubmit={form.handleSubmit(handleSubmit)}
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  {/* <FormLabel>Email</FormLabel> */}
+                  <FormControl>
+                    <Input placeholder="Enter email address" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button className="button" disabled={isPending} type="submit">
+              {isPending ? "Subscribing..." : "Subscribe"}
+            </Button>
+          </form>
+        </Form>
       </div>
       <div className="w-full flex flex-col-reverse md:flex-row md:mt-16 py-6 items-center gap-6 md:justify-between">
         <h4
@@ -114,6 +118,9 @@ const Footer = () => {
         >
           PadHerwithlove.All Rights Reserved.
         </h4>
+        <p className="text-[#989797] text-xs font-open">
+          CAC Registration No.: RC XXXXXXX
+        </p>
         <div className="w-3/4 md:w-auto flex flex-row justify-between md:justify-start items-center md:gap-6">
           {["Home", "About Us", "Volunteer", "Blog", "Donate"].map(
             (link, index) => (
@@ -124,7 +131,7 @@ const Footer = () => {
               >
                 {link}
               </Link>
-            )
+            ),
           )}
         </div>
         <div className="w-1/2 md:w-auto flex flex-row items-center justify-between md:justify-start md:gap-2">

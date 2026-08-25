@@ -1,13 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { publicApi } from "@/lib/axios";
 
+export type DonationCurrency = "NGN" | "USD";
+
+export type DonationType = "one-time" | "monthly";
+
 export type DonationPayload = {
   donationAmount: number;
-  donationType: string;
+  currency: DonationCurrency;
+  donationType: DonationType;
   donorName: string;
   donorEmail: string;
   isAnon: boolean;
@@ -16,45 +20,66 @@ export type DonationPayload = {
 export type Donation = DonationPayload & {
   id: string;
   reference: string;
-  status: "pending" | "completed" | "failed";
+  status: "pending" | "successful" | "failed";
   createdAt: string;
 };
 
 type ApiResponse = {
-  donation: Donation;
+  success: boolean;
+  donation?: Donation;
   authorization_url: string;
   reference: string;
+  message?: string;
 };
 
-const initializeDonation = async (data: DonationPayload) => {
-  const { data: res } = await publicApi.post<ApiResponse>("/donations/initialize", data);
-  return res;
+const initializeDonation = async (
+  data: DonationPayload,
+): Promise<ApiResponse> => {
+  const { data: response } = await publicApi.post<ApiResponse>(
+    "/donations/initialize",
+    data,
+  );
+
+  return response;
 };
 
 export const useInitializeDonation = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+
   const mutation = useMutation({
     mutationFn: initializeDonation,
+
     onSuccess: (data) => {
       toast({
         title: "Donation initialized 🎉",
         description: "Redirecting to payment gateway...",
       });
-      queryClient.invalidateQueries({ queryKey: ["donations"] });
-      // Redirect to Paystack authorization URL
+
+      queryClient.invalidateQueries({
+        queryKey: ["donations"],
+      });
+
+      // Redirect donor to Paystack
       window.location.href = data.authorization_url;
     },
-    onError: (error: any) => {
+
+    onError: (error: unknown) => {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong";
+
       toast({
         title: "Donation initialization failed",
-        description: error.response?.data?.message || "Something went wrong",
+        description: message,
         variant: "destructive",
       });
     },
   });
+
   return {
     initialize: mutation.mutateAsync,
-    ...mutation,    
-    };
+    ...mutation,
+  };
 };

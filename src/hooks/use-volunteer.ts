@@ -11,7 +11,8 @@ export type VolunteerPayload = {
   lastName: string;
   phone?: string;
   skills?: string[];
-  availability?: string;
+  additionalNotes?: string;
+  availability?: string[];
   opportunityId?: string;
 };
 
@@ -22,7 +23,8 @@ export type Volunteer = {
   lastName: string;
   phone?: string;
   skills?: string[];
-  availability?: string;
+  additionalNotes?: string;
+  availability?: string[];
   opportunityId?: string;
 };
 

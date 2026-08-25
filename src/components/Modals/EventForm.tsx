@@ -19,10 +19,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { z } from "zod";
 import Image from "next/image";
 import { useEventRegistration } from "@/hooks/use-eventRegistration";
+import { Event } from "@/hooks/use-events";
 
 const eventSchema = z.object({
   fullName: z.string().min(2, "Full name is required"),
-  emailAddress: z.string().min(1, "a valid Email address is required"),
+  emailAddress: z.string().email("A valid email address is required"),
   phoneNumber: z.string().min(11, "Phone number is required"),
   location: z.string().min(1, "Location is required"),
   whyInterest: z
@@ -37,11 +38,11 @@ type FormData = z.infer<typeof eventSchema>;
 
 interface FormProps {
   onClose: () => void;
-  eventName: string;
+  selectedEvent: Event | null;
 }
 
-const EventForm = ({ onClose, eventName }: FormProps) => {
-  const { register, isSuccess } = useEventRegistration();
+const EventForm = ({ onClose, selectedEvent }: FormProps) => {
+  const { register, isSuccess, isPending } = useEventRegistration();
 
   const form = useForm<FormData>({
     resolver: zodResolver(eventSchema),
@@ -56,13 +57,16 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
   });
 
   const onSubmit = async (data: FormData) => {
-    register(data);
-  }
+    if (!selectedEvent) return;
+
+    register({
+      ...data,
+      eventId: selectedEvent.id,
+    });
+  };
   // const watchAgreed = form.watch("isAgreed");
 
   // if (loading) return;
-
- 
 
   return (
     <div
@@ -111,7 +115,7 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
               className="text-[#ED006C] text-[24px] leading-10"
               style={{ fontFamily: "Yeseva" }}
             >
-              {eventName} <span className="text-[#393939]"></span>
+              {selectedEvent?.title} <span className="text-[#393939]"></span>
             </h4>
             <p className="font-open text-[#393939] text-[16px] -mt-4">
               Kindly fill the right information in the form below.
@@ -121,7 +125,7 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
               name="fullName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="vol-label">Full Name</FormLabel>
+                  <FormLabel className="vol-label mb-4">Full Name</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter your full name" {...field} />
                   </FormControl>
@@ -133,7 +137,9 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
               name="emailAddress"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="vol-label">Email Address</FormLabel>
+                  <FormLabel className="vol-label mb-4">
+                    Email Address
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter email address"
@@ -149,7 +155,7 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="vol-label">Phone Number</FormLabel>
+                  <FormLabel className="vol-label mb-4">Phone Number</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter phone number"
@@ -165,7 +171,7 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
               name="location"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="vol-label">Location</FormLabel>
+                  <FormLabel className="vol-label mb-4">Location</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter your location" {...field} />
                   </FormControl>
@@ -177,7 +183,7 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
               name="whyInterest"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="vol-label">
+                  <FormLabel className="vol-label mb-4">
                     Why do you want to volunteer with us?
                   </FormLabel>
                   <FormControl>
@@ -191,27 +197,27 @@ const EventForm = ({ onClose, eventName }: FormProps) => {
                 </FormItem>
               )}
             />
-            <FormField 
-            control={form.control}
-            name="isAgreed"
-            render={({ field }) => (
-              <FormItem className="flex items-start space-x-2">
-                <FormControl>
-                  <Checkbox 
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-                </FormControl>
-                <FormLabel className="ml-2 vol-label">
-                  I agree to be contacted by PadHer and understand my role as a volunteer.
-                </FormLabel>
-              </FormItem>
-            )}
+            <FormField
+              control={form.control}
+              name="isAgreed"
+              render={({ field }) => (
+                <FormItem className="flex items-start space-x-2">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormLabel className="ml-2 vol-label">
+                    I agree to be contacted by PadHer and understand my role as
+                    a volunteer.
+                  </FormLabel>
+                </FormItem>
+              )}
             />
             <div className="w-full flex justify-start items-center">
-              <button  type="submit" className="vol-button">
-                {/* {loading ? "Submiting..." : "Submit"} */}
-                Submit
+              <button type="submit" className="vol-button" disabled={isPending}>
+                {isPending ? "Submiting..." : "Submit"}
               </button>
             </div>
           </form>

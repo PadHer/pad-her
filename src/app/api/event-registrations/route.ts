@@ -7,6 +7,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
+    const eventId = body.eventId?.trim();
     const fullName = body.fullName?.trim();
     const emailAddress = body.emailAddress?.trim().toLowerCase();
     const phoneNumber = body.phoneNumber?.trim();
@@ -14,6 +15,18 @@ export async function POST(req: NextRequest) {
     const whyInterest = body.whyInterest?.trim();
     const isAgreed = body.isAgreed;
 
+    // Event
+    if (!eventId) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Event is required",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Full name
     if (!fullName || fullName.length < 2) {
       return NextResponse.json(
         {
@@ -24,9 +37,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Email
     if (
       !emailAddress ||
-      !/\S+@\S+\.\S+/.test(emailAddress)
+      !/^\S+@\S+\.\S+$/.test(emailAddress)
     ) {
       return NextResponse.json(
         {
@@ -37,6 +51,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Phone
     if (!phoneNumber || phoneNumber.length < 11) {
       return NextResponse.json(
         {
@@ -47,6 +62,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Location
     if (!location) {
       return NextResponse.json(
         {
@@ -57,6 +73,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Why interested
     if (!whyInterest || whyInterest.length < 20) {
       return NextResponse.json(
         {
@@ -68,20 +85,80 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Agreement
     if (!isAgreed) {
       return NextResponse.json(
         {
           success: false,
-          message:
-            "You must agree to the terms to continue",
+          message: "You must agree to the terms to continue",
         },
         { status: 400 }
       );
     }
 
+    // Check that event exists
+    const event = await prisma.createEvent.findUnique({
+      where: {
+        id: eventId,
+      },
+    });
+
+    if (!event) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Event not found",
+        },
+        { status: 404 }
+      );
+    }
+
+    // Check if applicant has already registered
+    const existingRegistration =
+      await prisma.eventRegistration.findUnique({
+        where: {
+          eventId_emailAddress: {
+            eventId,
+            emailAddress,
+          },
+        },
+      });
+
+    if (existingRegistration) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "You have already registered for this event",
+        },
+        { status: 409 }
+      );
+    }
+
+    // Check capacity
+    if (event.capacity !== null) {
+      const registrationCount =
+        await prisma.eventRegistration.count({
+          where: {
+            eventId,
+          },
+        });
+
+      if (registrationCount >= event.capacity) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: "This event is already full",
+          },
+          { status: 409 }
+        );
+      }
+    }
+
+    // Create registration
     const registration =
       await prisma.eventRegistration.create({
         data: {
+          eventId,
           fullName,
           emailAddress,
           phoneNumber,

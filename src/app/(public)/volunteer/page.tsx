@@ -1,22 +1,46 @@
 "use client";
 
-// import { useState } from "react";
+import React, { useState } from "react";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
-import React from "react";
 import Captures from "@/components/Captures/Captures";
 import Events from "@/components/Events/Events";
 import FAQs from "@/components/FAQs/FAQs";
 import Stories from "@/components/Stories/Stories";
 import PartnerShip from "@/components/PartnerShip/PartnerShip";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import { Heart, Clock4, MapPin } from "lucide-react";
 import VolunteerForm from "@/components/Modals/VolunteerForm";
 import Link from "next/link";
+import VolunteerSection from "@/components/VolunteerSection/VolunteerSection";
+import { ArrowRight, HeartHandshake } from "lucide-react";
+import { usePublicVolunteerRoles, VolunteerRole } from "@/hooks/use-volunteer-roles";
+
 
 const Page = () => {
-
+  const [selectedRole, setSelectedRole] = useState<VolunteerRole | null>(null);
+  const { data: opportunities, isLoading } = usePublicVolunteerRoles();
+  
+  const volunteerCategories = [
+    {
+      title: "Community Outreach",
+      description:
+        "Join our field teams to distribute pads and conduct educational workshops in underserved communities.",
+      image: "/images/Image-6.png",
+    },
+    {
+      title: "Education & Training",
+      description:
+        "Lead workshops on menstrual hygiene and reproductive health in schools and community centers.",
+      image: "/images/Image-2.png",
+    },
+    {
+      title: "Digital Advocacy",
+      description:
+        "Help us spread awareness through social media, content creation, and digital campaigns.",
+      image: "/images/Image-3.png",
+    },
+  ];
   return (
     <div className="w-full bg-[#FFF] flex flex-col items-center justify-center overflow-hidden relative">
       <NavBar />
@@ -41,125 +65,99 @@ const Page = () => {
           </p>
         </div>
       </div>
-      <div className="w-full flex flex-col gap-8 px-4 py-8 md:px-16 md:py-12 bg-[#FFFFFF] relative">
-        <div className="w-full z-30 flex flex-col md:flex-row md:justify-between gap-8">
-          <section className="card w-full md:w-[32%]">
-            <div className="w-full px-4 pt-12 flex flex-col gap-4">
-              <h2
-                className="text-[#FFF5F9] text-[40px]"
-                style={{
-                  fontFamily: "Yeseva",
-                }}
+      <section className="w-full bg-white px-4 py-12 md:px-16 md:py-16">
+        {" "}
+        <div className="mx-auto flex w-full max-w-7xl flex-col">
+          {" "}
+          {/* Section heading */}{" "}
+          <div className="mb-8">
+            {" "}
+            <p className="font-open text-[12px] font-semibold uppercase tracking-[0.08em] text-[#FF07A9]">
+              {" "}
+              Get Involved{" "}
+            </p>{" "}
+            <h2
+              className="mt-2 text-[32px] text-[#111111] md:text-[48px]"
+              style={{ fontFamily: "Yeseva" }}
+            >
+              {" "}
+              Volunteer Opportunities{" "}
+            </h2>{" "}
+            <p className="mt-2 max-w-2xl font-open text-[14px] leading-6 text-[#39393999] md:text-[15px]">
+              {" "}
+              There are many ways to support PadHer and contribute to our
+              mission. Find an area that matches your interests, skills, and
+              passion.{" "}
+            </p>{" "}
+          </div>{" "}
+          {/* Volunteer Categories */}{" "}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {" "}
+            {volunteerCategories.map((category) => (
+              <article
+                key={category.title}
+                className="overflow-hidden rounded-2xl border border-[#E7E7E7] bg-white"
               >
-                Community Outreach
-              </h2>
-              <h6
-                className="text-[#FFF5F9] text-[16px] h-20"
-                style={{ fontFamily: "OpenSans" }}
-              >
-                Join our field teams to distribute pads and conduct educational
-                workshops in underserved communities.
-              </h6>
-            </div>
-
-            <div className="w-full h-65 rounded-4 rounded-br-lg flex flex-col justify-end px-6 pb-6 relative">
-              <Image
-                src={"/images/Image-6.png"}
-                alt="Community Outreach"
-                fill
-                className="object-cover object-top rounded-2xl rounded-br-lg"
-              />
-              <Link href={"#volunteer-form"} className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
-                <p
-                  className="text-[#FFFFFF] text-[16px]"
-                  style={{ fontFamily: "OpenSans-Semi" }}
-                >
-                  Apply Now
-                </p>
-                <span className="h-6 w-6 bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
-                  <ArrowRight className="text-black text-[16px]" />
-                </span>
-              </Link>
-            </div>
-          </section>
-          <section className="card w-full md:w-[32%]">
-            <div className="w-full px-4 pt-12 flex flex-col gap-4">
-              <h2
-                className="text-[#111111] text-[40px]"
-                style={{
-                  fontFamily: "Yeseva",
-                }}
-              >
-                Education & Training
-              </h2>
-              <h6
-                className="text-[#393939] text-[16px] h-20"
-                style={{ fontFamily: "OpenSans" }}
-              >
-                Lead workshops on menstrual hygiene and reproductive health in
-                schools and community centers.
-              </h6>
-            </div>
-            <div className="w-full h-65 rounded-4 rounded-br-lg flex flex-col justify-end px-6 pb-6 relative">
-              <Image
-                src={"/images/Image-2.png"}
-                alt="Education & Training"
-                fill
-                className="object-cover rounded-2xl rounded-br-lg"
-              />
-              <Link href={"#volunteer-form"} className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
-                <p
-                  className="text-[#FFFFFF] text-[16px]"
-                  style={{ fontFamily: "OpenSans-Semi" }}
-                >
-                  Apply Now
-                </p>
-                <span className="h-6 w-6 bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
-                  <ArrowRight className="text-black text-[16px]" />
-                </span>
-              </Link>
-            </div>
-          </section>
-          <section className="card w-full md:w-[32%]">
-            <div className="w-full px-4 pt-12 flex flex-col gap-4">
-              <h2
-                className="text-[#111111] text-[40px]"
-                style={{
-                  fontFamily: "Yeseva",
-                }}
-              >
-                Digital <br /> Advocacy
-              </h2>
-              <h6
-                className="text-[#393939] text-[16px] h-20"
-                style={{ fontFamily: "OpenSans" }}
-              >
-                Help us spread awareness through social media, content creation,
-                and digital campaigns.
-              </h6>
-            </div>
-            <div className="w-full h-65 rounded-4 rounded-br-lg flex flex-col justify-end px-6 pb-6 relative">
-              <Image
-                src={"/images/Image-3.png"}
-                alt="Digital Advocacy"
-                fill
-                className="object-cover rounded-2xl rounded-br-lg"
-              />
-              <Link href={"#volunteer-form"} className="w-1/2 md:w-[37%] backdrop-blur-[5px] apply">
-                <p
-                  className="text-[#FFFFFF] text-[16px]"
-                  style={{ fontFamily: "OpenSans-Semi" }}
-                >
-                  Apply Now
-                </p>
-                <span className="h-6 w-6 bg-[#FFFFFF] rounded-full p-1 flex flex-row items-center justify-center">
-                  <ArrowRight className="text-black text-[16px]" />
-                </span>
-              </Link>
-            </div>
-          </section>
-        </div>
-      </div>
+                {" "}
+                {/* Category image */}{" "}
+                <div className="relative h-57.5 w-full">
+                  {" "}
+                  <Image
+                    src={category.image}
+                    alt={category.title}
+                    fill
+                    className="object-cover"
+                  />{" "}
+                </div>{" "}
+                {/* Category content */}{" "}
+                <div className="flex flex-col gap-3 p-5 md:p-6">
+                  {" "}
+                  <h3
+                    className="text-[26px] text-[#111111]"
+                    style={{ fontFamily: "Yeseva" }}
+                  >
+                    {" "}
+                    {category.title}{" "}
+                  </h3>{" "}
+                  <p className="font-open text-[14px] leading-6 text-[#393939CC]">
+                    {" "}
+                    {category.description}{" "}
+                  </p>{" "}
+                </div>{" "}
+              </article>
+            ))}{" "}
+          </div>{" "}
+          {/* Volunteer note + CTA */}{" "}
+          <div className="mt-10 flex flex-col items-center rounded-2xl bg-[#FFFAFC] px-6 py-8 text-center md:mt-14 md:px-12 md:py-10">
+            {" "}
+            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#ED006C1A]">
+              {" "}
+              <HeartHandshake size={28} className="text-[#ED006C]" />{" "}
+            </div>{" "}
+            <h3
+              className="text-[24px] text-[#111111] md:text-[28px]"
+              style={{ fontFamily: "Yeseva" }}
+            >
+              {" "}
+              Ready to make a difference?{" "}
+            </h3>{" "}
+            <p className="mt-2 max-w-2xl font-open text-[14px] leading-6 text-[#393939CC]">
+              {" "}
+              Whether you&apos;re passionate about community outreach,
+              education, or digital advocacy, there&apos;s a place for you at
+              PadHer. Explore our current volunteer opportunities and find a way
+              to contribute your time and skills.{" "}
+            </p>{" "}
+            <Link
+              href="#open-roles"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#ED006C] px-6 py-3 font-open text-[14px] font-semibold text-white transition hover:bg-[#C9005C]"
+            >
+              {" "}
+              Explore Open Roles <ArrowRight size={17} />{" "}
+            </Link>{" "}
+          </div>{" "}
+        </div>{" "}
+      </section>
       <div className="w-full flex flex-col items-center bg-[#FFFAFC] px-4 md:px-24 py-12 gap-2">
         <h2 className="font-playfair text-[32px] md:text-[56px] font-extrabold text-[#111111] text-center">
           Why <b className="text-[#FF07A9]">Volunteer</b> with Us?
@@ -245,8 +243,11 @@ const Page = () => {
         </div>
       </div>
       <Stories />
-      <div id="volunteer-form" className="w-full scroll-mt-24">
-        <VolunteerForm />
+      <div id="open-roles" className="scroll-mt-24 w-full">
+        <VolunteerSection isLoading={isLoading} opportunities={opportunities ?? []} onApply={setSelectedRole} />
+      </div>
+      <div id="volunteer-application" className="w-full scroll-mt-24">
+        <VolunteerForm opportunities={opportunities ?? []} selectedRole={selectedRole} />
       </div>
       <Events />
       <Captures />
