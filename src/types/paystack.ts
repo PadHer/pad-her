@@ -16,6 +16,7 @@ export interface PaystackVerifyResponse {
     status: string;
     reference: string;
     amount: number;
+    currency: string;
     paid_at: string;
     customer: {
       email: string;

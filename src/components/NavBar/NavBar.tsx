@@ -6,12 +6,13 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ClickHeart } from "../animations/heart";
 import Hamburger from "../Hamburger/Hamburger";
+// import FlashTicker from "../FlashTicker/FlashTicker";
 
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
   { name: "Volunteer", href: "/volunteer" },
-  {name: "Events", href: "/events"},
+  { name: "Events", href: "/events" },
   { name: "Blog", href: "/blog" },
   { name: "Contact Us", href: "#partnership" },
 ];
@@ -38,7 +39,7 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`fixed flex justify-center z-100 py-1 transition-all duration-300 ${
+      className={`fixed flex flex-col justify-center z-100 py-1 transition-all duration-300 ${
         isSticky
           ? "bg-white top-0 w-full"
           : "lg:rounded-[40px] text-[#FFF] md:w-[90%] md:bg-[#FFFFFF40] md:backdrop-blur-[54px] md:shadow-[0px_4px_16px_0px_#FF07A914] top-0 w-full lg:top-10"
@@ -73,8 +74,8 @@ const NavBar = () => {
                     pathname === item.href
                       ? "text-[#FF07A9] font-semiBold"
                       : isSticky
-                      ? "text-[#393939]"
-                      : "text-[#CCC]"
+                        ? "text-[#393939]"
+                        : "text-[#CCC]"
                   }`}
                 >
                   {item.name}
@@ -173,6 +174,7 @@ const NavBar = () => {
           )}
         </div>
       </div>
+      {/* <FlashTicker /> */}
     </nav>
   );
 };

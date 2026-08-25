@@ -8,6 +8,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     const email = body.email?.trim().toLowerCase();
+    const roleId = body.opportunityId?.trim();
+    const skills = body.skills || [];
+    const availability = body.availability || [];
 
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       return NextResponse.json(
@@ -15,7 +18,7 @@ export async function POST(req: NextRequest) {
           success: false,
           message: "Invalid email address",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -25,7 +28,7 @@ export async function POST(req: NextRequest) {
           success: false,
           message: "First name is required",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -35,7 +38,50 @@ export async function POST(req: NextRequest) {
           success: false,
           message: "Last name is required",
         },
-        { status: 400 }
+        { status: 400 },
+      );
+    }
+
+    if (!roleId) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Volunteer role is required",
+        },
+        { status: 400 },
+      );
+    }
+
+    const role = await prisma.volunteerRole.findUnique({
+      where: {
+        id: roleId,
+      },
+    });
+
+    if (!role) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Selected volunteer role does not exist",
+        },
+        { status: 404 },
+      );
+    }
+
+    const existingApplication = await prisma.volunteer.findFirst({
+      where: {
+        email,
+        opportunityId: roleId,
+      },
+    });
+
+    if (existingApplication) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "You have already applied for this role",
+        },
+        { status: 409 },
       );
     }
 
@@ -45,9 +91,15 @@ export async function POST(req: NextRequest) {
         firstName: body.firstName.trim(),
         lastName: body.lastName.trim(),
         phone: body.phone?.trim() || null,
-        skills: body.skills || [],
-        availability: body.availability || null,
-        opportunityId: body.opportunityId || null,
+        skills: Array.isArray(skills)
+          ? skills.map((skill: string) => skill.trim())
+          : [],
+        availability: Array.isArray(availability) ? availability : [],
+        role: {
+          connect: {
+            id: roleId,
+          },
+        },
       },
     });
 
@@ -57,7 +109,7 @@ export async function POST(req: NextRequest) {
         message: "Volunteer application submitted successfully",
         data: volunteer,
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Volunteer submission error:", error);
@@ -67,7 +119,7 @@ export async function POST(req: NextRequest) {
         success: false,
         message: "Internal server error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

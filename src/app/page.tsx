@@ -7,6 +7,7 @@ import Captures from "@/components/Captures/Captures";
 import DataCount from "@/components/Data/Data";
 import Events from "@/components/Events/Events";
 import FAQs from "@/components/FAQs/FAQs";
+import FlashTicker from "@/components/FlashTicker/FlashTicker";
 import Footer from "@/components/Footer/Footer";
 import GetInvolved from "@/components/GetInvolved/GetInvolved";
 import HeroSection from "@/components/HeroSection/Hero";
@@ -20,6 +21,7 @@ export default function Home() {
     <>
       <div className="w-full bg-[#FFF] md:flex flex-col items-center justify-center relative hidden">
         <NavBar />
+        <FlashTicker />
         <HeroSection />
         <DataCount />
         <div className="sticky top-10 w-full z-10 bg-white overflow-hidden">

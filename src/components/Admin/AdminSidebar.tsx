@@ -14,6 +14,7 @@ import {
   Ticket,
   Menu,
   X,
+  ChartNoAxesCombined,
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { usePathname } from "next/navigation";
@@ -28,6 +29,7 @@ const AdminSidebar = () => {
   const navItems = [
     { href: "/admin/overview", label: "Overview", icon: LayoutDashboard },
     { href: "/admin/donations", label: "Donations", icon: Heart },
+    {href: "/admin/impact", label: "Impact Stats", icon: ChartNoAxesCombined},
     { href: "/admin/events", label: "Events", icon: Calendar },
     { href: "/admin/blog", label: "Blog", icon: FileText },
     { href: "/admin/newsletters", label: "Newsletter", icon: Mail },
