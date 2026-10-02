@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { NextResponse } from "next/server";
+import { adminAuth } from "@/middleware/adminAuth";
 
 import cloudinary from "@/lib/cloudinary";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
+  if (!(await adminAuth())) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const formData = await request.formData();
 

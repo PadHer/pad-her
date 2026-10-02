@@ -1,6 +1,6 @@
 import { adminAuth } from "@/middleware/adminAuth";
 import { redirect } from "next/navigation";
-import AdminBlog from "@/components/Blog/Blog-Page";
+import BlogEditor from "../BlogEditor";
 
 const Page = async () => {
   const session = await adminAuth();
@@ -9,7 +9,7 @@ const Page = async () => {
     redirect("/login");
   }
 
-  return <AdminBlog />;
+  return <BlogEditor mode="create" />;
 };
 
 export default Page;

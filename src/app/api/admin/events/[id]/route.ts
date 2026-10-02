@@ -1,4 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
+import { adminAuth } from "@/middleware/adminAuth";
 import prisma from "@/lib/prisma";
 
 type Params = {
@@ -8,6 +9,10 @@ type Params = {
 };
 
 export async function GET(_request: NextRequest, { params }: Params) {
+  if (!(await adminAuth())) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { id } = await params;
 
@@ -41,6 +46,10 @@ export async function GET(_request: NextRequest, { params }: Params) {
 }
 
 export async function PATCH(request: Request, { params }: Params) {
+  if (!(await adminAuth())) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { id } = await params;
 
@@ -112,6 +121,10 @@ export async function PATCH(request: Request, { params }: Params) {
 };
 
 export async function DELETE(_request: Request, { params }: Params) {
+  if (!(await adminAuth())) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { id } = await params;
 

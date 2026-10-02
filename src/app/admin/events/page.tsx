@@ -125,12 +125,12 @@ const Page = () => {
   }, [editingEvent, form]);
 
   useEffect(() => {
-  return () => {
-    if (previewUrl?.startsWith("blob:")) {
-      URL.revokeObjectURL(previewUrl);
-    }
-  };
-}, [previewUrl]);
+    return () => {
+      if (previewUrl?.startsWith("blob:")) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   const onSuccess = () => {
     setIsFormOpen(false);
@@ -139,40 +139,40 @@ const Page = () => {
   };
 
   const onSubmit = async (values: CreateEventInput) => {
-  let imageUrl = values.imageUrl;
-  let imagePublicId = values.imagePublicId;
+    let imageUrl = values.imageUrl;
+    let imagePublicId = values.imagePublicId;
 
-  if (selectedFile) {
-    const uploaded = await uploadImage(selectedFile);
+    if (selectedFile) {
+      const uploaded = await uploadImage(selectedFile);
 
-    imageUrl = uploaded.url;
-    imagePublicId = uploaded.publicId;
-  }
+      imageUrl = uploaded.url;
+      imagePublicId = uploaded.publicId;
+    }
 
-  const data = {
-    ...values,
-    imageUrl,
-    imagePublicId,
+    const data = {
+      ...values,
+      imageUrl,
+      imagePublicId,
+    };
+
+    if (editingEvent?.id) {
+      await updateEvent(
+        {
+          id: editingEvent.id,
+          data,
+        },
+        {
+          onSuccess,
+        },
+      );
+
+      return;
+    }
+
+    await createEvent(data, {
+      onSuccess,
+    });
   };
-
-  if (editingEvent?.id) {
-    await updateEvent(
-      {
-        id: editingEvent.id,
-        data,
-      },
-      {
-        onSuccess,
-      },
-    );
-
-    return;
-  }
-
-  await createEvent(data, {
-    onSuccess,
-  });
-};
 
   const handleDelete = (id: string) => {
     if (id) {
@@ -338,12 +338,12 @@ const Page = () => {
                 )}
               />
 
-              <div className="w-full h-30 shrink-0">
-                <Label className="label mb-3">Event Flyer</Label>
+              <div className="w-full">
+                <Label className="label mb-3 block">Event Flyer</Label>
 
                 <Label
                   htmlFor="event-flyer"
-                  className="w-full h-full border-[#8A8C8E] border-2 border-dashed rounded-lg flex flex-col items-center justify-center bg-muted/30 hover:bg-muted/50 cursor-pointer transition-colors overflow-hidden"
+                  className="w-full h-30 border-[#8A8C8E] border-2 border-dashed rounded-lg flex flex-col items-center justify-center bg-muted/30 hover:bg-muted/50 cursor-pointer transition-colors overflow-hidden"
                 >
                   {previewUrl ? (
                     <Image
@@ -356,6 +356,7 @@ const Page = () => {
                   ) : (
                     <>
                       <ImageIcon className="h-8 w-8 mb-2 text-[#8A8C8E]" />
+
                       <span className="text-xs text-[#8A8C8E]">
                         Upload Image
                       </span>

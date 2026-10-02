@@ -149,3 +149,29 @@ model ImpactStat {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+enum BlogStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model BlogPost {
+  id             String     @id @default(cuid())
+  title          String
+  slug           String     @unique
+  excerpt        String     @default("")
+  content        Json
+  featuredImage  String?
+  author         String     @default("PadHer Team")
+  category       String
+  tags           String[]   @default([])
+  status         BlogStatus @default(DRAFT)
+  publishedAt    DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([status])
+  @@index([category])
+  @@index([publishedAt])
+  @@index([createdAt])
+}
